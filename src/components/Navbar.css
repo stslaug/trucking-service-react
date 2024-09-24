@@ -1,0 +1,39 @@
+
+/* 
+
+    Contains Navigation Bar Formatting 
+
+*/
+nav {
+    /*remove bullet points*/
+    
+    margin-left: -10px;
+    margin-top: -10px;
+    padding: 0;
+    padding-top: 10px;
+    padding-right: 18px;
+    overflow: hidden;
+    background-color: #333;
+    width: 100%;
+}
+
+nav li {
+    float: left;
+    list-style-type: none;
+}
+
+nav a {
+    display: inline-block;
+    
+    color: white;
+    text-align: center;
+    padding: 20px 22px;
+    text-decoration: none;
+}
+
+nav li a:hover:not(.active) {
+    background-color: #000;
+}
+nav li a.active {
+    background-color:#00c4c4;
+}
