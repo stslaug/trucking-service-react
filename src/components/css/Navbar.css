@@ -1,0 +1,36 @@
+
+.navbar {
+    margin-Left: -10px;
+    margin-Top: -22px;
+    padding: 0;
+    padding-Top: 0;
+    padding-Right: 20px;
+    padding-Bottom: 00px;
+    overflow: hidden;
+    background-color: #333333;
+    width: 100%;
+    
+}
+
+.button {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-top: 40px;
+  background-color: #333333;
+  color: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  float: right;
+
+}
+
+.button:hover {
+    background-color: hsl(0, 0%, 31%);
+  }
+
+
+  .active {
+    background-color: #00554a;
+  }

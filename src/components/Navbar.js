@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import './css/Navbar.css'; // Import the CSS file
 
-import './Navbar.css'
 
-export const Navbar = () => {
-  return (
-    <nav>
-        <a href="index.html">Home</a>
-        <ul>
-            <li class="rightli"><a href="/">Nav Item4</a></li>
-            <li class="rightli"><a href="about.html">NavItem3</a></li>
-            <li class="rightli"><a href="about.html">NavItem2</a></li>
-            <li class="rightli"><a class="active" href="about.html">About</a></li>
-        </ul>
-    </nav>
-  )
-}
+const Navbar = ({ onNavigate }) => {
+
+    const [activeRoute, setActiveRoute] = useState('/');
+
+    const handleNavigation = (route) => {
+        window.location.href = route;
+        setActiveRoute(route); // Update the active route
+        console.log(`Navigating to ${route}`); 
+    };
+
+
+    useEffect(() => {
+        const currentPath = window.location.pathname; // Get the current path
+        setActiveRoute(currentPath); // Update active route based on current path
+    }, []);
+    
+    return (
+        <nav className="navbar">
+            <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
+            <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')} >Home </button>
+        </nav>
+    );
+};
+
+export default Navbar;
+
+

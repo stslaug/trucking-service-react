@@ -1,12 +1,29 @@
+/* Contains General/Multi Page Styles for Consistency */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    padding: 20px;
+    padding: 20px;
+    padding: 20px;
+    text-align: center;
+}
 
 /* 
 
     Contains Navigation Bar Formatting 
 
 */
-nav {
-    /*remove bullet points*/
-    
+.nav {
+    list-style-type: none;
     margin-left: -10px;
     margin-top: -10px;
     padding: 0;
@@ -17,23 +34,21 @@ nav {
     width: 100%;
 }
 
-nav li {
+.nav li {
     float: left;
-    list-style-type: none;
 }
 
-nav a {
+.nav li a {
     display: inline-block;
-    
     color: white;
     text-align: center;
     padding: 20px 22px;
     text-decoration: none;
 }
 
-nav li a:hover:not(.active) {
+.nav li a:hover:not(.active) {
     background-color: #000;
 }
-nav li a.active {
+.nav li a.active {
     background-color:#00c4c4;
 }
