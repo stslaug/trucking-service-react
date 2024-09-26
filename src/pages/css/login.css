@@ -50,7 +50,7 @@ input[type="password"] {
 /* Input focus effects */
 input[type="email"]:focus,
 input[type="password"]:focus {
-    border-color: #007bff;
+    border-color: #00c4c4;
     outline: none;
 }
 
@@ -58,7 +58,7 @@ input[type="password"]:focus {
 button[type="submit"] {
     width: 100%;
     padding: 0.75rem;
-    background-color: #007bff;
+    background-color: #00c4c4;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -69,5 +69,5 @@ button[type="submit"] {
 
 /* Button hover effect */
 button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #00c4c4;
 }
