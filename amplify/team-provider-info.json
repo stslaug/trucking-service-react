@@ -1,0 +1,25 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hauloffame-dev-4be7f-authRole",
+      "UnauthRoleArn": "arn:aws:iam::274815321855:role/amplify-hauloffame-dev-4be7f-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::274815321855:role/amplify-hauloffame-dev-4be7f-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-hauloffame-dev-4be7f-deployment",
+      "UnauthRoleName": "amplify-hauloffame-dev-4be7f-unauthRole",
+      "StackName": "amplify-hauloffame-dev-4be7f",
+      "StackId": "arn:aws:cloudformation:us-east-1:274815321855:stack/amplify-hauloffame-dev-4be7f/4f319920-81bc-11ef-b65b-0e76f521cad7",
+      "AmplifyAppId": "d1qa2jn2jzzy10"
+    },
+    "categories": {
+      "function": {
+        "team12LambdaFunc": {
+          "rdsHost": "team12-rds.cobd8enwsupz.us-east-1.rds.amazonaws.com",
+          "rdsUser": "admin",
+          "rdsPassword": "team12Master",
+          "rdsDatabase": "team12DB"
+        }
+      }
+    }
+  }
+}

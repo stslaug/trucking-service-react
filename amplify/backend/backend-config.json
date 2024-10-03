@@ -1,0 +1,43 @@
+{
+  "function": {
+    "team12LambdaFunc": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_team12LambdaFunc_rdsDatabase": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "team12LambdaFunc"
+        }
+      ]
+    },
+    "AMPLIFY_function_team12LambdaFunc_rdsHost": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "team12LambdaFunc"
+        }
+      ]
+    },
+    "AMPLIFY_function_team12LambdaFunc_rdsPassword": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "team12LambdaFunc"
+        }
+      ]
+    },
+    "AMPLIFY_function_team12LambdaFunc_rdsUser": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "team12LambdaFunc"
+        }
+      ]
+    }
+  }
+}
