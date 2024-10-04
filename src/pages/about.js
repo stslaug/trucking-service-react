@@ -11,7 +11,6 @@ const About = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-AboutPage');
-                console.log(response);
                 const developersData = response.data;
                 setDevelopers(developersData);
             } catch (error) {
