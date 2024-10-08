@@ -7,6 +7,7 @@ import { Amplify } from 'aws-amplify';
 
 import '@aws-amplify/ui-react/styles.css';
 
+
 Amplify.configure({
   Auth: {
     Cognito: {
@@ -19,7 +20,6 @@ Amplify.configure({
     }
   }
 });
-
 
 // Create a root for rendering
 const root = ReactDOM.createRoot(document.getElementById('root'));

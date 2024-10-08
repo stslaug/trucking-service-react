@@ -4,7 +4,13 @@ import Navbar from './components/Navbar';
 import About from './pages/about';
 import Home from './pages/home';
 
-function App({signOut, user}) {
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import outputs from './amplify_outputs.json';
+import '@aws-amplify/ui-react/styles.css';
+
+
+function App() {
     const handleNavigation = (route) => {
       
     };
