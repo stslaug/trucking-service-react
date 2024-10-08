@@ -3,24 +3,22 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import About from './pages/about';
 import Home from './pages/home';
-import Login from './pages/login';
 
-
-
-function App() {
+function App({signOut, user}) {
     const handleNavigation = (route) => {
       
     };
   
     return (
+    <div>
         <Router>
         <Navbar />
         <Routes>
-            <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/" element={<Home />} />
         </Routes>
-    </Router>
+        </Router>
+    </div>
     );
   } export default App;
 

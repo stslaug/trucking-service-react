@@ -1,6 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './css/Navbar.css'; // Import the CSS file
 
+import { Amplify } from "aws-amplify"
+import { signOut } from "aws-amplify/auth"
+import outputs from "../amplify_outputs.json"
+
+Amplify.configure(outputs)
+
+export function SignoutButton() {
+    async function handleSignOut() {
+      await signOut()
+    }
+  
+    return (
+      <button className="signout" onClick={handleSignOut}>
+        Sign out
+      </button>
+    )
+  }
 
 const Navbar = ({ onNavigate }) => {
 
@@ -22,7 +39,9 @@ const Navbar = ({ onNavigate }) => {
         <nav className="navbar">
             <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')} >Home </button>
             <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
-            <button className={`button ${activeRoute === '/login' ? 'active' : ''}`} onClick={() => handleNavigation('/login')} >Login </button>
+            <div>
+                <SignoutButton/>
+            </div>
         </nav>
     );
 };
