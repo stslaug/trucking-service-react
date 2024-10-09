@@ -25,9 +25,7 @@ const Navbar = ({ onNavigate }) => {
             <nav className="navbar">
                 <button className={`button ${activeRoute === '/login' ? 'active' : ''}`} onClick={() => handleNavigation('/login')}>Login </button>
                 <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
-                <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')}>Home </button>
-
-                
+                <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')}>Home </button>                
             </nav>
         </div>
         </>

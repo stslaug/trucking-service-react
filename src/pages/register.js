@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import "./css/login.css";
 
 
@@ -46,6 +47,9 @@ const Register = () => {
                     <section>
                         <button type="submit">Create Account</button>
                     </section>
+                    <div class="createAccount">
+                        <Link to="/login" className="btn btn-primary create">Back to Login</Link>
+                    </div>
                         
                 </form>
             </div>
