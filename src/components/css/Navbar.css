@@ -2,12 +2,10 @@
 .navbar {
     margin: 0;
     padding: 0;
-    display: flex;
     justify-content: right;
     align-items: center;
     overflow: hidden;
     background-color: #333333;
-    width: 100%;
     
 }
 
@@ -32,4 +30,22 @@
 
   .active {
     background-color: #00554a;
+  }
+
+
+#navbar
+{
+  overflow:hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333333;
+  margin-bottom: -12px;
+  margin-top: -12px;
+  padding-left: 15px;
+}
+  .companyName
+  {
+    color: white;
+    display:inline;
   }

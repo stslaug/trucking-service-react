@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from '../App'; 
+import { Link } from "react-router-dom";
 import "./css/login.css";
 
 
@@ -12,15 +11,19 @@ const Login = () => {
                 <p>Log in to access your account</p>
                 <form>
                     <label>
-                        <input type="email" placeholder="Email" name="email"/>
+                        <input type="email" placeholder="Email" id="email"/>
                     </label>
                     <label>
-                        <input type="password" placeholder="Password" name="password"/>
+                        <input type="password" placeholder="Password" id="password"/>
                     </label>
                     <section>
                         <button type="submit">Login</button>
                     </section>
                 </form>
+                    <div class="createAccount">
+                        <Link to="/forgot" className="btn btn-primary create">Forgot Password</Link>
+                        <Link to="/register" className="btn btn-primary create">Create New Account</Link>
+                    </div>
             </div>
         </div>
     );

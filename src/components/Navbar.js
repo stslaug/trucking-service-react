@@ -19,11 +19,19 @@ const Navbar = ({ onNavigate }) => {
     }, []);
     
     return (
-        <nav className="navbar">
-            <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')} >Home </button>
-            <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
-            <button className={`button ${activeRoute === '/login' ? 'active' : ''}`} onClick={() => handleNavigation('/login')} >Login </button>
-        </nav>
+        <>
+        <div id='navbar'>
+            <h1 class="companyName">Haul of Fame</h1>
+            <nav className="navbar">
+                <button className={`button ${activeRoute === '/login' ? 'active' : ''}`} onClick={() => handleNavigation('/login')}>Login </button>
+                <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
+                <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')}>Home </button>
+
+                
+            </nav>
+        </div>
+        </>
+
     );
 };
 
