@@ -13,13 +13,12 @@ const ForgotPassword = () => {
 
   const handleEmailSubmit = (e) => {
     e.preventDefault();
-    // Add logic to send a code to the user's email
-    setStep(2);  // Move to the next step
+    setStep(2);
   };
 
   const handlePasswordReset = (e) => {
     e.preventDefault();
-    // Add logic to verify code and reset password
+    
     console.log('Code:', code, 'New Password:', newPassword);
     setStep(3);
   };
@@ -30,9 +29,7 @@ const ForgotPassword = () => {
     if (step === 3) {
       const timer = setTimeout(() => {
         navigate('/'); // Redirect to home page
-      }, 4000); // 4000 milliseconds = 5 seconds
-
-      // Clean up the timer if the component is unmounted
+      }, 4000); // 4 Second wait time
       return () => clearTimeout(timer);
     }
   }, [step, navigate]);
@@ -61,6 +58,7 @@ const ForgotPassword = () => {
         {step === 2 && (
           <form onSubmit={handlePasswordReset}>
             <h2>Reset Password</h2>
+            <p>The verification code may take a few minutes to arrive.</p>
             <input
               type="text"
               value={code}

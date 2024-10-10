@@ -5,11 +5,12 @@ import "./css/general.css";
 
 const About = () => {
     const [developers, setDevelopers] = useState([]);
+    const [version, getVersion] = useState([]);
 
     // Fetch developer data from Lambda function (API Gateway URL)
     useEffect(() => {
         const fetchData = async () => {
-            try {
+            try { // Get developer data from Database
                 const response = await axios.get('https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-AboutPage');
                 const developersData = response.data;
                 setDevelopers(developersData);
@@ -38,6 +39,7 @@ const About = () => {
                     ))}
                 </div>
             </section>
+
         </div>
     );
 };
