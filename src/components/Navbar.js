@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import './css/Navbar.css'; // Import the CSS file
 
+import { Amplify } from "aws-amplify"
+import { signOut } from "aws-amplify/auth"
+import outputs from "../amplify_outputs.json"
 
-const Navbar = ({ user, onSignOut }) => {
+Amplify.configure(outputs)
+
+export function SignoutButton() {
+    async function handleSignOut() {
+      await signOut()
+    }
+  
+    return (
+      <button className="signout" onClick={handleSignOut}>
+        Sign out
+      </button>
+    )
+  }
+
+const Navbar = ({ onNavigate }) => {
 
     const [activeRoute, setActiveRoute] = useState('/');
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown visibility
 
     const handleNavigation = (route) => {
         window.location.href = route;
@@ -20,36 +36,13 @@ const Navbar = ({ user, onSignOut }) => {
     }, []);
     
     return (
-        <>
-        <div id='navbar'>
-            <h1 className="companyName">Haul of Fame</h1>
-            <nav className="navbar">
-             
-                <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')}>Home </button>                
-                
-                <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
-
-                {user ? ( // Check if user is logged in
-                <div className="user-dropdown" 
-                    onMouseEnter={() => setIsDropdownOpen(true)} 
-                    onMouseLeave={() => setIsDropdownOpen(false)}>
-
-                            <button className="button" id="usernameFont">{user.getUsername()}</button>
-                            
-                            {isDropdownOpen && (
-                                <div className="dropdown-menu">
-                                    <button className="dropdown-item" onClick={() => handleNavigation('/profile')}>View Profile</button>
-                                    <button className="dropdown-item" onClick={onSignOut}>Sign Out</button>
-                                </div>
-                            )}
-                        </div>
-                    ) : (
-                        <button className={`button ${activeRoute === '/login' ? 'active' : ''}`} onClick={() => handleNavigation('/login')}>Login </button>
-                    )}
-            </nav>
-        </div>
-        </>
-
+        <nav className="navbar">
+            <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')} >Home </button>
+            <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
+            <div>
+                <SignoutButton/>
+            </div>
+        </nav>
     );
 };
 

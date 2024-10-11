@@ -1,6 +1,20 @@
-import React from 'react';
-import "./css/general.css"
+import React, { useEffect, useState } from 'react';
+import "./css/general.css";
 
+import { Amplify } from 'aws-amplify';
+
+import { getCurrentUser } from 'aws-amplify/auth';
+
+
+// configure Amplify
+Amplify.configure({
+    Auth: {
+      Cognito: {
+        userPoolClientId: '1eg3b3nk6nros25epjlh1feleu',
+        userPoolId: 'us-east-1_3iUzSeYng'
+      }
+    }
+  });
 
 const Home = () => {
     const [currentUser, setCurrentUser] = useState(null);
