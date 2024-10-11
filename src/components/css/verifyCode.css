@@ -1,5 +1,4 @@
-/* General styles for body and container */
-.login-wrapper {
+.verify-wrapper {
     font-family: 'Arial', sans-serif;
     background-color: #f0f4f8; /*f0f4f8 */
     margin: 0;
@@ -11,7 +10,7 @@
 }
 
 /* Container for the form */
-.login {
+.verify {
     background-color: #fff;
     padding: 2rem;
     border-radius: 12px;
@@ -83,100 +82,3 @@ button[type="submit"]:hover {
   color: rgb(83, 83, 83);
   padding: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:root {
-    --gray: #313131;
-    --darkgray: #383838;
-  }
-  
-  select {
-    /* Reset Select */
-    appearance: none;
-    outline: 10px red;
-    border: 0;
-    box-shadow: none;
-    /* Personalize */
-    flex: 1;
-    padding: 0 1em;
-    color: #fff;
-    background-color: var(--darkgray);
-    background-image: none;
-    cursor: pointer;
-  }
-  /* Remove IE arrow */
-  select::-ms-expand {
-    display: none;
-  }
-  /* Custom Select wrapper */
-  .select {
-    position: relative;
-    display: flex;
-    width: 20em;
-    height: 3em;
-    border-radius: .25em;
-    overflow: hidden;
-  }
-  /* Arrow */
-  .select::after {
-    content: '\25BC';
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1em;
-    background-color: #5c5b5b;
-    transition: .25s all ease;
-    pointer-events: none;
-  }
-  /* Transition */
-  .select:hover::after {
-    color: #f39c12;
-  }
-  
-
-  
-  /* 가운데정렬 - position,transform*/
-  .container {
-    display: flex;
-    position: relative;
-    align-content: center;
-    padding-bottom: 1.0em;
-    padding-left: 2.5rem;
-    padding-right: 1.25rem;
-    
-
-  }

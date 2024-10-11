@@ -1,32 +1,80 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js';
 import "./css/login.css";
+import { cognitoConfig } from './cognitoConfig';
+import { AuthContext } from './AuthContext';
+
+
+const userPool = new CognitoUserPool({
+  UserPoolId: cognitoConfig.UserPoolId,
+  ClientId: cognitoConfig.ClientId,
+});
 
 
 const ForgotPassword = () => {
-
-    const [step, setStep] = useState(1);  // Step 1 is for email input, Step 2 is for code and new password
+  const { login } = useContext(AuthContext);
+  const [step, setStep] = useState(1);  // Step 1 is for email input, Step 2 is for code and new password
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confPassword, setConfPassword] = useState('');
+  const [error, setError] = useState('');
+
 
   const handleEmailSubmit = (e) => {
     e.preventDefault();
-    setStep(2);
+    
+    const userData = {
+      Username: email,
+      Pool: userPool,
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+
+    // Request a password reset
+    cognitoUser.forgotPassword({
+      onSuccess: () => {
+        setStep(2); // Move to step 2
+      },
+      onFailure: (err) => {
+        console.error(err);
+        setError(err.message || JSON.stringify(err));
+      }
+      });
   };
 
   const handlePasswordReset = (e) => {
     e.preventDefault();
-    
-    console.log('Code:', code, 'New Password:', newPassword);
-    setStep(3);
+
+    if (newPassword !== confPassword) {
+      setError("Passwords do not match!");
+      return;
+    }
+const userData = {
+      Username: email,
+      Pool: userPool,
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+
+    // Confirm the new password
+    cognitoUser.confirmPassword(code, newPassword, {
+      onSuccess: () => {
+        setStep(3); // Move to step 3
+      },
+      onFailure: (err) => {
+        console.error(err);
+        setError(err.message || JSON.stringify(err));
+      },
+    });
   };
 
 
   const navigate = useNavigate();
   useEffect(() => {
     if (step === 3) {
+      login(email, newPassword);
       const timer = setTimeout(() => {
         navigate('/'); // Redirect to home page
       }, 4000); // 4 Second wait time
