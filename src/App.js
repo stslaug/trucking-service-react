@@ -1,29 +1,30 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import About from './pages/about';
 import Home from './pages/home';
-import Login from './pages/login';
-import Register from './pages/register';
-import ForgotPass from './components/forgotPass'
-import VerifyCode from './components/verifyCode'
-import { AuthContext } from './components/AuthContext';
+
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import outputs from './amplify_outputs.json';
+import '@aws-amplify/ui-react/styles.css';
 
 
-function App() {  
-    const { user, signOut } = useContext(AuthContext);
+function App() {
+    const handleNavigation = (route) => {
+      
+    };
+  
     return (
+    <div>
         <Router>
-        <Navbar user={user} onSignOut={signOut}/>
+        <Navbar />
         <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/verify" element={<VerifyCode />} />
             <Route path="/about" element={<About />} />
-            <Route path="/forgot" element={<ForgotPass />} />
             <Route path="/" element={<Home />} />
         </Routes>
-    </Router>
+        </Router>
+    </div>
     );
   } export default App;
 
