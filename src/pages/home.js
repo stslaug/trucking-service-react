@@ -7,8 +7,8 @@ const Home = () => {
         <div>
 
         <header>
-            <h1>Home</h1>
-            <p>Haul of Fame React Page</p>
+            <h1>Welcome to Truck Driver Incentive Program!</h1>
+            <p>By: Haul of Fame</p>
         </header>
 
 
