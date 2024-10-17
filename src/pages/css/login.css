@@ -1,7 +1,14 @@
+:root 
+{
+  --background-color: #f0f0f0;
+  --main-color: #2a6364;
+  --hover-color: #1b2f30
+}
+
 /* General styles for body and container */
 .login-wrapper {
     font-family: 'Arial', sans-serif;
-    background-color: #f0f4f8; /*f0f4f8 */
+    background-color: var(--background-color);
     margin: 0;
     padding: 0;
     display: flex;
@@ -50,6 +57,7 @@ input[type="password"] {
 
 /* Input focus effects */
 input[type="email"]:focus,
+input[type="text"]:focus,
 input[type="password"]:focus {
     border-color: #00c4c4;
     outline: none;
@@ -59,7 +67,7 @@ input[type="password"]:focus {
 button[type="submit"] {
     width: 100%;
     padding: 0.75rem;
-    background-color: #007272;
+    background-color: var(--main-color);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -70,7 +78,7 @@ button[type="submit"] {
 
 /* Button hover effect */
 button[type="submit"]:hover {
-    background-color: #003636;
+    background-color: var(--hover-color);
 }
 
 .createAccount {

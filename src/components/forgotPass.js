@@ -80,7 +80,7 @@ const userData = {
       }, 4000); // 4 Second wait time
       return () => clearTimeout(timer);
     }
-  }, [step, navigate]);
+  }, [step, navigate, login, email, newPassword]);
 
 
 

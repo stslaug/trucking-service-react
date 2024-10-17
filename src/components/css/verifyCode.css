@@ -1,3 +1,10 @@
+:root 
+{
+  --background-color: #f0f0f0;
+  --main-color: #2a6364;
+  --hover-color: #1b2f30
+}
+
 .verify-wrapper {
     font-family: 'Arial', sans-serif;
     background-color: #f0f4f8; /*f0f4f8 */
@@ -81,4 +88,25 @@ button[type="submit"]:hover {
 {
   color: rgb(83, 83, 83);
   padding: 10px;
+}
+
+
+.inlineInputButton
+{
+  display: inline-block;
+  width: 100%;
+  margin-left: -5%;
+}
+.resend
+{
+  margin-left: -20%;
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  color: white;
+  background-color: var(--main-color);
+}
+.resend:hover
+{
+  background-color: var(--hover-color);
 }

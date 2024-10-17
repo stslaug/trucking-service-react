@@ -4,13 +4,13 @@ import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { useLocation } from 'react-router-dom';
 import './css/verifyCode.css';
 import { AuthContext } from './AuthContext';
+import { cognitoConfig } from './cognitoConfig';
 
-const poolData = {
-  UserPoolId: 'us-east-1_3iUzSeYng', // Your User Pool ID
-  ClientId: '1eg3b3nk6nros25epjlh1feleu' // Your App Client ID
-};
 
-const userPool = new CognitoUserPool(poolData);
+const userPool = new CognitoUserPool({
+  UserPoolId: cognitoConfig.UserPoolId,
+  ClientId: cognitoConfig.ClientId,
+});
 
 const VerifyCode = () => {
   const { login } = useContext(AuthContext);
@@ -28,9 +28,8 @@ const VerifyCode = () => {
       Username: username,
       Pool: userPool
     };
-
+    
     const cognitoUser = new CognitoUser(userData);
-
     cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
       if (err) {
         setError(err.message || JSON.stringify(err));
@@ -42,6 +41,39 @@ const VerifyCode = () => {
       navigate('/');
     });
   };
+
+
+  const callLambda = async () => {
+    try {
+      const response = await fetch(
+        'https://kej65tnku5.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username: username, clientId: cognitoConfig.ClientId }),
+        }
+      );
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorText}`);
+      }
+  
+      // Ensure you parse JSON only if there's content in the response
+      const result = response.status !== 204 ? await response.json() : null;
+  
+      if (result) {
+        console.log('Lambda response:', result);
+      } else {
+        console.log('No content in Lambda response');
+      }
+    } catch (error) {
+      console.error('Error calling Lambda:', error);
+    }
+  };
+  
 
   return (
     <div className="verify-wrapper">
@@ -58,6 +90,7 @@ const VerifyCode = () => {
           />
         </label>
         <label>
+          <div className="inlineInputButton">
           <input 
             type="text" 
             placeholder="Verification Code" 
@@ -65,8 +98,10 @@ const VerifyCode = () => {
             onChange={(e) => setVerificationCode(e.target.value)}
             required 
           />
+          <button onClick={callLambda} type="button" className="resend">Resend</button>
+          </div>
         </label>
-        {error && <p className="error-message">{error}</p>}
+
         <button type="submit">Verify</button>
       </form>
     </div>
