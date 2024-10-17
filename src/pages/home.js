@@ -12,7 +12,7 @@ const Home = () => {
                 <p>By: Haul of Fame</p>
             </header>
             <main>
-                <p>The Truck Driver Incentive Program is a program by Haul of Fame that looks to reward good truck driving!</p>
+                <p className="home-description">The Truck Driver Incentive Program is a program by Haul of Fame that looks to reward good truck driving!</p>
             </main>
 
 

@@ -1,15 +1,40 @@
-/*
- * Contains Home Page Specific Styling
- * 
- */
-
- .home-container {
+.home-container {
+    position: relative; /* Ensure the container is positioned relative for absolute positioning of the pseudo-element */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    color: white; /* Change text color for better visibility */
+    min-height: 100vh; /* Makes the container full height */
+    overflow: hidden; /* Prevents overflow of the pseudo-element */
+}
+
+.home-container::before {
+    content: ''; /* Needed to create the pseudo-element */
+    position: absolute; /* Positioning it absolutely */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-image: url('./images/home_page.jpg'); /* Update with your image path */
     background-size: cover; /* Ensures the image covers the entire container */
     background-position: center; /* Centers the image */
-    min-height: 100vh; /* Makes the container full height */
-    color: white; /* Change text color for better visibility */
+    filter: blur(5px); /* Apply the blur effect */
+    z-index: 0; /* Send it to the back */
+}
+
+.home-container > * {
+    position: relative; /* Position child elements on top of the pseudo-element */
+    z-index: 1; /* Ensure content is above the blurred background */
+}
+
+.home-description {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 700px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
