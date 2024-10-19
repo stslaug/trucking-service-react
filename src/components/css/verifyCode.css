@@ -26,6 +26,10 @@
     max-width: 400px;
     text-align: center;
 }
+.resend:disabled {
+  opacity: 0.5; /* Visual cue that the button is disabled */
+  cursor: not-allowed;
+}
 
 /* Form heading */
 h2 {
@@ -106,7 +110,38 @@ button[type="submit"]:hover {
   color: white;
   background-color: var(--main-color);
 }
+
+.resend:disabled {
+    background-color: grey;
+    opacity: 0.5; /* Visual cue that the button is disabled */
+    cursor: not-allowed;
+  }
+
 .resend:hover
 {
   background-color: var(--hover-color);
 }
+
+.tooltip {
+    position: absolute;
+    background-color: #fff;
+    color: #333;
+    text-align: center;
+    padding: 5px;
+    border-radius: 4px;
+    top: 100%; /* Position below the button */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: max-content;
+  
+    font-size: 16px;
+    box-shadow:  rgba(0, 0, 0, 0.1);
+    visibility: visible; /* Ensure it's always visible when conditions are met */
+  }
+  
+  
+  
+  .inlineInputButton:hover .tooltip {
+    opacity: 1; /* Show tooltip on hover */
+  }

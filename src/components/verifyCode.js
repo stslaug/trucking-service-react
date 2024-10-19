@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // for navigation after verification
+import { useNavigate } from 'react-router-dom';
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { useLocation } from 'react-router-dom';
 import './css/verifyCode.css';
 import { AuthContext } from './AuthContext';
 import { cognitoConfig } from './cognitoConfig';
+import axios from 'axios';
 
 
 const userPool = new CognitoUserPool({
@@ -14,21 +15,23 @@ const userPool = new CognitoUserPool({
 
 const VerifyCode = () => {
   const { login } = useContext(AuthContext);
-  const location = useLocation(); // Get the location object
+  const location = useLocation();
   const [username, setUsername] = useState(location.state?.username || '');
   const [password] = useState(location.state?.password || '');
   const [verificationCode, setVerificationCode] = useState('');
+  const [buttonState, setButtonState] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // for navigation
+  const navigate = useNavigate();
 
   const handleVerification = (event) => {
     event.preventDefault();
 
     const userData = {
       Username: username,
-      Pool: userPool
+      Pool: userPool,
     };
-    
+
     const cognitoUser = new CognitoUser(userData);
     cognitoUser.confirmRegistration(verificationCode, true, (err, result) => {
       if (err) {
@@ -37,74 +40,94 @@ const VerifyCode = () => {
       }
       console.log('Verification successful: ', result);
       login(username, password);
-      // Redirect to login or another page after successful verification
       navigate('/');
     });
   };
 
-
   const callLambda = async () => {
     try {
-      const response = await fetch(
-        'https://kej65tnku5.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',
+      setButtonState(true);
+  
+      const response = await axios.post(
+        'https://kej65tnku5.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',{
+          username: username,
+          clientId: cognitoConfig.ClientId,
+        },
         {
-          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ username: username, clientId: cognitoConfig.ClientId }),
         }
       );
   
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorText}`);
-      }
+      // Log the response for all status codes, including 204
+      console.log('Lambda response:', response.status, response.data);
   
-      // Ensure you parse JSON only if there's content in the response
-      const result = response.status !== 204 ? await response.json() : null;
-  
-      if (result) {
-        console.log('Lambda response:', result);
+      if (response.status !== 204) {
+        console.log('Lambda response:', response.data);
       } else {
         console.log('No content in Lambda response');
       }
+  
+      setTimeout(() => setButtonState(false), 15000);
+  
     } catch (error) {
-      console.error('Error calling Lambda:', error);
+      console.error('Error calling Lambda:', error.response ? error.response.data : error.message);
     }
   };
+  
   
 
   return (
     <div className="verify-wrapper">
-        <div className="verify">
-      <h2>Verify Your Account</h2>
-      <form onSubmit={handleVerification}>
-        <label>
-          <input 
-            type="text" 
-            placeholder="Username" 
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required 
-          />
-        </label>
-        <label>
-          <div className="inlineInputButton">
-          <input 
-            type="text" 
-            placeholder="Verification Code" 
-            value={verificationCode}
-            onChange={(e) => setVerificationCode(e.target.value)}
-            required 
-          />
-          <button onClick={callLambda} type="button" className="resend">Resend</button>
-          </div>
-        </label>
+      <div className="verify">
+        <h2>Verify Your Account</h2>
+        <form onSubmit={handleVerification}>
+          <label>
+            <input 
+              type="text" 
+              placeholder="Username" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required 
+            />
+          </label>
+          <label>
+            <div className="inlineInputButton" style={{ position: 'relative' }}>
+              <input
+                type="text"
+                placeholder="Verification Code"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+                required
+              />
+              <div 
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                style={{ display: 'inline' }} // Ensure the hover effect captures mouse events
+              >
+                <button
+                  disabled={buttonState}
+                  onClick={callLambda}
+                  type="button"
+                  className="resend"
+                >
+                  Resend
+                </button>
 
-        <button type="submit">Verify</button>
-      </form>
-    </div>
+                {/* Show tooltip when hovered, even if the button is disabled */}
+                {isHovered && (
+                  <div className="tooltip">
+                    The verification code may take a few minutes to arrive. You can resend this code in another 30 seconds.
+                  </div>
+                )}
+              </div>
+            </div>
+          </label>
+
+          <button type="submit">Verify</button>
+        </form>
+      </div>
     </div>
   );
 };
