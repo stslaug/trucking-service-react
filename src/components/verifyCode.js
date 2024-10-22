@@ -6,6 +6,7 @@ import './css/verifyCode.css';
 import { AuthContext } from './AuthContext';
 import { cognitoConfig } from './cognitoConfig';
 import axios from 'axios';
+import { Alert } from '@aws-amplify/ui-react';
 
 
 const userPool = new CognitoUserPool({
@@ -39,42 +40,51 @@ const VerifyCode = () => {
         return;
       }
       console.log('Verification successful: ', result);
-      login(username, password);
-      navigate('/');
+      navigate('/login');
     });
   };
 
   const callLambda = async () => {
     try {
       setButtonState(true);
+      setTimeout(() => setButtonState(false), 5000); //30 seconds prevent spamming
+      // Create the request data as a JSON string
+      let data = JSON.stringify({
+        clientId: cognitoConfig.ClientId,
+        username: username
+      });
   
-      const response = await axios.post(
-        'https://kej65tnku5.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',{
-          username: username,
-          clientId: cognitoConfig.ClientId,
+      // Define the request configuration (method, headers, etc.)
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'https://kej65tnku5.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',
+        headers: { 
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+        data: data
+      };
   
-      // Log the response for all status codes, including 204
-      console.log('Lambda response:', response.status, response.data);
+      // Send the request using axios
+      const response = await axios.request(config);
   
-      if (response.status !== 204) {
-        console.log('Lambda response:', response.data);
-      } else {
-        console.log('No content in Lambda response');
-      }
+      // Log the response (handle cases where there might be no data)
+      console.log('Lambda response:', response.status, response.data || 'No content');
   
-      setTimeout(() => setButtonState(false), 15000);
+      setTimeout(() => setButtonState(false), 30000); //30 seconds prevent spamming
   
     } catch (error) {
-      console.error('Error calling Lambda:', error.response ? error.response.data : error.message);
+      if(error.code === 'LimitExceededException')
+      { // If Cognito's Email Limit is Exceeded
+        alert("Error (LimitExceededException) sending email: Please contact system Administrators");
+      }
+      else
+      {
+        console.error('Error calling Lambda:', error.response ? error.response.data : error.message);
+      }
     }
   };
+  
   
   
 
@@ -118,7 +128,8 @@ const VerifyCode = () => {
                 {/* Show tooltip when hovered, even if the button is disabled */}
                 {isHovered && (
                   <div className="tooltip">
-                    The verification code may take a few minutes to arrive. You can resend this code in another 30 seconds.
+                    If an account exists, the verification code may take a few minutes to arrive.<br/>
+                    You can resend this code in another 30 seconds.
                   </div>
                 )}
               </div>
@@ -127,6 +138,9 @@ const VerifyCode = () => {
 
           <button type="submit">Verify</button>
         </form>
+        { error && 
+        (<p className="errorText">The verification code provided is incorrect, or doesn't correspond to the username/email provided.</p>)
+        }
       </div>
     </div>
   );

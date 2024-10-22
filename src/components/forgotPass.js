@@ -38,6 +38,11 @@ const ForgotPassword = () => {
         setStep(2); // Move to step 2
       },
       onFailure: (err) => {
+        if(err.code === 'LimitExceededException')
+        {
+          alert("Error (LimitExceededException) sending email: Please contact system Administrators");
+        }
+        else
         console.error(err);
         setError(err.message || JSON.stringify(err));
       }
@@ -92,11 +97,11 @@ const userData = {
         {step === 1 && (
           <form onSubmit={handleEmailSubmit}>
             <h2>Forgot Password</h2>
-            <p>Send a code to your email to verify your identity</p>
+            <p>If an account exists, we will send a code to your email to verify your identity. It should arrive momentarily.</p>
             <input
-              type="email"
+              type="text"
               value={email}
-              placeholder="Email"
+              placeholder="Email or Username"
               onChange={(e) => setEmail(e.target.value)}
               required
             />

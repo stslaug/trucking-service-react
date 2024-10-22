@@ -31,18 +31,32 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (username, password) => {
+  const formatPhoneNumber = (phoneNumber, countryCode = '+1') => {
+    // Remove any non-numeric characters
+    let cleaned = phoneNumber.replace(/\D/g, '');
+  
+    // Add country code
+    if (!cleaned.startsWith(countryCode.replace('+', ''))) {
+      cleaned = `${countryCode}${cleaned}`;
+    }
+  
+    return `+${cleaned}`;
+  };
+
+
+
+  const login = (identifier, password) => {
     return new Promise((resolve, reject) => {
       const authDetails = new AuthenticationDetails({
-        Username: username,
+        Username: identifier, // Can be email or username 
         Password: password,
       });
-
+  
       const cognitoUser = new CognitoUser({
-        Username: username,
+        Username: identifier, 
         Pool: userPool,
       });
-
+  
       cognitoUser.authenticateUser(authDetails, {
         onSuccess: (session) => {
           setUser(cognitoUser);
@@ -54,7 +68,7 @@ export const AuthProvider = ({ children }) => {
       });
     });
   };
-
+  
   const signOut = () => {
     const currentUser = userPool.getCurrentUser();
     if (currentUser) {
@@ -63,10 +77,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = (username, password, email) => {
+  const register = (username, password, email, firstName, lastName, phoneNumber, addressLine, city, zip, state) => {
     return new Promise((resolve, reject) => {
-      userPool.signUp(username, password, [{ Name: 'email', Value: email }], null, (err, result) => {
+      const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+
+
+      const attributeList = [
+        { Name: 'email', Value: email },                // Standard attribute
+        { Name: 'phone_number', Value: formattedPhoneNumber },   // Standard attribute
+        { Name: 'custom:firstName', Value: firstName }, // Custom attribute
+        { Name: 'custom:lastName', Value: lastName },   // Custom attribute
+        { Name: 'custom:addressLine', Value: addressLine }, // Custom attribute
+        { Name: 'custom:city', Value: city },           // Custom attribute
+        { Name: 'custom:zipcode', Value: zip },         // Custom attribute
+        { Name: 'custom:state', Value: state }          // Custom attribute
+      ];
+  
+      userPool.signUp(username, password, attributeList, null, (err, result) => {
         if (err) {
+          alert(err);
           reject(err);
         } else {
           resolve(result);
@@ -74,6 +103,7 @@ export const AuthProvider = ({ children }) => {
       });
     });
   };
+  
 
   return (
     <AuthContext.Provider value={{ user, loading, login, signOut, register }}>
