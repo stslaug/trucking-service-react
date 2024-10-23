@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
-import { useLocation } from 'react-router-dom';
-import './css/verifyCode.css';
 import { AuthContext } from './AuthContext';
 import { cognitoConfig } from './cognitoConfig';
+import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
-import { Alert } from '@aws-amplify/ui-react';
+import '../pages/css/login.css';
 
 
 const userPool = new CognitoUserPool({
@@ -47,14 +46,14 @@ const VerifyCode = () => {
   const callLambda = async () => {
     try {
       setButtonState(true);
-      setTimeout(() => setButtonState(false), 5000); //30 seconds prevent spamming
-      // Create the request data as a JSON string
+      setTimeout(() => setButtonState(false), 30000); //30 seconds prevent spamming
+
       let data = JSON.stringify({
         clientId: cognitoConfig.ClientId,
         username: username
       });
   
-      // Define the request configuration (method, headers, etc.)
+      // Define the request
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
@@ -89,9 +88,10 @@ const VerifyCode = () => {
   
 
   return (
-    <div className="verify-wrapper">
-      <div className="verify">
+    <div className="login-wrapper">
+      <div className="login" id="verify">
         <h2>Verify Your Account</h2>
+        <p>A verification code should arrive in your inbox shortly if the account exists. Be sure to check your spam or junk folders.</p>
         <form onSubmit={handleVerification}>
           <label>
             <input 
@@ -99,44 +99,34 @@ const VerifyCode = () => {
               placeholder="Username" 
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              required 
+              
             />
           </label>
           <label>
-            <div className="inlineInputButton" style={{ position: 'relative' }}>
               <input
                 type="text"
                 placeholder="Verification Code"
                 value={verificationCode}
-                onChange={(e) => setVerificationCode(e.target.value)}
-                required
-              />
-              <div 
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                style={{ display: 'inline' }} // Ensure the hover effect captures mouse events
-              >
-                <button
+                onChange={(e) => setVerificationCode(e.target.value)}/>
+        
+          </label>
+
+       
+          {buttonState && (
+          <p className="errorText">If an account exists, the verification code may take a few minutes to arrive.
+          You can resend this code in another 30 seconds.</p>
+          )}
+
+          <div className="form-wrapper" style={ {width: '100%' }}>
+            <button
                   disabled={buttonState}
                   onClick={callLambda}
                   type="button"
-                  className="resend"
-                >
-                  Resend
+                  className="resend leftCol">
+                      Resend Code
                 </button>
-
-                {/* Show tooltip when hovered, even if the button is disabled */}
-                {isHovered && (
-                  <div className="tooltip">
-                    If an account exists, the verification code may take a few minutes to arrive.<br/>
-                    You can resend this code in another 30 seconds.
-                  </div>
-                )}
-              </div>
-            </div>
-          </label>
-
-          <button type="submit">Verify</button>
+          <button type="submit" className="rightCol">Verify</button>
+          </div>
         </form>
         { error && 
         (<p className="errorText">The verification code provided is incorrect, or doesn't correspond to the username/email provided.</p>)

@@ -66,7 +66,7 @@ const Register = () => {
           await register(username, password, email, firstN, lastN, phoneNumber, addressLine1, city, zip, state);
           navigate('/verify', { state: { username, password } });
         } catch (error) {
-          alert('Registration Error', error);
+          console.log('Registration Error', error);
         }
       };
 
@@ -195,9 +195,9 @@ const Register = () => {
           </div> 
           </form>
           
-          <div className="createAccount">
-                <Link to="/login" className="btn btn-primary create">Back to Login</Link>
-              </div>
+          <div className="accmgmt_lower">
+                <Link to="/login" className="accmgmt_lower_btn">Back to Login</Link>
+          </div>
       </div>
     </div>
   );

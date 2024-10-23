@@ -57,9 +57,10 @@ const Login = () => {
                 (<p className="errorText">The account information provided may not be correct, or the account does not exist!</p>)
 
                 }
-                    <div className="createAccount">
-                        <Link to="/forgot" className="btn btn-primary create">Forgot Password</Link>
-                        <Link to="/register" className="btn btn-primary create">Create New Account</Link>
+                    <div className="accmgmt_lower">
+                        <Link to="/forgot" className="accmgmt_lower_btn">Forgot Password </Link>
+                         
+                        <Link to="/register" className="accmgmt_lower_btn"> Create New Account</Link>
                     </div>
             </div>
         </div>

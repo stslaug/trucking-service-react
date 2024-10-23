@@ -95,7 +95,12 @@ export const AuthProvider = ({ children }) => {
   
       userPool.signUp(username, password, attributeList, null, (err, result) => {
         if (err) {
-          alert(err);
+          if(err.code === 'InvalidParameterException')
+          {
+            alert("Not all required fields are filled out. Please fill all text boxes and resubmit.")
+          } else {
+            alert(err);
+          }
           reject(err);
         } else {
           resolve(result);

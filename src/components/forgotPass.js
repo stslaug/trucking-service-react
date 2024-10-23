@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js';
-import "./css/login.css";
 import { cognitoConfig } from './cognitoConfig';
 import { AuthContext } from './AuthContext';
+
+import "../pages/css/login.css";
 
 
 const userPool = new CognitoUserPool({
@@ -93,7 +94,7 @@ const userData = {
 
     return (
         <div class="login-wrapper">
-            <div class="login">
+            <div class="login" id="forgot">
         {step === 1 && (
           <form onSubmit={handleEmailSubmit}>
             <h2>Forgot Password</h2>
