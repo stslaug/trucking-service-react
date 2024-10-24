@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { AuthContext } from './AuthContext';
 import { cognitoConfig } from './cognitoConfig';
-import { CSSTransition } from 'react-transition-group';
+//import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 import '../pages/css/login.css';
 
