@@ -4,9 +4,9 @@
   --main-color: #2a6364;
 
   --header-color: #333;
-  --text-color: #777
+  --text-color: #777;
 
-  --hover-color: #1b2f30
+  --hover-color: #1b2f30;
 
 }
 
@@ -57,9 +57,9 @@ h2 {
 
 /* Subheading */
 p {
-    color: var(--text-color);
-    font-size: 14px;
-    margin-bottom: 2rem;
+  color: var(--text-color);
+  font-size: 14px;
+  margin-bottom: 2rem;
 }
 
 /* Input fields */
