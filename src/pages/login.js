@@ -25,7 +25,7 @@ const Login = () => {
         else
         {
             setError(error.message || JSON.stringify(error));
-        console.error('Login error:', error);
+            console.error('Login error:', error);
         }
       }
     };

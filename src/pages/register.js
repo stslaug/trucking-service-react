@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import "./css/login.css";
+import axios from 'axios';
 import { AuthContext } from '../components/AuthContext';
 
 
@@ -13,7 +14,6 @@ const Register = () => {
     const [firstN, setFirstN] = useState('');
     const [lastN, setLastN] = useState('');
     const [confPassword, setConfPassword] = useState('');
-    const [role, setRole] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [addressLine1, setAddressLine1] = useState('');
     const [city, setCity] = useState('');
@@ -53,6 +53,19 @@ const Register = () => {
     };
 
 
+    const apiUrl = 'https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers'; // Replace with your API Gateway URL
+
+        // Prepare the data to send
+        const userData = {
+            username,
+            password,
+            email,
+            firstName: firstN,
+            lastName: lastN,
+            phoneNumber
+        };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -64,6 +77,12 @@ const Register = () => {
     
         try {
           await register(username, password, email, firstN, lastN, phoneNumber, addressLine1, city, zip, state);
+          const response = await axios.post(apiUrl, userData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
           navigate('/verify', { state: { username, password } });
         } catch (error) {
           console.log('Registration Error', error);

@@ -42,7 +42,7 @@ const Home = () => {
                 <p className="home-description">The Truck Driver Incentive Program is a program by Haul of Fame that looks to reward good truck driving! Simply get rewards by driving save and effectively! You can use the below buttons or the naviagtion bar at the top to naviagte the website. You can check out our About Page, see our listed Sponsors, go to our Login page, or even just get help if you have any questions!</p>
             </main>
 
-            <section className='home-button-section'>
+            <div className='home-button-section'>
                 <button type="button" className='home-button' onClick={aboutClick}>
                     About Page</button>
                 <button type="button" className='home-button' onClick={sponsorClick}>
@@ -51,7 +51,7 @@ const Home = () => {
                     Login</button>
                 <button type="button" className='home-button' onClick={helpClick}>
                     Help</button>
-            </section>
+            </div>
 
             <section className='sponsor-image-container'>
                 Sponsors:

@@ -44,22 +44,31 @@
 
 .home-button-section{
     display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%; /* Set width to 80% of the screen */
+    margin: 0 auto; /* Center horizontally */
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 .home-button{
-    background-color: yellow;
-    color: black;
-    text-align: center;
+    background-color: #2a6364;;
+    color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-size: x-large;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px 0px 20px 0px;
     border-radius: 5px;
-    width: 200px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 25px;
+    margin: 0px 15px 0px 15px;
+    
+    flex-basis: 100%;
 }
 
 .home-button:hover {
