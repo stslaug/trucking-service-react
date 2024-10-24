@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./css/general.css"
 import "./css/home.css"
-import "./css/images/amazon.png"
+import sponsorAWS from "./css/images/amazon.png"
 
 
 const Home = () => {
@@ -56,7 +56,10 @@ const Home = () => {
             <section className='sponsor-image-container'>
                 Sponsors:
                 <div className='sponsor-images-section'>
-                    <img src={('./css/images/amazon.png')} alt='Amazon Image'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='200'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='200'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='200'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='200'></img>
                 </div>
             </section>
 

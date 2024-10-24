@@ -98,6 +98,8 @@ export const AuthProvider = ({ children }) => {
           if(err.code === 'InvalidParameterException')
           {
             alert("Not all required fields are filled out. Please fill all text boxes and resubmit.")
+          } else if (err.code === 'UsernameExistsException') {
+            alert("Username already exists")
           } else {
             alert(err);
           }

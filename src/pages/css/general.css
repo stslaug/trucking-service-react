@@ -1,54 +1,27 @@
-/* Contains General/Multi Page Styles for Consistency */
+:root 
+{
+  --background-color: #ffffff;
+  --main-color: #2a6364;
 
+  --header-color: #333;
+  --text-color: #777;
+
+  --hover-color: #1b2f30;
+
+}
+
+/* Contains General/Multi Page Styles for Consistency */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color: var(--background-color);
 }
 
 header {
-    background-color: #333;
+    background-color: var(--header-color);
     color: white;
-    padding: 20px;
-    padding: 20px;
-    padding: 20px;
-    padding: 20px;
+    padding-top: 1rem;
+    min-height: 10rem;
     text-align: center;
-}
-
-/* 
-
-    Contains Navigation Bar Formatting 
-
-*/
-.nav {
-    list-style-type: none;
-    margin-left: -10px;
-    margin-top: -10px;
-    padding: 0;
-    padding-top: 10px;
-    padding-right: 18px;
-    overflow: hidden;
-    background-color: #333;
-    width: 100%;
-}
-
-.nav li {
-    float: left;
-}
-
-.nav li a {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 20px 22px;
-    text-decoration: none;
-}
-
-.nav li a:hover:not(.active) {
-    background-color: #000;
-}
-.nav li a.active {
-    background-color:#00c4c4;
 }
