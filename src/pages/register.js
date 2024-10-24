@@ -169,18 +169,20 @@ const Register = () => {
                       id="city" 
                       onChange={(e) => setCity(e.target.value)} />
                 </label>
-                <div className="form-wrapper">
-                  <label className="leftCol">
-                        <input type="text" 
-                        placeholder="Zipcode" 
-                        id="zip" 
-                        onChange={(e) => setZip(e.target.value)} />
+              
+                <div className="equal-fields">
+                  <label>
+                    <input type="text" 
+                    placeholder="Zipcode" 
+                    id="zip" 
+                    onChange={(e) => setZip(e.target.value)} />
                   </label>
-                  <label className="rightCol">
-                        <input type="text" 
-                        placeholder="State" 
-                        id="state" 
-                        onChange={(e) => setLocState(e.target.value)} />
+
+                  <label>
+                    <input type="text" 
+                    placeholder="State" 
+                    id="state" 
+                    onChange={(e) => setLocState(e.target.value)} />
                   </label>
                 </div>
                 

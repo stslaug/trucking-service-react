@@ -147,33 +147,38 @@ button[type="submit"]:hover {
   }
 
 /* Split Columns using Divs (Register.js)*/
-.form-wrapper
-  {
-    display: flex;
-  }
-.leftCol
-{
+.form-wrapper {
+  display: flex;
+  
+  gap: 25px; /* Adds space between fields */
+}
+
+.leftCol,
+.rightCol {
   flex-basis: 100%;
 }
-
-.rightCol
-{
-  flex-basis: 100%;
+.leftCol input,
+.rightCol input{
+  width: 80%;
 }
 
-#zip
-{
-  margin-left: 25px;
-  margin-right: 25px;
-  width: 60%;
 
+.equal-fields {
+  display: flex;
+  width: calc(80% + 13px);
+  margin-left: -15px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  gap: 25px; /* Space between zip and state fields */
 }
-#state
-{
-  margin-left: -25px;
-  margin-right: 0px;
-  width: 60%;
+
+.equal-fields input {
+  width: calc(100% - 12.5px); /* Half of the container width minus half the gap */
 }
+
+
 .after
 {
   margin-left: auto;
