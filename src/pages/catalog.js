@@ -33,6 +33,10 @@ const Catalog = () => {
         if (page > 1) setPage(prev => prev - 1);
     };
 
+    const catalogClick = () => {
+        //Go to specific catalog page
+    };
+
     return (
         <div>
             <header>
@@ -62,7 +66,9 @@ const Catalog = () => {
                                 Seller: {item.seller.username}<br/>
                                 User Ratings: {item.seller.feedbackPercentage}%
                             </p>
-                            <img className="item-img" src={item.image.imageUrl} alt={item.title} width="75px"/>
+                            <button type="button" className= "item-img-button" onClick={catalogClick}>
+                                <img className="item-img" src={item.image.imageUrl} alt={item.title} width="75px"/>
+                            </button>
 
                             <div className="item-desc-wrapper">
                                 <div className="leftCol">

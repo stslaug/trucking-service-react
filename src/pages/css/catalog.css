@@ -75,6 +75,16 @@
   border: 2px solid #e1e1e1;
 }
 
+.item-img:hover {
+  transform: scale(1.05);
+  border: 2px solid #0e0e0e;
+}
+
+.item-img-button{
+  border: none;
+  background-color: white;
+}
+
 .item-desc-wrapper {
   display: flex;
   justify-content: space-around;
