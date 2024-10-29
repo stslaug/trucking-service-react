@@ -5,7 +5,6 @@
 
   --header-color: #333;
   --text-color: #777;
-
   --hover-color: #1b2f30;
 
 }
@@ -37,47 +36,63 @@
 }
 
 
-.item-wrapper
-{
-  display: flex;
-  margin: 2rem 10rem;
-}
-.item
-{
-  min-height: 15rem;
-  width: 50%;
-  display: block;
-  background-color: #ffffff;
-  border: 3px solid #666666;
-  border-radius: 39px;
+.item-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+  gap: 3rem; /* Space between items */
+  max-width: 80%; /* Ensures the wrapper does not exceed the screen width */
+  padding: 1rem; /* Adds padding within the wrapper */
+  margin: auto; /* Centers the wrapper on the page */
 }
 
-.item-title
-{
-  font-size: medium;
-  width: 50%;
-  display: block;
-  margin: auto;
-  align-content: center;
-  justify-content: center;
+.item {
+  background-color: var(--background-color);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
+  min-height: 15rem; /* Consistent height */
+  min-width: 200px; /* Ensures items don't shrink below 200px */
 }
-.item-img {
-  width: 100%;
-}
-.item-desc-wrapper{
-  display: flex;
-  width: 100%;
-  margin: auto 2rem;
-}
-.item-text {
 
+
+.item-title {
+  font-size: medium;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: clip;
+  text-overflow: ellipsis;
+}
+
+.item-img {
+  display: block;
+  margin: 0 auto; /* Centers the image */
+  width: 100%;
+  max-width: 150px;
+  aspect-ratio: 1;
+  border: 2px solid #e1e1e1;
+}
+
+.item-desc-wrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin: 1rem 0;
+  text-wrap: pretty;
 }
 
 .leftCol,
 .rightCol {
-  justify-content: center;
-  align-content: center;
-  flex-basis: 100%;
+  flex-basis: 45%; /* Takes up half of the width for price and condition */
+  text-align: center;
 }
+
+.item-text.location {
+  text-align: center;
+  margin-top: -2rem;
+  display: block;
+}
+
 
