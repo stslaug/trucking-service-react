@@ -6,6 +6,8 @@ const Navbar = ({ user, onSignOut }) => {
 
     const [activeRoute, setActiveRoute] = useState('/');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown visibility
+    const [isAuth, setIsAuth] = useState(false); // State for dropdown visibility
+
 
     const handleNavigation = (route) => {
         window.location.href = route;
@@ -28,9 +30,17 @@ const Navbar = ({ user, onSignOut }) => {
                 <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')}>Home </button>                
                 
                 <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
+                 
+              
+                
+                    
 
                 {user ? ( // Check if user is logged in
-                <div className="user-dropdown" 
+                <div style={{display: 'flex'}}>
+                <div style={{flexBasis: '100%'}}>
+                    <button  className={`button ${activeRoute === '/catalog' ? 'active' : ''}`} onClick={() => handleNavigation('/catalog')}> Catalog </button>
+                </div>
+                <div style={{flexBasis: '100%'}}  className="user-dropdown" 
                     onMouseEnter={() => setIsDropdownOpen(true)} 
                     onMouseLeave={() => setIsDropdownOpen(false)}>
 
@@ -42,7 +52,7 @@ const Navbar = ({ user, onSignOut }) => {
                                     <button className="dropdown-item" onClick={onSignOut}>Sign Out</button>
                                 </div>
                             )}
-                        </div>
+                        </div></div>
                     ) : (
                         <button className={`button ${activeRoute === '/login' ? 'active' : ''}`} onClick={() => handleNavigation('/login')}>Login </button>
                     )}
