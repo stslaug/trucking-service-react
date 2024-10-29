@@ -8,11 +8,7 @@ const ProtectedRoute = ({ target, alternativeContent, user }) => {
   // If the user is logged in, render the target (actual page)
   if (user) {
 
-    return (
-    <div>
-        <>{target}</>
-    </div>
-    );
+    return (<>{target}</>);
 
   } else {
         // If the user is not logged in, display the alternative content

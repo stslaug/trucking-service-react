@@ -2,15 +2,13 @@ import React, { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { AuthContext } from './AuthContext';
-import { cognitoConfig } from './cognitoConfig';
-//import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 import '../pages/css/login.css';
 
 
 const userPool = new CognitoUserPool({
-  UserPoolId: cognitoConfig.UserPoolId,
-  ClientId: cognitoConfig.ClientId,
+  UserPoolId: process.env.REACT_APP_USER_POOL_ID,
+  ClientId: process.env.REACT_APP_CLIENT_ID,
 });
 
 const VerifyCode = () => {
@@ -49,7 +47,7 @@ const VerifyCode = () => {
       setTimeout(() => setButtonState(false), 30000); //30 seconds prevent spamming
 
       let data = JSON.stringify({
-        clientId: cognitoConfig.ClientId,
+        clientId: process.env.REACT_APP_CLIENT_ID,
         username: username
       });
   
@@ -57,7 +55,7 @@ const VerifyCode = () => {
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://kej65tnku5.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',
+        url: 'https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',
         headers: { 
           'Content-Type': 'application/json'
         },

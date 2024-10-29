@@ -9,3 +9,75 @@
   --hover-color: #1b2f30;
 
 }
+
+.searchBar
+{
+  width: 100%;
+  display: flex;
+  align-content: center;
+  margin: 2rem auto;
+}
+.searchBar input
+{
+  width: 30%;
+  align-content: center;
+  margin: 0 0 0 33%; /* I have no idea how to center this bar without using magic numbers*/
+
+}
+.searchBar button
+{
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 10px 0 10px;
+  color: white;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  background-color: var(--main-color);
+}
+
+
+.item-wrapper
+{
+  display: flex;
+  margin: 2rem 10rem;
+}
+.item
+{
+  min-height: 15rem;
+  width: 50%;
+  display: block;
+  background-color: #ffffff;
+  border: 3px solid #666666;
+  border-radius: 39px;
+}
+
+.item-title
+{
+  font-size: medium;
+  width: 50%;
+  display: block;
+  margin: auto;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+.item-img {
+  width: 100%;
+}
+.item-desc-wrapper{
+  display: flex;
+  width: 100%;
+  margin: auto 2rem;
+}
+.item-text {
+
+}
+
+.leftCol,
+.rightCol {
+  justify-content: center;
+  align-content: center;
+  flex-basis: 100%;
+}
+

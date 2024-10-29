@@ -1,15 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js';
-import { cognitoConfig } from './cognitoConfig';
 import { AuthContext } from './AuthContext';
 
 import "../pages/css/login.css";
 
 
 const userPool = new CognitoUserPool({
-  UserPoolId: cognitoConfig.UserPoolId,
-  ClientId: cognitoConfig.ClientId,
+  UserPoolId: process.env.REACT_APP_USER_POOL_ID,
+  ClientId: process.env.REACT_APP_CLIENT_ID,
 });
 
 

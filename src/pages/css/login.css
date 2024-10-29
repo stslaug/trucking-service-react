@@ -109,6 +109,7 @@ button[type="submit"]:hover {
 }
 .accmgmt_lower_btn{
   flex-basis: 100%;
+  color: rgb(83, 83, 83);
 }
 
 .accmgmt_lower_btn:visited{

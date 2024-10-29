@@ -1,11 +1,11 @@
 // src/AuthContext.js
 import React, { createContext, useEffect, useState } from 'react';
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import { cognitoConfig } from './cognitoConfig';
+
 
 const userPool = new CognitoUserPool({
-  UserPoolId: cognitoConfig.UserPoolId,
-  ClientId: cognitoConfig.ClientId,
+  UserPoolId: process.env.REACT_APP_USER_POOL_ID,
+  ClientId: process.env.REACT_APP_CLIENT_ID,
 });
 
 export const AuthContext = createContext();

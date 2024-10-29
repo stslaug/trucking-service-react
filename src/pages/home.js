@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./css/general.css"
 import "./css/home.css"
 import sponsorAWS from "./css/images/amazon.png"
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 const Home = () => {

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import "./css/login.css";
+import "../pages/css/login.css";
 import axios from 'axios';
-import { AuthContext } from '../components/AuthContext';
+import { AuthContext } from './AuthContext';
 
 
 
