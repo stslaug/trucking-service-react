@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./css/general.css"
 import "./css/home.css"
 import sponsorAWS from "./css/images/amazon.png"
+import sponsorEbay from "./css/images/EBay.png"
 import { Navigate, useNavigate } from 'react-router-dom';
 
 
@@ -57,10 +58,14 @@ const Home = () => {
             <section className='sponsor-image-container'>
                 Sponsors:
                 <div className='sponsor-images-section'>
-                    <img src={sponsorAWS} alt='Amazon Image' width='200'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='200'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='200'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='200'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
+                    <img src={sponsorEbay} alt='E-bay Image' width='225'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
+                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
                 </div>
             </section>
 

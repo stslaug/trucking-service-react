@@ -86,10 +86,10 @@
 }
 
 .sponsor-images-section{
-    display: flex;
+    display: flexbox;
     margin: 10px 0 0 0;
 }
 .sponsor-images-section img{
 
-    margin-right: 1rem;
+    margin: 5px 0 5px 1rem;
 }

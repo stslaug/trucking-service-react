@@ -23,6 +23,7 @@
   margin: 0 0 0 33%; /* I have no idea how to center this bar without using magic numbers*/
 
 }
+
 .searchBar button
 {
   align-content: center;
@@ -33,6 +34,11 @@
   border: 2px solid #ffffff;
   border-radius: 10px;
   background-color: var(--main-color);
+}
+
+.searchBar button:hover
+{
+  background-color: darkgoldenrod;
 }
 
 
