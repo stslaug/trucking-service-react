@@ -34,6 +34,7 @@ const Login = () => {
     return (
         <div className="login-wrapper">
             <div className="login">
+                <div className='ribbon'></div>
                 <h2>Login</h2>
                 <p>Log in to access your account</p>
                 <form onSubmit={handleSubmit}>

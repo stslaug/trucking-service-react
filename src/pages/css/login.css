@@ -27,9 +27,16 @@
     background-color: var(--background-color);
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
     text-align: center;
       
+}
+.ribbon {
+  display: flex;
+  width: 100%;
+  height: 10px;
+  border-radius: 8px;
+  background-color: #75b9b9;
 }
 #register {
    min-width: 50vh !important;
