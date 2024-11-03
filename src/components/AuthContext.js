@@ -1,4 +1,3 @@
-// src/AuthContext.js
 import React, { createContext, useEffect, useState } from 'react';
 import { CognitoUser, CognitoUserPool, AuthenticationDetails } from 'amazon-cognito-identity-js';
 
@@ -83,14 +82,14 @@ export const AuthProvider = ({ children }) => {
 
 
       const attributeList = [
-        { Name: 'email', Value: email },                // Standard attribute
-        { Name: 'phone_number', Value: formattedPhoneNumber },   // Standard attribute
-        { Name: 'custom:firstName', Value: firstName }, // Custom attribute
-        { Name: 'custom:lastName', Value: lastName },   // Custom attribute
-        { Name: 'custom:addressLine', Value: addressLine }, // Custom attribute
-        { Name: 'custom:city', Value: city },           // Custom attribute
-        { Name: 'custom:zipcode', Value: zip },         // Custom attribute
-        { Name: 'custom:state', Value: state }          // Custom attribute
+        { Name: 'email', Value: email },                
+        { Name: 'phone_number', Value: formattedPhoneNumber },   
+        { Name: 'custom:firstName', Value: firstName }, 
+        { Name: 'custom:lastName', Value: lastName },   
+        { Name: 'custom:addressLine', Value: addressLine }, 
+        { Name: 'custom:city', Value: city },     
+        { Name: 'custom:zipcode', Value: zip },         
+        { Name: 'custom:state', Value: state }     
       ];
   
       userPool.signUp(username, password, attributeList, null, (err, result) => {

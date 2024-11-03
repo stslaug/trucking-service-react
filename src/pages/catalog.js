@@ -11,11 +11,11 @@ const Catalog = () => {
 
     const handleSearch = async () => {
         try {
-            // Construct the URL for the API with query and pagination
+
             const response = await fetch(`https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-catalog?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}`);
             const data = await response.json();
-            setResults(data); // Assuming data is in the format you want
-            setError(null); // Clear any previous errors
+            setResults(data);
+            setError(null);
         } catch (error) {
             setError('Error fetching eBay data: ' + error.message);
         }
@@ -58,15 +58,22 @@ const Catalog = () => {
                 {/* Error message display */}
                 {error && <div className="error-message">{error}</div>}
 
+                {/* Pagination Controls */}
+                <div className="page-select-wrapper">
+                    <button className="page-select-button" onClick={prevPage} disabled={page === 1}>Previous</button>
+                    <span> Page {page} </span>
+                    <button className="page-select-button" onClick={nextPage}>Next</button>
+                </div>
+
                 <div className={"item-wrapper"}>
                     {results.map(item => (
                         <div className="item" key={item.itemId}>
                             <h3 className="item-title">{item.title}</h3>
-                            <p style={{alignContent:'center', width:'100%', justifyContent:'center'}}>
+                            <p style={{alignContent: 'center', width: '100%', justifyContent: 'center'}}>
                                 Seller: {item.seller.username}<br/>
                                 User Ratings: {item.seller.feedbackPercentage}%
                             </p>
-                            <button type="button" className= "item-img-button" onClick={catalogClick}>
+                            <button type="button" className="item-img-button" onClick={catalogClick}>
                                 <img className="item-img" src={item.image.imageUrl} alt={item.title} width="75px"/>
                             </button>
 
@@ -84,9 +91,11 @@ const Catalog = () => {
                 </div>
 
                 {/* Pagination Controls */}
-                <button onClick={prevPage} disabled={page === 1}>Previous</button>
-                <span> Page {page} </span>
-                <button onClick={nextPage}>Next</button>
+                <div className="page-select-wrapper">
+                    <button className="page-select-button" onClick={prevPage} disabled={page === 1}>Previous</button>
+                    <span> Page {page} </span>
+                    <button className="page-select-button" onClick={nextPage}>Next</button>
+                </div>
             </div>
         </div>
     );

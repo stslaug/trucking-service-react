@@ -14,7 +14,7 @@ const userPool = new CognitoUserPool({
 
 const ForgotPassword = () => {
   const { login } = useContext(AuthContext);
-  const [step, setStep] = useState(1);  // Step 1 is for email input, Step 2 is for code and new password
+  const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [newPassword, setNewPassword] = useState('');

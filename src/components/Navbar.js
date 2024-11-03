@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './css/Navbar.css'; // Import the CSS file
+import './css/Navbar.css';
 
 
 const Navbar = ({ user, onSignOut }) => {
@@ -11,14 +11,14 @@ const Navbar = ({ user, onSignOut }) => {
 
     const handleNavigation = (route) => {
         window.location.href = route;
-        setActiveRoute(route); // Update the active route
+        setActiveRoute(route);
         console.log(`Navigating to ${route}`); 
     };
 
 
     useEffect(() => {
-        const currentPath = window.location.pathname; // Get the current path
-        setActiveRoute(currentPath); // Update active route based on current path
+        const currentPath = window.location.pathname;
+        setActiveRoute(currentPath);
     }, []);
     
     return (
