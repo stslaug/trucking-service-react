@@ -11,7 +11,7 @@ const ItemDetails = () => {
         const fetchItemDetails = async () => {
             try {
                 // Fetch details from your API using itemId
-                const response = await fetch(`https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-getItemDetails?itemId=${itemId}`);
+                const response = await fetch(`: https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-getItemDetails?itemId=${itemId}`);
                 const data = await response.json();
 
                 console.log("Fetched item data:", data);  // Log data to verify structure
