@@ -150,4 +150,23 @@
   font-weight: bold;
 }
 
+.limit-wrapper
+{
+  display:inline-block;
+  justify-content: center;
+  align-content: center;
+  margin: auto;
+  
+}
 
+.limit
+{
+  border-radius: 10px;
+  
+
+}
+.limit-wrapper p
+{
+  margin: auto;
+  
+}
