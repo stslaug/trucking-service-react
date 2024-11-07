@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css/general.css';
 import './css/catalog.css';
 
@@ -25,6 +26,7 @@ const Catalog = () => {
     const [loading, setLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('58058');
 
+    const navigate = useNavigate();
 
     const handleSearch = async () => {
         setLoading(true);
@@ -47,6 +49,10 @@ const Catalog = () => {
 
     const nextPage = () => setPage(prev => prev + 1);
     const prevPage = () => setPage(prev => (page > 1 ? prev - 1 : prev));
+
+    const catalogClick = (itemId) => {
+        navigate(`/item/${itemId}`);
+    };
 
     return (
         <div>
@@ -79,7 +85,6 @@ const Catalog = () => {
 
                 <p>Category:</p>
                 <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-                    {/* No need to check for length since categories are statically defined */}
                     <option value="">Select a category</option>
                     {categories.map(category => (
                         <option key={category.id} value={category.id}>
@@ -103,7 +108,7 @@ const Catalog = () => {
                             Seller: {item.seller?.username || "Unknown"}<br />
                             User Ratings: {item.seller?.feedbackPercentage || "N/A"}%
                         </p>
-                        <button type="button" className="item-img-button" onClick={() => {/* catalogClick logic */}}>
+                        <button type="button" className="item-img-button" onClick={() => catalogClick(item.itemId)}>
                             <img
                                 className="item-img"
                                 src={item.image?.imageUrl || "placeholder.jpg"}

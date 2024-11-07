@@ -1,0 +1,110 @@
+:root {
+    --background-color: #ffffff;
+    --main-color: #2a6364;
+    --header-color: #333;
+    --text-color: #777;
+    --hover-color: #1b2f30;
+  }
+  
+  /* Main container for item details */
+  .item-details {
+    max-width: 80%;
+    margin: 2rem auto;
+    background-color: var(--background-color);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Title styling */
+  .item-details h1 {
+    font-size: 1.8rem;
+    color: var(--header-color);
+    margin-bottom: 1rem;
+  }
+  
+  /* Image styling */
+  .item-details img {
+    width: 80%;
+    max-width: 300px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .item-details img:hover {
+    transform: scale(1.05);
+    border-color: #0e0e0e;
+    cursor: pointer;
+  }
+  
+  /* Description styling */
+  .item-details p {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Price and Condition wrapper */
+  .price-condition-wrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 1rem 0;
+  }
+  
+  .price-condition-wrapper p {
+    flex-basis: 45%;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  /* Seller and Ratings */
+  .seller-info {
+    font-size: 1rem;
+    margin: 1rem 0;
+    color: var(--text-color);
+  }
+  
+  /* Button styling */
+  .cart-button,
+  .buy-button {
+    padding: 0.8rem 1.5rem;
+    margin: 0.5rem;
+    color: white;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    background-color: var(--main-color);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .cart-button:hover,
+  .buy-button:hover {
+    background-color: darkgoldenrod;
+    transform: scale(1.05);
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 600px) {
+    .item-details {
+      padding: 1rem;
+    }
+  
+    .price-condition-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .cart-button,
+    .buy-button {
+      width: 100%;
+    }
+  }
+  

@@ -11,6 +11,7 @@ import Catalog from './pages/catalog'
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile'
 import { AuthContext } from './components/AuthContext';
+import ItemDetails from './pages/itemDetails';
 
 
 
@@ -27,6 +28,8 @@ function App() {
             <Route path="/forgot" element={<ForgotPass />} />
             <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />}/>}/>
             <Route path="/profile" element={<ProtectedRoute user={user} target={<Profile />} alternativeContent={<Login />}>  <Profile />  </ProtectedRoute>}/>
+            <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />} />} />
+            <Route path="/item/:itemId" element={<ProtectedRoute user={user} target={<ItemDetails />} alternativeContent={<Login />} />} />
             <Route path="/" element={<Home />} />
         </Routes>
     </Router>
