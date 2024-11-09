@@ -11,7 +11,7 @@ import Catalog from './pages/catalog'
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile'
 import { AuthContext } from './components/AuthContext';
-import ItemDetails from './pages/itemDetails';
+import ItemDetails from './components/itemDetails';
 
 
 
