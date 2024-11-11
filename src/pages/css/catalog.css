@@ -1,55 +1,46 @@
-:root 
-{
+:root {
   --background-color: #ffffff;
   --main-color: #2a6364;
-
   --header-color: #333;
   --text-color: #777;
   --hover-color: #1b2f30;
-
 }
 
-.searchBar
-{
+.searchBar {
   width: 100%;
   display: flex;
   align-content: center;
   margin: 2rem auto;
 }
-.searchBar input
-{
+.searchBar input {
   width: 30%;
   align-content: center;
-  margin: 0 0 0 33%; /* I have no idea how to center this bar without using magic numbers*/
-
+  margin: 0 0 0 33%; /* Center the bar with magic numbers */
 }
 
-.searchBar button
-{
+.searchBar button {
   align-content: center;
   justify-content: center;
   text-align: center;
-  padding: 0 10px 0 10px;
+  padding: 0 10px;
   color: white;
   border: 2px solid #ffffff;
   border-radius: 10px;
   background-color: var(--main-color);
 }
 
-.searchBar button:hover
-{
+.searchBar button:hover {
   cursor: pointer;
   background-color: darkgoldenrod;
 }
-
 
 .item-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(225px, 1fr)); /* Responsive columns */
   gap: 1rem; /* Space between items */
-  max-width: 80%; /* Ensures the wrapper does not exceed the screen width */
-  padding: 1rem; /* Adds padding within the wrapper */
-  margin: auto; /* Centers the wrapper on the page */
+  max-width: 80%; /* Limits the wrapper's width */
+  padding: 1rem; /* Adds padding */
+  margin: auto; /* Centers the wrapper */
 }
 
 .item {
@@ -58,19 +49,24 @@
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
-  min-height: 15rem; /* Consistent height */
-  min-width: 200px; /* Ensures items don't shrink below 200px */
+  min-height: 18rem; /* Consistent height */
+  min-width: 200px; /* Minimum width */
 }
-
 
 .item-title {
   font-size: medium;
+  font-weight: bold;
   width: 100%;
   text-align: center;
   margin-bottom: 0.5rem;
-  white-space: nowrap;
-  overflow: clip;
-  text-overflow: ellipsis;
+  color: var(--header-color);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.item-title:hover {
+  color: var(--main-color);
+  text-decoration: underline;
 }
 
 .item-img {
@@ -80,17 +76,14 @@
   max-width: 150px;
   aspect-ratio: 1;
   border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .item-img:hover {
-  cursor: pointer;
   transform: scale(1.05);
   border: 2px solid #0e0e0e;
-}
-
-.item-img-button{
-  border: none;
-  background-color: white;
 }
 
 .item-desc-wrapper {
@@ -98,44 +91,46 @@
   justify-content: space-around;
   width: 100%;
   margin: 1rem 0;
-  text-wrap: pretty;
 }
 
 .leftCol,
 .rightCol {
-  flex-basis: 45%; /* Takes up half of the width for price and condition */
+  flex-basis: 45%; /* Divides space for price and condition */
   text-align: center;
 }
 
-.item-text.location {
-  text-align: center;
-  margin-top: -2rem;
-  display: block;
+.add-to-cart-button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: var(--main-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
 }
 
+.add-to-cart-button:hover {
+  background-color: var(--hover-color);
+}
 
-
-.page-select-wrapper
-{
+.page-select-wrapper {
   display: flex;
   justify-content: center;
   align-content: center;
   width: 100%;
   height: 50px;
-
-
 }
+
 .page-select-wrapper span {
   display: flex;
   justify-self: center;
   align-content: center;
   margin: auto 10px;
-
 }
 
-
-.page-select-button
-{
+.page-select-button {
   padding: 10px;
   background-color: var(--main-color);
   color: white;
@@ -144,29 +139,46 @@
   border-radius: 10px;
   min-width: 100px;
 }
-.page-select-button:hover
-{
+
+.page-select-button:hover {
   background-color: var(--hover-color);
   font-weight: bold;
 }
 
-.limit-wrapper
-{
-  display:inline-block;
+.limit-wrapper {
+  display: inline-block;
   justify-content: center;
   align-content: center;
   margin: auto;
-  
 }
 
-.limit
-{
+.limit {
   border-radius: 10px;
-  
-
 }
-.limit-wrapper p
-{
+
+.limit-wrapper p {
   margin: auto;
-  
+}
+
+.price-filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.price-filter label {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: var(--header-color);
+}
+
+.price-input {
+  width: 80px;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 }

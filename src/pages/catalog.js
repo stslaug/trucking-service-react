@@ -20,11 +20,14 @@ const categories = [
 const Catalog = () => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [filteredResults, setFilteredResults] = useState([]);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(25);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('58058');
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
 
     const navigate = useNavigate();
 
@@ -35,7 +38,9 @@ const Catalog = () => {
             const url = `https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-catalog?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}&categoryId=${selectedCategory}`;
             const response = await fetch(url);
             const data = await response.json();
-            setResults(Array.isArray(data) ? data : []); 
+            const items = Array.isArray(data) ? data : [];
+            setResults(items);
+            filterResults(items); // Filter the results initially
         } catch (error) {
             setError('Error fetching eBay data: ' + error.message);
         } finally {
@@ -47,11 +52,27 @@ const Catalog = () => {
         handleSearch();
     }, [page, limit, selectedCategory]);
 
+    // Filter results based on price range
+    const filterResults = (items = results) => {
+        const filtered = items.filter(item => {
+            const price = item.price?.value;
+            const min = parseFloat(minPrice) || 0;
+            const max = parseFloat(maxPrice) || Infinity;
+            return price >= min && price <= max;
+        });
+        setFilteredResults(filtered);
+    };
+
+    useEffect(() => {
+        filterResults();
+    }, [minPrice, maxPrice, results]);
+
     const nextPage = () => setPage(prev => prev + 1);
     const prevPage = () => setPage(prev => (page > 1 ? prev - 1 : prev));
 
-    const catalogClick = (itemId) => {
-        navigate(`/item/${itemId}`);
+    const handleAddToCart = (itemId) => {
+        console.log(`Added item with ID ${itemId} to cart.`);
+        // Implement cart functionality here
     };
 
     return (
@@ -94,6 +115,30 @@ const Catalog = () => {
                 </select>
             </div>
 
+            {/* Price Range Filter */}
+            <div className="price-filter">
+                <label>
+                    Min Price:
+                    <input
+                        type="number"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(e.target.value)}
+                        placeholder="0"
+                        className="price-input"
+                    />
+                </label>
+                <label>
+                    Max Price:
+                    <input
+                        type="number"
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
+                        placeholder="No Max"
+                        className="price-input"
+                    />
+                </label>
+            </div>
+
             <div className="page-select-wrapper">
                 <button className="page-select-button" onClick={prevPage} disabled={page === 1}>Previous</button>
                 <span> Page {page} </span>
@@ -101,21 +146,21 @@ const Catalog = () => {
             </div>
 
             <div className="item-wrapper">
-                {Array.isArray(results) && results.map(item => (
+                {Array.isArray(filteredResults) && filteredResults.map(item => (
                     <div className="item" key={item.itemId}>
-                        <h3 className="item-title">{item.title}</h3>
-                        <p>
-                            Seller: {item.seller?.username || "Unknown"}<br />
-                            User Ratings: {item.seller?.feedbackPercentage || "N/A"}%
-                        </p>
-                        <button type="button" className="item-img-button" onClick={() => catalogClick(item.itemId)}>
+                        <a href={item.itemWebUrl} target="_blank" rel="noopener noreferrer">
+                            <h3 className="item-title">{item.title}</h3>
                             <img
                                 className="item-img"
                                 src={item.image?.imageUrl || "placeholder.jpg"}
                                 alt={item.title}
-                                width="75px"
+                                width="150px"
                             />
-                        </button>
+                        </a>
+                        <p>
+                            Seller: {item.seller?.username || "Unknown"}<br />
+                            User Ratings: {item.seller?.feedbackPercentage || "N/A"}%
+                        </p>
 
                         <div className="item-desc-wrapper">
                             <div className="leftCol">
@@ -125,7 +170,10 @@ const Catalog = () => {
                                 <p className="item-text">Condition: {item.condition || "Unknown"}</p>
                             </div>
                         </div>
-                        <p className="item-text location">Location: {item.location || "Unknown"}</p>
+
+                        <button onClick={() => handleAddToCart(item.itemId)} className="add-to-cart-button">
+                            Add to Cart
+                        </button>
                     </div>
                 ))}
             </div>
