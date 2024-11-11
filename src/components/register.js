@@ -53,74 +53,42 @@ const Register = () => {
     };
 
 
-    const apiUrl = 'https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-createUser'; // Replace with your API Gateway URL
+    const apiUrl = 'https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers'; // Replace with your API Gateway URL
     const fullAddress = `${addressLine1}, ${city}, ${state}, ${zip}`;
 
         // Prepare the data to send
-        let userData = JSON.stringify({
+        const userData = {
             username,
             email,
             firstName: firstN,
             lastName: lastN,
             address: fullAddress,
             phoneNumber
-        });
-
-    let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: userData
-    };
+        };
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
+        // Check if password and confirmation password match
         if (password !== confPassword) {
-            alert("Passwords do not match!");
-            return;
+          alert("Passwords do not match!");
+          return;
         }
-
-        if (!passwordRequirementsMet.minLength || !passwordRequirementsMet.hasNumber ||
-            !passwordRequirementsMet.hasSpecialChar || !passwordRequirementsMet.hasUppercase ||
-            !passwordRequirementsMet.hasLowercase || !passwordRequirementsMet.passwordsMatch) {
-            alert("Please meet all password requirements.");
-            return;
-        }
-
+    
         try {
-            const userData = {
-                username,
-                email,
-                firstName: firstN,
-                lastName: lastN,
-                address: fullAddress,
-                phoneNumber
-            };
-
-
-            const requestBody = {
-                httpMethod: 'POST',
-                body: JSON.stringify(userData)
-            };
-
-            // Send the request using axios
-            const response = await axios.post(apiUrl, requestBody, {
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            console.log("User created successfully:", response.data);
-            navigate("/verify");
+          await register(username, password, email, firstN, lastN, phoneNumber, addressLine1, city, zip, state);
+          const response = await axios.post(apiUrl, userData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+          });
+          console.log("trying to redirect...");
+          navigate('/verify');
         } catch (error) {
-            console.error("Registration Error:", error.response?.data || error.message);
-            alert("Registration failed. Please try again.");
+          console.log('Registration Error', error);
         }
-    };
-
-
+      };
 
     return (
     <div className="login-wrapper">
