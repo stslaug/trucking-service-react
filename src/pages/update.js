@@ -32,10 +32,10 @@ const Update = () => {
         };
 
 
-        const handleSubmit = async (e) => {
+        /*const handleSubmit = async (e) => {
           e.preventDefault();
       
-          /* try {
+           try {
             // Register user with AWS Cognito
             await register(username, password, email, firstN, lastN, phoneNumber, addressLine1, city, zip, state);
       
@@ -51,8 +51,8 @@ const Update = () => {
           } catch (error) {
             console.error('Registration or Lambda Call Error:', error);
             alert('Registration failed. Please try again.');
-          }*/
-        }; 
+          }*
+        }; */
 
     return (
     <div className="login-wrapper">
