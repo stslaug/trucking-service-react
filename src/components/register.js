@@ -53,7 +53,7 @@ const Register = () => {
     };
 
 
-    const apiUrl = 'https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers'; // Replace with your API Gateway URL
+    const apiUrl = 'https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-createUser'; // Replace with your API Gateway URL
     const fullAddress = `${addressLine1}, ${city}, ${state}, ${zip}`;
 
         // Prepare the data to send
@@ -67,28 +67,33 @@ const Register = () => {
         };
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        // Check if password and confirmation password match
-        if (password !== confPassword) {
-          alert("Passwords do not match!");
-          return;
-        }
-    
-        try {
-          await register(username, password, email, firstN, lastN, phoneNumber, addressLine1, city, zip, state);
-          const response = await axios.post(apiUrl, userData, {
-            headers: {
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+          
+          // Check if password and confirmation password match
+          if (password !== confPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
+      
+          try {
+            // Register user with AWS Cognito
+            await register(username, password, email, firstN, lastN, phoneNumber, addressLine1, city, zip, state);
+      
+            // If registration is successful, send data to the database through Lambda
+            const response = await axios.post(apiUrl, userData, {
+              headers: {
                 'Content-Type': 'application/json'
-            }
-          });
-          console.log("trying to redirect...");
-          navigate('/verify');
-        } catch (error) {
-          console.log('Registration Error', error);
-        }
-      };
+              }
+            });
+      
+            console.log("Data sent to Lambda:", response.data);
+            navigate('/verify');
+          } catch (error) {
+            console.error('Registration or Lambda Call Error:', error);
+            alert('Registration failed. Please try again.');
+          }
+        };
 
     return (
     <div className="login-wrapper">
