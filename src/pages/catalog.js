@@ -14,7 +14,6 @@ const categories = [
     { id: '281', name: 'Antiques' },
     { id: '870', name: 'Crafts' },
     { id: '172008', name: 'Health & Beauty' }
-    // Add more categories as needed
 ];
 
 const Catalog = () => {
@@ -33,14 +32,14 @@ const Catalog = () => {
 
     const handleSearch = async () => {
         setLoading(true);
-        setError(null); // Clear previous errors
+        setError(null);
         try {
             const url = `https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-catalog?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}&categoryId=${selectedCategory}`;
             const response = await fetch(url);
             const data = await response.json();
             const items = Array.isArray(data) ? data : [];
             setResults(items);
-            filterResults(items); // Filter the results initially
+            filterResults(items);
         } catch (error) {
             setError('Error fetching eBay data: ' + error.message);
         } finally {
@@ -52,7 +51,6 @@ const Catalog = () => {
         handleSearch();
     }, [page, limit, selectedCategory]);
 
-    // Filter results based on price range
     const filterResults = (items = results) => {
         const filtered = items.filter(item => {
             const price = item.price?.value;
@@ -67,13 +65,15 @@ const Catalog = () => {
         filterResults();
     }, [minPrice, maxPrice, results]);
 
+    const handleAddToCart = (item) => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(item);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${item.title} has been added to your cart.`);
+    };
+
     const nextPage = () => setPage(prev => prev + 1);
     const prevPage = () => setPage(prev => (page > 1 ? prev - 1 : prev));
-
-    const handleAddToCart = (itemId) => {
-        console.log(`Added item with ID ${itemId} to cart.`);
-        // Implement cart functionality here
-    };
 
     return (
         <div>
@@ -92,7 +92,6 @@ const Catalog = () => {
                 <button onClick={handleSearch}>Search</button>
             </div>
 
-            {/* Error and Loading Messages */}
             {error && <div className="error-message">{error}</div>}
             {loading && <div className="loading-message">Loading items...</div>}
 
@@ -115,7 +114,6 @@ const Catalog = () => {
                 </select>
             </div>
 
-            {/* Price Range Filter */}
             <div className="price-filter">
                 <label>
                     Min Price:
@@ -171,7 +169,7 @@ const Catalog = () => {
                             </div>
                         </div>
 
-                        <button onClick={() => handleAddToCart(item.itemId)} className="add-to-cart-button">
+                        <button onClick={() => handleAddToCart(item)} className="add-to-cart-button">
                             Add to Cart
                         </button>
                     </div>

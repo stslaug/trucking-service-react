@@ -15,7 +15,7 @@
 .searchBar input {
   width: 30%;
   align-content: center;
-  margin: 0 0 0 33%; /* Center the bar with magic numbers */
+  margin: 0 0 0 33%; 
 }
 
 .searchBar button {
@@ -36,11 +36,11 @@
 
 .item-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr)); /* Responsive columns */
-  gap: 1rem; /* Space between items */
-  max-width: 80%; /* Limits the wrapper's width */
-  padding: 1rem; /* Adds padding */
-  margin: auto; /* Centers the wrapper */
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr)); 
+  gap: 1rem; 
+  max-width: 80%; 
+  padding: 1rem; 
+  margin: auto; 
 }
 
 .item {
@@ -49,8 +49,8 @@
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
-  min-height: 18rem; /* Consistent height */
-  min-width: 200px; /* Minimum width */
+  min-height: 18rem; 
+  min-width: 200px; 
 }
 
 .item-title {
@@ -71,7 +71,7 @@
 
 .item-img {
   display: block;
-  margin: 0 auto; /* Centers the image */
+  margin: 0 auto; 
   width: 100%;
   max-width: 150px;
   aspect-ratio: 1;
@@ -95,7 +95,7 @@
 
 .leftCol,
 .rightCol {
-  flex-basis: 45%; /* Divides space for price and condition */
+  flex-basis: 45%; 
   text-align: center;
 }
 
