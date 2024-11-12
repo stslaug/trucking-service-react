@@ -10,6 +10,7 @@ import VerifyCode from './components/verifyCode'
 import Catalog from './pages/catalog'
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile'
+import Update from './pages/update'
 import { AuthContext } from './components/AuthContext';
 import ItemDetails from './components/itemDetails';
 import Cart from './pages/cart';
@@ -32,6 +33,7 @@ function App() {
             <Route path="/item/:itemId" element={<ProtectedRoute user={user} target={<ItemDetails />} alternativeContent={<Login />} />} />
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/update" element={<ProtectedRoute user={user} target={<Update />} alternativeContent={<Login />} />} />
         </Routes>
     </Router>
     );
