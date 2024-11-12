@@ -85,6 +85,18 @@ const Update = () => {
                       id="username" 
                       onChange={(e) => setUsername(e.target.value)} />
                 </label>
+                <label>
+                        <div class= "container">
+                            <div class="select">
+                                <select>
+                                <option value="0">Select your role:</option>
+                                    <option value="1">Driver</option>
+                                    <option value="2">Sponsor</option>
+                                    <option value="3">Admin</option>
+                                </select>
+                            </div>
+                        </div> 
+                    </label>
             </div>
 
             <div className="rightCol">
