@@ -34,7 +34,7 @@ const Catalog = () => {
         setLoading(true);
         setError(null);
         try {
-            const url = `https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-catalog?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}&categoryId=${selectedCategory}`;
+            const url = `https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-catalog?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}&categoryId=${selectedCategory}`;
             const response = await fetch(url);
             const data = await response.json();
             const items = Array.isArray(data) ? data : [];

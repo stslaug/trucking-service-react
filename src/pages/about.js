@@ -11,7 +11,7 @@ const About = () => {
     useEffect(() => {
         const fetchData = async () => {
             try { // Get developer data from Database
-                const response = await axios.get('https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-AboutPage');
+                const response = await axios.get('https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-AboutPage');
                 const developersData = response.data;
                 setDevelopers(developersData);
             } catch (error) {

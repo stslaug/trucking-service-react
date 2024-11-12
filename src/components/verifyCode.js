@@ -55,7 +55,7 @@ const VerifyCode = () => {
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',
+        url: 'https://kej65tnku5.execute-api.us-east-1.amazonaws.com/default/team12-cognito-verificationEmail',
         headers: { 
           'Content-Type': 'application/json'
         },

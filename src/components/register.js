@@ -53,7 +53,7 @@ const Register = () => {
     };
 
 
-    const apiUrl = 'https://qcygwj5wwc.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers'; // Replace with your API Gateway URL
+    const apiUrl = 'https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers'; // Replace with your API Gateway URL
     const fullAddress = `${addressLine1}, ${city}, ${state}, ${zip}`;
 
         // Prepare the data to send
