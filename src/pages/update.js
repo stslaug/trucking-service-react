@@ -57,8 +57,8 @@ const Update = () => {
     return (
     <div className="login-wrapper">
       <div className="login" id="register" >
-        <h2>Register</h2>
-        <p>Create your account</p>
+        <h2>Update</h2>
+        <p>Account Information</p>
         <form onSubmit={handleSubmit}>
           <div className="form-wrapper">
             <div className="leftCol">

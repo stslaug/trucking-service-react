@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import { AuthContext } from '../components/AuthContext';
 import './css/profile.css';
 import edit from './css/images/edit.png';
@@ -77,7 +78,7 @@ const Profile = () => {
                     OPTIONS
                 </section>
                 <section className='options-box-info'>
-                    Content and options.
+                    <Link to="/update">Update User Information</Link>
                 </section>
             </section>
         </div>
