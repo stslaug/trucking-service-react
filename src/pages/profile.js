@@ -47,6 +47,9 @@ const Profile = () => {
                 Welcome, {F_NAME || "User"}
             </div>
             <section className='bio-box'>
+                <section className='bio-box-title'>
+                    User Information:
+                </section>
                 <section className='bio-box-text'>
                     <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='20' />
                     USER TYPE:
@@ -67,6 +70,14 @@ const Profile = () => {
                     PHONE NUMBER:
                     <span style={{ float: 'right' }}>{PhoneNumber}</span>
                     <div className='line-break'></div>
+                </section>
+            </section>
+            <section className='options-box'>
+                <section className='options-box-title'>
+                    OPTIONS
+                </section>
+                <section className='options-box-info'>
+                    Content and options.
                 </section>
             </section>
         </div>
