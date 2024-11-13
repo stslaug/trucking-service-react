@@ -27,6 +27,8 @@ const Catalog = () => {
     const [selectedCategory, setSelectedCategory] = useState('58058');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
+    const [sortBy, setSortBy] = useState('price'); // New state for sort criteria
+    const [sortOrder, setSortOrder] = useState('asc'); // New state for sort order
 
     const navigate = useNavigate();
 
@@ -39,7 +41,7 @@ const Catalog = () => {
             const data = await response.json();
             const items = Array.isArray(data) ? data : [];
             setResults(items);
-            filterResults(items);
+            // No need to call filterAndSortResults here; it's handled by useEffect
         } catch (error) {
             setError('Error fetching eBay data: ' + error.message);
         } finally {
@@ -51,19 +53,69 @@ const Catalog = () => {
         handleSearch();
     }, [page, limit, selectedCategory]);
 
-    const filterResults = (items = results) => {
-        const filtered = items.filter(item => {
-            const price = item.price?.value;
+    // Define the order for conditions if needed
+    const conditionOrder = {
+        'New': 1,
+        'Refurbished': 2,
+        'Used': 3,
+        'Unknown': 4
+    };
+
+    const filterAndSortResults = () => {
+        let items = [...results]; // Create a shallow copy to avoid mutating state
+
+        // Filter by price
+        if (minPrice || maxPrice) {
             const min = parseFloat(minPrice) || 0;
             const max = parseFloat(maxPrice) || Infinity;
-            return price >= min && price <= max;
-        });
-        setFilteredResults(filtered);
+            items = items.filter(item => {
+                const price = parseFloat(item.price?.value);
+                return price >= min && price <= max;
+            });
+        }
+
+        // Sort based on selected criteria
+        switch (sortBy) {
+            case 'price':
+                items.sort((a, b) => {
+                    const priceA = parseFloat(a.price?.value) || 0;
+                    const priceB = parseFloat(b.price?.value) || 0;
+                    return sortOrder === 'asc' ? priceA - priceB : priceB - priceA;
+                });
+                break;
+            case 'title':
+                items.sort((a, b) => {
+                    const titleA = a.title?.toLowerCase() || '';
+                    const titleB = b.title?.toLowerCase() || '';
+                    if (titleA < titleB) return sortOrder === 'asc' ? -1 : 1;
+                    if (titleA > titleB) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+                break;
+            case 'sellerRating':
+                items.sort((a, b) => {
+                    const ratingA = parseFloat(a.seller?.feedbackPercentage) || 0;
+                    const ratingB = parseFloat(b.seller?.feedbackPercentage) || 0;
+                    return sortOrder === 'asc' ? ratingA - ratingB : ratingB - ratingA;
+                });
+                break;
+            case 'dateListed':
+                items.sort((a, b) => {
+                    const dateA = new Date(a.dateListed) || new Date(0);
+                    const dateB = new Date(b.dateListed) || new Date(0);
+                    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+                });
+                break;
+            default:
+                break;
+        }
+
+        setFilteredResults(items);
     };
 
     useEffect(() => {
-        filterResults();
-    }, [minPrice, maxPrice, results]);
+        filterAndSortResults();
+    }, [minPrice, maxPrice, results, sortBy, sortOrder]);
 
     const handleAddToCart = (item) => {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -95,23 +147,43 @@ const Catalog = () => {
             {error && <div className="error-message">{error}</div>}
             {loading && <div className="loading-message">Loading items...</div>}
 
-            <div className="limit-wrapper">
-                <p>Display how many catalog items per request:</p>
-                <select className="limit" value={limit} onChange={(e) => setLimit(Number(e.target.value))}>
-                    <option value={10}>10</option>
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                </select>
+            <div className="controls-wrapper">
+                <div className="limit-wrapper">
+                    <p>Display how many catalog items per request:</p>
+                    <select className="limit" value={limit} onChange={(e) => setLimit(Number(e.target.value))}>
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
+                    </select>
+                </div>
 
-                <p>Category:</p>
-                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-                    <option value="">Select a category</option>
-                    {categories.map(category => (
-                        <option key={category.id} value={category.id}>
-                            {category.name}
-                        </option>
-                    ))}
-                </select>
+                <div className="category-wrapper">
+                    <p>Category:</p>
+                    <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                        <option value="">Select a category</option>
+                        {categories.map(category => (
+                            <option key={category.id} value={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="sort-wrapper">
+                    <p>Sort By:</p>
+                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                        <option value="price">Price</option>
+                        <option value="title">Title</option>
+                        <option value="sellerRating">Seller Rating</option>
+                        <option value="dateListed">Date Listed</option>
+                    </select>
+
+                    <p>Order:</p>
+                    <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
             </div>
 
             <div className="price-filter">
@@ -123,6 +195,7 @@ const Catalog = () => {
                         onChange={(e) => setMinPrice(e.target.value)}
                         placeholder="0"
                         className="price-input"
+                        min="0"
                     />
                 </label>
                 <label>
@@ -133,6 +206,7 @@ const Catalog = () => {
                         onChange={(e) => setMaxPrice(e.target.value)}
                         placeholder="No Max"
                         className="price-input"
+                        min="0"
                     />
                 </label>
             </div>
