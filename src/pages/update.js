@@ -19,40 +19,38 @@ const Update = () => {
     
     const navigate = useNavigate();
 
-    // const apiUrl = 'https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers'; // Replace with your API Gateway URL
+    const apiUrl = 'https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers'; // Replace with your API Gateway URL
     const fullAddress = `${addressLine1}, ${city}, ${state}, ${zip}`;
 
-        // Prepare the data to send
-        const userDataUpdate = {
-            username,
-            firstName: firstN,
-            lastName: lastN,
-            address: fullAddress,
-            phoneNumber
-        };
+    // Prepare the data to send
+    const userDataUpdate = {
+        username,
+        firstName: firstN,
+        lastName: lastN,
+        address: fullAddress,
+        phoneNumber
+    };
 
 
-      //   const handleSubmit = async (e) => {
-      //     e.preventDefault();
-      
-      //      try {
-      //       // Register user with AWS Cognito
-      //       await register(username, password, email, firstN, lastN, phoneNumber, addressLine1, city, zip, state);
-      
-      //       // If registration is successful, send data to the database through Lambda
-      //       const response = await axios.post(apiUrl, userData, {
-      //         headers: {
-      //           'Content-Type': 'application/json'
-      //         }
-      //       });
-      
-      //       console.log("Data sent to Lambda:", response.data);
-      //       navigate('/verify');
-      //     } catch (error) {
-      //       console.error('Registration or Lambda Call Error:', error);
-      //       alert('Registration failed. Please try again.');
-      //     }
-      // };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+  
+        try {
+  
+          // If registration is successful, send data to the database through Lambda
+          const response = await axios.update(apiUrl, userDataUpdate, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+  
+          console.log("Data sent to Lambda:", response.data);
+          navigate('/verify');
+        } catch (error) {
+          console.error('Update or Lambda Call Error:', error);
+          alert('Update failed. Please try again.');
+        }
+    };
 
     return (
     <div className="login-wrapper">

@@ -47,11 +47,6 @@
     margin: 0 15px 0 0;
 }
 
-.bio-box-pencil:hover {
-    transform: scale(1.05);
-    border: 2px solid #0e0e0e;
-  }
-
 .line-break {
     display: flex;
     width: 100%;

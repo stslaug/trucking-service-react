@@ -52,22 +52,18 @@ const Profile = () => {
                     User Information:
                 </section>
                 <section className='bio-box-text'>
-                    <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='20' />
                     USER TYPE:
                     <span style={{ float: 'right' }}>{USER_TYPE}</span>
                     <div className='line-break'></div>
 
-                    <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='20' />
                     USERNAME:
                     <span style={{ float: 'right' }}>{USERNAME}</span>
                     <div className='line-break'></div>
 
-                    <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='20' />
                     MAIN ADDRESS:
                     <span style={{ float: 'right' }}>{ADDRESS}</span>
                     <div className='line-break'></div>
 
-                    <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='20' />
                     PHONE NUMBER:
                     <span style={{ float: 'right' }}>{PhoneNumber}</span>
                     <div className='line-break'></div>
@@ -78,6 +74,7 @@ const Profile = () => {
                     OPTIONS
                 </section>
                 <section className='options-box-info'>
+                    <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='25' />
                     <Link to="/update">Update User Information</Link>
                 </section>
             </section>
