@@ -44,7 +44,7 @@ const Update = () => {
           });
   
           console.log("Data sent to Lambda:", response.data);
-          navigate('/verify');
+          navigate('/profile');
         } catch (error) {
           console.error('Update or Lambda Call Error:', error);
           alert('Update failed. Please try again.');
