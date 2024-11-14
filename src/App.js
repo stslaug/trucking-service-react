@@ -33,7 +33,7 @@ function App() {
             <Route path="/item/:itemId" element={<ProtectedRoute user={user} target={<ItemDetails />} alternativeContent={<Login />} />} />
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/update" element={<ProtectedRoute user={user} target={<Update />} alternativeContent={<Login />} />} />
+            <Route path="/update" element={<ProtectedRoute user={user} target={<Update  user={user}/>} alternativeContent={<Login />} />} />
         </Routes>
     </Router>
     );

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import "../pages/css/login.css";
 
-const Update = () => {
+const Update = ( {user} ) => {
     const [firstN, setFirstN] = useState('');
     const [lastN, setLastN] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -21,6 +21,7 @@ const Update = () => {
         const address = `${addressLine1}, ${city}, ${state} ${zip}`;
 
         try {
+            setUsername(user.getUsername());
             const response = await fetch(`https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers`, {
                 method: 'PUT',
                 headers: {
@@ -71,14 +72,6 @@ const Update = () => {
                                     placeholder="Last Name"
                                     value={lastN}
                                     onChange={(e) => setLastN(e.target.value)}
-                                />
-                            </label>
-                            <label>
-                                <input
-                                    type="text"
-                                    placeholder="Username"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                             </label>
                             <label>
