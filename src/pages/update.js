@@ -19,12 +19,11 @@ const Update = () => {
     
     const navigate = useNavigate();
 
-    const apiUrl = 'https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/Team12-GetUpdateUsers'; // Replace with your API Gateway URL
+    const apiUrl = `https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/Team12-UpdateUser?username=${username}`; // Replace with your API Gateway URL
     const fullAddress = `${addressLine1}, ${city}, ${state}, ${zip}`;
 
     // Prepare the data to send
     const userDataUpdate = {
-        username,
         firstName: firstN,
         lastName: lastN,
         address: fullAddress,
@@ -38,7 +37,7 @@ const Update = () => {
         try {
   
           // If registration is successful, send data to the database through Lambda
-          const response = await axios.update(apiUrl, userDataUpdate, {
+          const response = await axios.put(apiUrl, userDataUpdate, {
             headers: {
               'Content-Type': 'application/json'
             }
