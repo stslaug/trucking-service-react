@@ -11,6 +11,7 @@ const Update = () => {
     const [zip, setZip] = useState('');
     const [state, setLocState] = useState('');
     const [username, setUsername] = useState('');
+    const [userType, setUserType] = useState('driver'); // Default value
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -30,7 +31,8 @@ const Update = () => {
                     firstN,
                     lastN,
                     phoneNumber,
-                    address, // Use combined address
+                    address,
+                    userType, // Include userType in the request body
                 }),
             });
 
@@ -78,6 +80,16 @@ const Update = () => {
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                 />
+                            </label>
+                            <label>
+                                <select
+                                    value={userType}
+                                    onChange={(e) => setUserType(e.target.value)}
+                                >
+                                    <option value="driver">Driver</option>
+                                    <option value="sponsor">Sponsor</option>
+                                    <option value="admin">Admin</option>
+                                </select>
                             </label>
                         </div>
                         <div className="rightCol">
