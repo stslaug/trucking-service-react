@@ -47,7 +47,8 @@ const Update = () => {
           navigate('/profile');
         } catch (error) {
           console.error('Update or Lambda Call Error:', error);
-          alert('Update failed. Please try again.');
+          navigate('/profile');
+          // alert('Update failed. Please try again.');
         }
     };
 
@@ -56,7 +57,7 @@ const Update = () => {
       <div className="login" id="register" >
         <h2>Update</h2>
         <p>Account Information</p>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-wrapper">
             <div className="leftCol">
                 <label>
