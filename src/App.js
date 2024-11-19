@@ -14,6 +14,7 @@ import Update from './pages/update'
 import { AuthContext } from './components/AuthContext';
 import ItemDetails from './components/itemDetails';
 import Cart from './pages/cart';
+import Addpoints from './pages/addpoints';
 
 
 function App() {  
@@ -33,6 +34,7 @@ function App() {
             <Route path="/item/:itemId" element={<ProtectedRoute user={user} target={<ItemDetails />} alternativeContent={<Login />} />} />
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/addpoints" element={<Addpoints />} />
             <Route path="/update" element={<ProtectedRoute user={user} target={<Update  user={user}/>} alternativeContent={<Login />} />} />
         </Routes>
     </Router>
