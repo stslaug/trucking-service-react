@@ -19,6 +19,9 @@ const Register = () => {
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
     const [state, setLocState] = useState('');
+    const [userType, setUserType] = useState('');
+    const [companyName, setCompany] = useState('');
+
     
     const navigate = useNavigate();
 
@@ -55,15 +58,16 @@ const Register = () => {
 
     const apiUrl = 'https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-createUser'; // Replace with your API Gateway URL
     const fullAddress = `${addressLine1}, ${city}, ${state}, ${zip}`;
-
         // Prepare the data to send
         const userData = {
             username,
             email,
             firstName: firstN,
             lastName: lastN,
-            address: fullAddress,
-            phoneNumber
+            phoneNumber,
+            userType,
+            fullAddress,
+            companyName
         };
 
 
@@ -185,7 +189,7 @@ const Register = () => {
 
                   <label>
                     <input type="text" 
-                    placeholder="State" 
+                    placeholder="State (ex. SC)" 
                     id="state" 
                     onChange={(e) => setLocState(e.target.value)} />
                   </label>
@@ -215,6 +219,30 @@ const Register = () => {
           
         
             </div>
+
+            <div className="leftCol">
+              <label>
+                    <select
+                      value={userType}
+                      onChange={(e) => setUserType(e.target.value)}
+                  >
+                      <option value="driver">Driver</option>
+                      <option value="sponsor">Sponsor</option>
+                      <option value="admin">Admin</option>
+                  </select>
+              </label>
+            </div>
+            <div className="rightCol">
+              <label>
+                <input type="text" 
+                placeholder="Company Name (Optional)" 
+                id="company" 
+                onChange={(e) => setCompany(e.target.value)} />
+              </label>
+            </div>
+         
+
+
           </div>
 
           <div className="after">
