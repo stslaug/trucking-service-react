@@ -30,6 +30,7 @@ const Navbar = ({ user, onSignOut }) => {
                 <button className={`button ${activeRoute === '/' ? 'active' : ''}`} onClick={() => handleNavigation('/')}>Home </button>                
                 
                 <button className={`button ${activeRoute === '/about' ? 'active' : ''}`} onClick={() => handleNavigation('/about')}> About </button>
+                <button className={`button ${activeRoute === '/sponsor' ? 'active' : ''}`} onClick={() => handleNavigation('/sponsor')}> Sponsor Dashboard </button>
                  
               
                 

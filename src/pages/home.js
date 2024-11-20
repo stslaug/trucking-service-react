@@ -29,8 +29,8 @@ const Home = () => {
         handleNavigation('/login')
     };
 
-    const helpClick = () => {
-        //Go to Help Page (to be added)
+    const profileClick = () => {
+        handleNavigation('/profile')
     };
 
     return (
@@ -51,8 +51,8 @@ const Home = () => {
                     Sponsor List</button>
                 <button type="button" className='home-button' onClick={loginClick}>
                     Login</button>
-                <button type="button" className='home-button' onClick={helpClick}>
-                    Help</button>
+                <button type="button" className='home-button' onClick={profileClick}>
+                    Profile</button>
             </div>
 
             <section className='sponsor-image-container'>

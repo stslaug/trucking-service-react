@@ -4,8 +4,8 @@
     color: rgb(255, 255, 255);
     background-color: #333333;
     border: 2px solid #e1e1e1;
-    font-size: xx-large;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size:25px;
+    font-weight: bold;
     text-align: left;
     padding: 20px;
     border-radius: 10px;
@@ -28,9 +28,9 @@
 }
 
 .bio-box-title {
-    font-size: 35px;
+    font-size: 25px;
     float: center;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
 }
 
 .bio-box-info{
@@ -68,9 +68,9 @@
 }
 
 .options-box-title {
-    font-size: 35px;
+    font-size: 25px;
     float: center;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
 }
 
 .options-box-info{

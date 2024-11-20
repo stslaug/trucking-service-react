@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './css/general.css';
 import './css/catalog.css';
+import Cart from './cart';
 
 // Define your static list of categories
 const categories = [
@@ -29,7 +30,7 @@ const Catalog = () => {
     const [maxPrice, setMaxPrice] = useState('');
     const [sortBy, setSortBy] = useState('price'); // New state for sort criteria
     const [sortOrder, setSortOrder] = useState('asc'); // New state for sort order
-
+    const [cartState, setCartState] = useState(false);
     const navigate = useNavigate();
 
     const handleSearch = async () => {
@@ -121,7 +122,11 @@ const Catalog = () => {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         cart.push(item);
         localStorage.setItem('cart', JSON.stringify(cart));
+        setCartState(true);    
         alert(`${item.title} has been added to your cart.`);
+    };
+    const handleCart = () => {
+        navigate('/cart')
     };
 
     const nextPage = () => setPage(prev => prev + 1);
@@ -142,14 +147,15 @@ const Catalog = () => {
                     placeholder="Search eBay"
                 />
                 <button onClick={handleSearch}>Search</button>
+                <button onClick={handleCart}>Cart</button>
             </div>
 
             {error && <div className="error-message">{error}</div>}
             {loading && <div className="loading-message">Loading items...</div>}
 
             <div className="controls-wrapper">
-                <div className="limit-wrapper">
-                    <p>Display how many catalog items per request:</p>
+                <div className="control-wrapper">
+                    <p>Items per page:</p>
                     <select className="limit" value={limit} onChange={(e) => setLimit(Number(e.target.value))}>
                         <option value={10}>10</option>
                         <option value={25}>25</option>
@@ -157,7 +163,7 @@ const Catalog = () => {
                     </select>
                 </div>
 
-                <div className="category-wrapper">
+                <div className="control-wrapper">
                     <p>Category:</p>
                     <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
                         <option value="">Select a category</option>
@@ -169,7 +175,7 @@ const Catalog = () => {
                     </select>
                 </div>
 
-                <div className="sort-wrapper">
+                <div className="control-wrapper">
                     <p>Sort By:</p>
                     <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
                         <option value="price">Price</option>
@@ -184,32 +190,34 @@ const Catalog = () => {
                         <option value="desc">Descending</option>
                     </select>
                 </div>
+
+                <div className="control-wrapper">
+                    <label>
+                        Min Price:
+                        <input
+                            type="number"
+                            value={minPrice}
+                            onChange={(e) => setMinPrice(e.target.value)}
+                            placeholder="0"
+                            className="price-input"
+                            min="0"
+                        />
+                    </label>
+                    <label>
+                        Max Price:
+                        <input
+                            type="number"
+                            value={maxPrice}
+                            onChange={(e) => setMaxPrice(e.target.value)}
+                            placeholder="No Max"
+                            className="price-input"
+                            min="0"
+                        />
+                    </label>
+                </div>
             </div>
 
-            <div className="price-filter">
-                <label>
-                    Min Price:
-                    <input
-                        type="number"
-                        value={minPrice}
-                        onChange={(e) => setMinPrice(e.target.value)}
-                        placeholder="0"
-                        className="price-input"
-                        min="0"
-                    />
-                </label>
-                <label>
-                    Max Price:
-                    <input
-                        type="number"
-                        value={maxPrice}
-                        onChange={(e) => setMaxPrice(e.target.value)}
-                        placeholder="No Max"
-                        className="price-input"
-                        min="0"
-                    />
-                </label>
-            </div>
+            
 
             <div className="page-select-wrapper">
                 <button className="page-select-button" onClick={prevPage} disabled={page === 1}>Previous</button>
@@ -217,38 +225,41 @@ const Catalog = () => {
                 <button className="page-select-button" onClick={nextPage}>Next</button>
             </div>
 
-            <div className="item-wrapper">
-                {Array.isArray(filteredResults) && filteredResults.map(item => (
-                    <div className="item" key={item.itemId}>
-                        <a href={item.itemWebUrl} target="_blank" rel="noopener noreferrer">
-                            <h3 className="item-title">{item.title}</h3>
-                            <img
-                                className="item-img"
-                                src={item.image?.imageUrl || "placeholder.jpg"}
-                                alt={item.title}
-                                width="150px"
-                            />
-                        </a>
-                        <p>
-                            Seller: {item.seller?.username || "Unknown"}<br />
-                            User Ratings: {item.seller?.feedbackPercentage || "N/A"}%
-                        </p>
 
-                        <div className="item-desc-wrapper">
-                            <div className="leftCol">
-                                <p className="item-text">Price: ${item.price?.value || "N/A"}</p>
+                <div className="item-wrapper">
+                    {Array.isArray(filteredResults) && filteredResults.map(item => (
+                        <div className="item" key={item.itemId}>
+                            <a href={item.itemWebUrl} target="_blank" rel="noopener noreferrer">
+                                <h3 className="item-title">{item.title}</h3>
+                                <img
+                                    className="item-img"
+                                    src={item.image?.imageUrl || "placeholder.jpg"}
+                                    alt={item.title}
+                                    width="150px"
+                                />
+                            </a>
+                            <p>
+                                Seller: {item.seller?.username || "Unknown"}<br />
+                                User Ratings: {item.seller?.feedbackPercentage || "N/A"}%
+                            </p>
+
+                            <div className="item-desc-wrapper">
+                                <div className="leftCol">
+                                    <p className="item-text">Price: ${item.price?.value || "N/A"}</p>
+                                </div>
+                                <div className="rightCol">
+                                    <p className="item-text">Condition: {item.condition || "Unknown"}</p>
+                                </div>
                             </div>
-                            <div className="rightCol">
-                                <p className="item-text">Condition: {item.condition || "Unknown"}</p>
-                            </div>
+
+                            <button onClick={() => handleAddToCart(item)} className="add-to-cart-button">
+                                Add to Cart
+                            </button>
                         </div>
+                    ))}
+                </div>
 
-                        <button onClick={() => handleAddToCart(item)} className="add-to-cart-button">
-                            Add to Cart
-                        </button>
-                    </div>
-                ))}
-            </div>
+
 
             <div className="page-select-wrapper">
                 <button className="page-select-button" onClick={prevPage} disabled={page === 1}>Previous</button>

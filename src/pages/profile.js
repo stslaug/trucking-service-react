@@ -162,7 +162,7 @@ const Profile = () => {
             </div>
             <section className='bio-box'>
                 <section className='bio-box-title'>
-                    User Information:
+                    User Information: 
                 </section>
                 <section className='bio-box-text'>
                     <div className='info-row'>
@@ -203,7 +203,7 @@ const Profile = () => {
             </section>
             <section className='options-box'>
                 <section className='options-box-title'>
-                    OPTIONS
+                    Options
                 </section>
                 <section className='options-box-info'>
                     <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='25' />

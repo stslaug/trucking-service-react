@@ -12,7 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile'
 import Update from './pages/update'
 import { AuthContext } from './components/AuthContext';
-import ItemDetails from './components/itemDetails';
+
 import Cart from './pages/cart';
 import Addpoints from './pages/addpoints';
 
@@ -28,14 +28,15 @@ function App() {
             <Route path="/verify" element={<VerifyCode />} />
             <Route path="/about" element={<About />} />
             <Route path="/forgot" element={<ForgotPass />} />
-            <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />}/>}/>
-            <Route path="/profile" element={<ProtectedRoute user={user} target={<Profile />} alternativeContent={<Login />}>  <Profile />  </ProtectedRoute>}/>
-            <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />} />} />
-            <Route path="/item/:itemId" element={<ProtectedRoute user={user} target={<ItemDetails />} alternativeContent={<Login />} />} />
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/addpoints" element={<Addpoints />} />
-            <Route path="/update" element={<ProtectedRoute user={user} target={<Update  user={user}/>} alternativeContent={<Login />} />} />
+
+            /* Anything below this is protected. It cannot be accessed unless the user is logged in. */
+            <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />}/>}/>
+            <Route path="/profile" element={<ProtectedRoute user={user} target={<Profile />} alternativeContent={<Login />}>  <Profile />  </ProtectedRoute>}/>
+            <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />} />} />
+            <Route path="/update" element={<ProtectedRoute user={user} target={<Update  user={user}/>} alternativeContent={<Login />} />} /> /* Update User Account */
         </Routes>
     </Router>
     );
