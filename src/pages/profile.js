@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from '../components/AuthContext';
 import './css/profile.css';
 import edit from './css/images/edit.png';
+import points from './css/images/points.png';
 
 const Profile = () => {
     const { username } = useContext(AuthContext); // Access username from AuthContext
@@ -175,7 +176,7 @@ const Profile = () => {
                         <span className='value'>{userUsername}</span>
                     </div>
                     <div className='line-break'></div>
-
+                   
                     <div className='info-row'>
                         <span className='label'>EMAIL:</span>
                         <span className='value'>{email}</span>
@@ -205,10 +206,17 @@ const Profile = () => {
                     OPTIONS
                 </section>
                 <section className='options-box-info'>
-                    <Link to="/update" className='edit-link'>
-                        <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='25' />
-                        Update User Information
-                    </Link>
+                    <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='25' />
+                    <Link to="/update">Update User Information</Link>
+                    <div className='line-break'></div>
+
+                    {userType === 'sponsor' && (
+                    <>
+                        <img className='bio-box-pencil' src={points} alt='Point Icon' width='25' />
+                        <Link to="/addpoints">Add Points to Drivers</Link>
+                        <div className='line-break'></div>
+                    </>
+                    )}
                 </section>
             </section>
         </div>
