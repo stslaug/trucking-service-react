@@ -45,7 +45,7 @@ const Navbar = ({ user, onSignOut }) => {
                     onMouseEnter={() => setIsDropdownOpen(true)} 
                     onMouseLeave={() => setIsDropdownOpen(false)}>
 
-                            <button className="button" id="usernameFont">{user.getUsername()}</button>
+                            <button className="button" id="usernameFont" onClick={() => handleNavigation("/profile")}>{user.getUsername()}</button>
                             
                             {isDropdownOpen && (
                                 <div className="dropdown-menu">
