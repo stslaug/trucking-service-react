@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import "./css/general.css"
 import "./css/home.css"
 import sponsorAWS from "./css/images/amazon.png"
 import sponsorEbay from "./css/images/EBay.png"
 import { Navigate, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../components/AuthContext';
 
 
-const Home = ({user}) => {
+const Home = () => {
     const [activeRoute, setActiveRoute] = useState('/');
+    const { user } = useContext(AuthContext);
 
     const handleNavigation = (route) => {
         window.location.href = route;
@@ -24,17 +26,12 @@ const Home = ({user}) => {
         //Go to Sponsors page (to be added)
     };
 
-    const loginClick = () => {
-        //Go to Login Page
-        if(!user){
-            handleNavigation('/profile')
-        }else{
-            handleNavigation('/login')
+    const handleAuthButton = () => {
+        if (!user) {
+            handleNavigation('/login');
+        } else {
+            handleNavigation('/profile');
         }
-    };
-
-    const profileClick = () => {
-        handleNavigation('/profile')
     };
 
     return (
@@ -53,10 +50,9 @@ const Home = ({user}) => {
                     About Page</button>
                 <button type="button" className='home-button' onClick={sponsorClick}>
                     Sponsor List</button>
-                <button type="button" className='home-button' onClick={loginClick}>
-                    Login</button>
-                <button type="button" className='home-button' onClick={profileClick}>
-                    Profile</button>
+                <button type="button" className='home-button' onClick={handleAuthButton}>
+                    {user ? 'Profile' : 'Login'}
+                </button>
             </div>
 
             <section className='sponsor-image-container'>
