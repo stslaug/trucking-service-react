@@ -6,7 +6,7 @@ import sponsorEbay from "./css/images/EBay.png"
 import { Navigate, useNavigate } from 'react-router-dom';
 
 
-const Home = () => {
+const Home = ({user}) => {
     const [activeRoute, setActiveRoute] = useState('/');
 
     const handleNavigation = (route) => {
@@ -26,7 +26,11 @@ const Home = () => {
 
     const loginClick = () => {
         //Go to Login Page
-        handleNavigation('/login')
+        if(!user){
+            handleNavigation('/profile')
+        }else{
+            handleNavigation('/login')
+        }
     };
 
     const profileClick = () => {
