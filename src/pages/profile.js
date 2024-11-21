@@ -210,7 +210,7 @@ const Profile = () => {
                     <Link to="/update">Update User Information</Link>
                     <div className='line-break'></div>
 
-                    {userType === 'sponsor' && (
+                    {userType.toLowerCase() === 'sponsor' && (
                     <>
                         <img className='bio-box-pencil' src={points} alt='Point Icon' width='25' />
                         <Link to="/addpoints">Add Points to Drivers</Link>
