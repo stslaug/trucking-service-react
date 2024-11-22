@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState(null); // New state for username
   const [loading, setLoading] = useState(true);
+  const [dbUser, setDBUser] = useState(null);
 
   useEffect(() => {
     const currentUser = userPool.getCurrentUser();
@@ -22,8 +23,10 @@ export const AuthProvider = ({ children }) => {
           setUser(null);
           setUsername(null);
         } else {
+          const username = currentUser.getUsername();
           setUser(currentUser);
-          setUsername(currentUser.getUsername()); // Set username
+          setUsername(username); // Set username
+          fetchUserProfile(username);
         }
         setLoading(false);
       });
@@ -54,6 +57,7 @@ export const AuthProvider = ({ children }) => {
   
       cognitoUser.authenticateUser(authDetails, {
         onSuccess: (session) => {
+          const username = cognitoUser.getUsername();
           setUser(cognitoUser);
           setUsername(cognitoUser.getUsername()); // Set username on login
           resolve(session);
@@ -106,8 +110,67 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  // Grabs the user from the database
+  const fetchUserProfile = async (username) => {
+    if (!username) {
+      console.log("Database Retrieval Failed. Contact Administrator | AuthContext.js");
+      return;
+    }
+  
+    try {
+      const response = await fetch(
+        `https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-getUsers?username=${username}`,
+        {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json', // Specify expected response format
+          },
+        }
+      );
+  
+      if (response.ok) {
+        const data = await response.json();
+        let parsedData = null;
+  
+        if (data.body) {
+          try {
+            parsedData = JSON.parse(data.body).user;
+            console.log("Fetched user data from body:", parsedData);
+          } catch (parseError) {
+            console.error("Error parsing response body:", parseError);
+            return;
+          }
+        } else if (data.user) {
+          parsedData = data.user;
+          console.log("Fetched user data directly:", parsedData);
+        } else {
+          console.error("Unexpected response structure:", data);
+          return;
+        }
+  
+        setDBUser(parsedData); // Set the fetched data to state
+      } else {
+        let errorMessage = `Failed to fetch user profile: ${response.status} ${response.statusText}`;
+        try {
+          const errorData = await response.json();
+          if (errorData.message) {
+            errorMessage = `Error: ${errorData.message}`;
+          }
+        } catch (parseError) {
+          console.error("Error parsing error response:", parseError);
+        }
+        console.error(errorMessage);
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
+
+
+
+
   return (
-    <AuthContext.Provider value={{ user, username, loading, login, signOut, register }}>
+    <AuthContext.Provider value={{ user, dbUser, username, loading, login, signOut, register }}>
       {children}
     </AuthContext.Provider>
   );

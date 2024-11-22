@@ -5,86 +5,12 @@ import './css/profile.css';
 import edit from './css/images/edit.png';
 import points from './css/images/points.png';
 
-const Profile = () => {
+const Profile = ( ) => {
     const { username } = useContext(AuthContext); // Access username from AuthContext
-    const [profileData, setProfileData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { dbUser } = useContext(AuthContext);
 
-    useEffect(() => {
-        const fetchUserProfile = async () => {
-            if (!username) {
-                setLoading(false);
-                setError("Username not found in context.");
-                return;
-            }
-
-            try {
-                // Fetch user profile data from API Gateway
-                const response = await fetch(`https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-getUsers?username=${username}`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json' // Specify expected response format
-                        // Removed 'Content-Type' header to avoid triggering preflight requests
-                    },
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    // Determine how to extract user data based on the response structure
-                    let parsedData = null;
-                    if (data.body) {
-                        // If response has a 'body' field, parse it
-                        try {
-                            parsedData = JSON.parse(data.body).user;
-                            console.log("Fetched user data from body:", parsedData);
-                        } catch (parseError) {
-                            console.error("Error parsing response body:", parseError);
-                            setError("Invalid response format from server.");
-                            setLoading(false);
-                            return;
-                        }
-                    } else if (data.user) {
-                        // If response directly has a 'user' field, use it
-                        parsedData = data.user;
-                        console.log("Fetched user data directly:", parsedData);
-                    } else {
-                        // Unexpected response structure
-                        console.error("Unexpected response structure:", data);
-                        setError("Unexpected response format from server.");
-                        setLoading(false);
-                        return;
-                    }
-
-                    setProfileData(parsedData); // Set the fetched data to state
-                } else {
-                    // Attempt to parse error message from response
-                    let errorMessage = `Failed to fetch user profile: ${response.status} ${response.statusText}`;
-                    try {
-                        const errorData = await response.json();
-                        if (errorData.message) {
-                            errorMessage = `Error: ${errorData.message}`;
-                        }
-                    } catch (parseError) {
-                        console.error("Error parsing error response:", parseError);
-                    }
-                    setError(errorMessage);
-                    console.error(errorMessage);
-                }
-            } catch (error) {
-                console.error("Error fetching user profile:", error);
-                setError("An unexpected error occurred while fetching user data.");
-            } finally {
-                setLoading(false); // Update loading state
-            }
-        };
-
-        fetchUserProfile();
-    }, [username]); // Dependency on username, so it fetches data when username is available
-
-    if (loading) return <div>Loading profile...</div>;
-    if (error) return <div>Error: {error}</div>;
-    if (!profileData) return <div>No user data available.</div>;
+    if (!dbUser) return <div>No user data available.</div>;
+ 
 
     // Destructure the user data
     const {
@@ -99,15 +25,19 @@ const Profile = () => {
         driver,
         admin,
         dev
-    } = profileData;
+    } = dbUser;
+
+    function titleCase(string){
+        return string[0].toUpperCase() + string.slice(1).toLowerCase();
+      }
 
     // Determine additional subtype information based on USER_TYPE
     let subtypeInfo = null;
     switch (userType.toLowerCase()) {
         case 'driver':
             subtypeInfo = (
-                <div className='info-row'>
-                    <span className='label'>POINT TOTAL:</span>
+                <div className='bio-row'>
+                    <span className='label'>Point Balance:</span>
                     <span className='value'>{driver?.pointTotal || 0}</span>
                 </div>
             );
@@ -115,18 +45,17 @@ const Profile = () => {
         case 'sponsor':
             subtypeInfo = (
                 <>
-                    <div className='info-row'>
-                        <span className='label'>COMPANY NAME:</span>
+                    <div className='bio-row'>
+                        <span className='label'>Company Name:</span>
                         <span className='value'>{sponsor?.companyName || 'N/A'}</span>
                     </div>
-                    <div className='line-break'></div>
                 </>
             );
             break;
         case 'admin':
             subtypeInfo = (
-                <div className='info-row'>
-                    <span className='label'>PERMISSIONS:</span>
+                <div className='bio-row'>
+                    <span className='label'>Permissions:</span>
                     <span className='value'>{admin?.permissions || 'N/A'}</span>
                 </div>
             );
@@ -134,18 +63,9 @@ const Profile = () => {
         case 'dev':
             subtypeInfo = (
                 <>
-                    <div className='info-row'>
-                        <span className='label'>FIRST NAME:</span>
-                        <span className='value'>{dev?.firstName || 'N/A'}</span>
-                    </div>
-                    <div className='line-break'></div>
-                    <div className='info-row'>
-                        <span className='label'>LAST NAME:</span>
-                        <span className='value'>{dev?.lastName || 'N/A'}</span>
-                    </div>
-                    <div className='line-break'></div>
-                    <div className='info-row'>
-                        <span className='label'>DESCRIPTION:</span>
+
+                    <div className='bio-row'>
+                        <span className='label'>Description:</span>
                         <span className='value'>{dev?.description || 'N/A'}</span>
                     </div>
                 </>
@@ -165,57 +85,66 @@ const Profile = () => {
                     User Information: 
                 </section>
                 <section className='bio-box-text'>
-                    <div className='info-row'>
-                        <span className='label'>USER TYPE:</span>
-                        <span className='value'>{userType}</span>
+                    <div className='bio-row'>
+                        <span className='label'>First Name:</span>
+                        <span className='value'>{firstName || 'N/A'}</span>
                     </div>
-                    <div className='line-break'></div>
 
-                    <div className='info-row'>
-                        <span className='label'>USERNAME:</span>
+                    <div className='bio-row'>
+                        <span className='label'>Last Name:</span>
+                        <span className='value'>{lastName || 'N/A'}</span>
+                    </div>
+                    <div className='bio-row'>
+                        <span className='label'>User Type:</span>
+                        <span className='value'>{titleCase(userType)}</span>
+                    </div>
+
+
+                    <div className='bio-row'>
+                        <span className='label'>Username:</span>
                         <span className='value'>{userUsername}</span>
                     </div>
-                    <div className='line-break'></div>
+
                    
-                    <div className='info-row'>
-                        <span className='label'>EMAIL:</span>
+                    <div className='bio-row'>
+                        <span className='label'>Email:</span>
                         <span className='value'>{email}</span>
                     </div>
-                    <div className='line-break'></div>
 
-                    <div className='info-row'>
-                        <span className='label'>PHONE NUMBER:</span>
+
+                    <div className='bio-row'>
+                        <span className='label'>Phone Number:</span>
                         <span className='value'>{phoneNumber || 'N/A'}</span>
                     </div>
-                    <div className='line-break'></div>
 
-                    <div className='info-row'>
-                        <span className='label'>ADDRESS:</span>
+
+                    <div className='bio-row'>
+                        <span className='label'>Address:</span>
                         <span className='value'>
                             {address.street || 'N/A'}, {address.city || 'N/A'}, {address.state || 'N/A'} {address.zipCode || 'N/A'}, {address.country || 'N/A'}
                         </span>
                     </div>
-                    <div className='line-break'></div>
+
 
                     {/* Display Subtype-Specific Information */}
                     {subtypeInfo}
                 </section>
             </section>
-            <section className='options-box'>
-                <section className='options-box-title'>
+            <section className='bio-box' id="options">
+                <section className='bio-box-title'>
                     Options
                 </section>
-                <section className='options-box-info'>
+                <section className='bio-box-text' id="options-text">
+                    <div className='bio-row'>
                     <img className='bio-box-pencil' src={edit} alt='Edit Icon' width='25' />
                     <Link to="/update">Update User Information</Link>
-                    <div className='line-break'></div>
+                    </div>
 
                     {userType.toLowerCase() === 'sponsor' && (
-                    <>
-                        <img className='bio-box-pencil' src={points} alt='Point Icon' width='25' />
-                        <Link to="/addpoints">Add Points to Drivers</Link>
-                        <div className='line-break'></div>
-                    </>
+                        <div className='bio-row'>
+                            <img className='bio-box-pencil' src={points} alt='Point Icon' width='25' />
+                            <Link to="/addpoints">Add Points to Drivers</Link>
+                        </div>
                     )}
                 </section>
             </section>

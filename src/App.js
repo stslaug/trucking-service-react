@@ -18,7 +18,7 @@ import Addpoints from './pages/addpoints';
 
 
 function App() {  
-    const { user, signOut } = useContext(AuthContext);
+    const { user, dbUser,signOut } = useContext(AuthContext);
     return (
         <Router>
         <Navbar user={user} onSignOut={signOut}/>
@@ -34,9 +34,9 @@ function App() {
 
             /* Anything below this is protected. It cannot be accessed unless the user is logged in. */
             <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />}/>}/>
-            <Route path="/profile" element={<ProtectedRoute user={user} target={<Profile />} alternativeContent={<Login />}>  <Profile />  </ProtectedRoute>}/>
+            <Route path="/profile" element={<ProtectedRoute user={dbUser} target={<Profile />} alternativeContent={<Login />}>  <Profile />  </ProtectedRoute>}/>
             <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />} />} />
-            <Route path="/update" element={<ProtectedRoute user={user} target={<Update  user={user}/>} alternativeContent={<Login />} />} /> /* Update User Account */
+            <Route path="/update" element={<ProtectedRoute user={ user } target={<Update  user={user} dbUser={dbUser}/>} alternativeContent={<Login />} />} /> /* Update User Account */
         </Routes>
     </Router>
     );

@@ -1,4 +1,15 @@
-/* Profile page css */
+:root 
+{
+  --background-color: #f0f0f0;
+  --main-color: #2a6364;
+
+  --header-color: #333;
+  --text-color: #777;
+
+  --hover-color: #1b2f30;
+
+}
+
 
 .welcome-text {
     color: rgb(255, 255, 255);
@@ -16,15 +27,17 @@
 }
 
 .bio-box {
-    background-color: #e1e1e1;
-    border: 2px solid #000000;
+
+    border: 2px solid #797979;
     display: flexbox;
     max-width: 1000px;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
-    border-radius: 10px;
+    background-color: var(--background-color);
+    border-radius: 12px;
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
 }
 
 .bio-box-title {
@@ -43,45 +56,15 @@
     margin-right: auto;
 }
 
+.bio-row
+{
+    margin: 1rem 0 0 0;
+}
+
 .bio-box-pencil{
     margin: 0 15px 0 0;
 }
 
-.line-break {
-    display: flex;
-    width: 100%;
-    height: 10px;
-    background-color: #e1e1e1;
-}
-
-.options-box {
-    background-color: #e1e1e1;
-    border: 2px solid #000000;
-    font-size: 20px;
-    display: flexbox;
-    max-width: 1000px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.options-box-title {
-    font-size: 25px;
-    float: center;
-    font-weight: bolder;
-}
-
-.options-box-info{
-    color: black;
-    font-size: 20px;
-    background-color: #e1e1e1;
-    padding: 20px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .value {
     float: right;

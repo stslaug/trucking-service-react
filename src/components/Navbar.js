@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './css/Navbar.css';
 
 
-const Navbar = ({ user, onSignOut }) => {
+const Navbar = ({ user, onSignOut, dbUser }) => {
 
     const [activeRoute, setActiveRoute] = useState('/');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown visibility

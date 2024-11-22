@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import "../pages/css/login.css";
 
-const Update = ({ user }) => {
+const Update = ({ user, dbUser}) => {
     const [firstN, setFirstN] = useState('');
     const [lastN, setLastN] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -13,7 +13,7 @@ const Update = ({ user }) => {
     const [zip, setZip] = useState('');
     const [state, setLocState] = useState('');
     const [username, setUsername] = useState('');
-    const [userType, setUserType] = useState('driver'); // Default value
+    const [userType, setUserType] = useState('N/A'); // Default value
     const [company, setCompany] = useState(''); // Added for sponsors
     const [permissions, setPermissions] = useState(''); // Added for admin role
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Update = ({ user }) => {
             setCity(user.city || '');
             setLocState(user.state || '');
             setZip(user.zip || '');
-            setUserType(user.userType ? user.userType.toLowerCase() : 'driver');
+            setUserType(user.userType ? user.userType.toLowerCase() : 'N/A');
             setCompany(user.company || ''); // Assuming 'company' is a field in user
             setPermissions(user.permissions || ''); // Assuming 'permissions' is a field in user
         }
@@ -122,8 +122,8 @@ const Update = ({ user }) => {
                             <label>
                                 <select
                                     value={userType}
-                                    onChange={(e) => setUserType(e.target.value)}
-                                >
+                                    onChange={(e) => setUserType(e.target.value)}>
+                                    <option value="N/A">Please Select a Role</option>
                                     <option value="driver">Driver</option>
                                     <option value="sponsor">Sponsor</option>
                                     <option value="admin">Admin</option>

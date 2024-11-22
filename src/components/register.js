@@ -95,7 +95,16 @@ const Register = () => {
             navigate('/verify');
           } catch (error) {
             console.error('Registration or Lambda Call Error:', error);
-            alert('Registration failed. Please try again.');
+            if (error.response && error.response.status === 401) {
+              // Handle 401 Unauthorized error
+              console.error('Please Ensure All Fields are Selected, and a role has been chosen.');
+              alert('Error: Please Select your Role and fill all fields out before submission.');
+              navigate('/login'); // Redirect to the login page or show an appropriate UI
+            } else {
+              // Handle other errors
+              console.error('An unexpected error occurred:', error.message);
+              alert('Something went wrong. Please try again later.');
+            }
           }
         };
 
@@ -226,6 +235,7 @@ const Register = () => {
                       value={userType}
                       onChange={(e) => setUserType(e.target.value)}
                   >
+                      <option value="user">Role:</option>
                       <option value="driver">Driver</option>
                       <option value="sponsor">Sponsor</option>
                       <option value="admin">Admin</option>
