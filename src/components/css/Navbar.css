@@ -9,10 +9,17 @@
 .navbar {
 
     display: flex;
-    justify-content: right;
-    align-items: center;
     background-color: #333333;
-    
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons
+{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  background-color: #333333;
 }
 
 .button {
@@ -26,39 +33,22 @@
   border-radius: 0;
   cursor: pointer;
   flex-basis: 100%;
-  height: 100%;
-  width: 100%;
-  margin: 0 0 -10px 0;
   text-wrap: nowrap;
 
-}
-
-.button:hover {
+} .button:hover {
     background-color: hsl(0, 0%, 31%);
-  }
-
-
-  .active {
+} .active {
     background-color: #00554a;
-  }
-
-
-#navbar
-{
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333333;
-  margin-bottom: -12px;
-  margin-top: -12px;
-  padding-left: 15px;
 }
+
+
 .companyName
 {
   color: white;
-  display: block;
-  
+  align-self: left;
+  justify-self: left;
+  justify-content: left;
+  display:flex;
 }
 
 

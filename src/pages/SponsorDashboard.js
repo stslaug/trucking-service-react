@@ -6,7 +6,7 @@ const Sponsor = () => {
 
     return (
         <div>
-
+            
         </div>
     );
 };

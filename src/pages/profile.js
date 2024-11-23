@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, setState, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { AuthContext } from '../components/AuthContext';
 
@@ -11,6 +11,7 @@ import points from './css/images/points.png';
 const Profile = () => {
   const { username, dbUser, fetchUserProfile } = useContext(AuthContext);
   const [refresh, setRefresh] = useState(true);
+  const [sponsorIdInput, setSponsorIdInput] = useState('');
   useEffect(() => {
     if (username && refresh) {
       fetchUserProfile(username); // Only call if username exists
@@ -30,42 +31,143 @@ const Profile = () => {
     email,
     phoneNumber,
     address,
-    sponsors, // Access the sponsors array
-    pointTotal,
+    driver,
   } = dbUser;
-
   function titleCase(string) {
     return string[0].toUpperCase() + string.slice(1).toLowerCase();
   }
+
+
+  const handleAddSponsor = async () => {
+    if (!sponsorIdInput) {
+        console.log("sponsorID not inputed. Can't Complete Request");
+      return;
+    }
+  
+    try {
+      // Call the Lambda function
+      const response = await fetch('https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-updateDriverSponsors', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'add',
+          sponsorId: sponsorIdInput,
+          driverUsername: username,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log('Sponsor added successfully.');
+        // Refresh the user profile to show the updated sponsor list
+        fetchUserProfile(username);
+        setSponsorIdInput('');
+      } else {
+        console.error(`Error: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error adding sponsor:', error);
+
+    }
+  };
+
+  const handleRemoveSponsor = async (id) => {
+    if (!id) {
+      console.log("Sponsor ID not provided. Cannot complete request.");
+      return;
+    }
+  
+    try {
+      // Call the Lambda function
+      const response = await fetch('https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-updateDriverSponsors', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'remove',
+          sponsorId: id,
+          driverUsername: username,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log('Sponsor relationship set to INACTIVE successfully.');
+        // Refresh the user profile to show the updated sponsor list
+        fetchUserProfile(username);
+      } else {
+        console.error(`Error: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error removing sponsor:', error);
+    }
+  };
+  
 
   
   let subtypeInfo = null;
   switch (userType.toLowerCase()) {
     case 'driver':
-      subtypeInfo = (
-        <>
-          <div className='bio-row'>
-            <span className='label'>Point Balance:</span>
-            <span className='value'>{pointTotal || 0}</span>
-          </div>
-          <div className='bio-row'>
-            <span className='label'>Sponsors:</span>
-            <span className='value'>
-              {sponsors && sponsors.length > 0 ? (
-                <ul>
-                  {sponsors.map((sponsor) => (
-                    <li key={sponsor.sponsorId}>{sponsor.companyName}</li>
-                  ))}
-                </ul>
-              ) : (
-                'No sponsors associated.'
-              )}
-            </span>
-          </div>
-        </>
-      );
-      break;
-    case 'sponsor':
+        subtypeInfo = (
+          <>
+            <div className='bio-row'>
+              <span className='label'>Point Balance:</span>
+              <span className='value'>{driver.pointTotal || 0}</span>
+            </div>
+            <div className='bio-row'>
+                <div className="list-wrapper">
+                    <span className='label'>Sponsors:</span>
+                    <span className='value'>
+                    {driver.sponsors && driver.sponsors?.length > 0 ? (
+                    <ul className="list">
+                        {driver.sponsors.map((sponsor) => (
+                        <li id="sponsors" key={sponsor.sponsorId}> {sponsor.companyName} | ID : {sponsor.sponsorId} 
+                        <button className="removeSponsor" onClick={() => handleRemoveSponsor(sponsor.sponsorId)}>Remove Sponsor</button></li>
+                        ))}
+                    </ul>
+                    ) : (
+                    'No sponsors associated.'
+                    )}
+                    </span>
+                </div>
+
+                    <form
+                    className="addSponsor-wrapper"
+                    onSubmit={(e) => {
+                        e.preventDefault(); // Prevent default form submission behavior
+                        handleAddSponsor(); // Call the handler
+                    }}
+                    >
+                        <span>Add Sponsor by Sponsor ID</span>
+                        <input className="addSponsorInput"
+                            value={sponsorIdInput}
+                            onChange={(e) => setSponsorIdInput(e.target.value)} // Update state with input value
+                            placeholder="Sponsor ID"
+                        />
+                        <button className="removeUser-button" type="submit">Add Sponsor</button>
+                    </form>
+            </div>
+            {/* Add Sponsor Input and Button */}
+            {/* <div className='bio-row'>
+              <span className='label'>Add Sponsor:</span>
+              <span className='value'>
+                <input
+                  type='text'
+                  placeholder='Enter Sponsor ID'
+                  value={sponsorIdInput}
+                  onChange={(e) => setSponsorIdInput(e.target.value)}
+                />
+                <button onClick={handleAddSponsor}>Add Sponsor</button>
+              </span>
+            </div> */}
+          </>
+        );
+        break;          case 'sponsor':
       subtypeInfo = (
         <>
           <div className='bio-row'>

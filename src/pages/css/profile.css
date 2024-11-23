@@ -86,3 +86,40 @@
 }
 
 
+.list-wrapper
+{
+    display: flex;
+}
+
+.list
+{
+    list-style-type: none;
+    margin: auto;
+    flex-basis: 100%;
+}
+
+
+.addSponsor-wrapper
+{
+    margin: auto;
+    display: flex;
+}
+.addSponsorInput
+{
+    margin-left: 15px;
+}
+
+.removeUser-button
+{
+    margin: auto;
+}
+
+#sponsors
+{
+    margin: auto;
+    padding: 0 0 10px 0;
+}
+.removeSponsor
+{
+    margin-left: 10px;
+}

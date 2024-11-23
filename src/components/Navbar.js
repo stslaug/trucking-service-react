@@ -24,9 +24,9 @@ const Navbar = ({ onSignOut }) => {
     return (
         <>
         <div className="wrapper">
-            <div id='navbar'>
+            <div className='navbar'>
                 <h1 className="companyName">Haul of Fame</h1>
-                <nav className="navbar">
+                <nav className="buttons">
                     <button
                         className={`button ${activeRoute === '/' ? 'active' : ''}`}
                         onClick={() => handleNavigation('/')}
