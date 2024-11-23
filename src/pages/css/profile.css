@@ -99,27 +99,23 @@
 }
 
 
-.addSponsor-wrapper
+.relationship-wrapper
 {
     margin: auto;
     display: flex;
 }
-.addSponsorInput
+.relationshipInput
 {
     margin-left: 15px;
 }
 
-.removeUser-button
-{
-    margin: auto;
-}
 
-#sponsors
+.items
 {
     margin: auto;
     padding: 0 0 10px 0;
 }
-.removeSponsor
+.removeItem
 {
     margin-left: 10px;
 }

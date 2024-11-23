@@ -11,6 +11,7 @@ import points from './css/images/points.png';
 const Profile = () => {
   const { username, dbUser, fetchUserProfile } = useContext(AuthContext);
   const [refresh, setRefresh] = useState(true);
+  const [driverIdInput, setDriverIdInput] = useState('');
   const [sponsorIdInput, setSponsorIdInput] = useState('');
   useEffect(() => {
     if (username && refresh) {
@@ -108,6 +109,70 @@ const Profile = () => {
     }
   };
   
+  const handleAddDriver = async () => {
+    if (!driverIdInput) {
+      console.log("Driver ID not inputted. Can't Complete Request");
+      return;
+    }
+  
+    try {
+      const response = await fetch('https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-updateDriverSponsors', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'add',
+          sponsorUsername: username,
+          driverId: driverIdInput,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log('Driver added successfully.');
+        fetchUserProfile(username);
+        setDriverIdInput('');
+      } else {
+        console.error(`Error: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error adding driver:', error);
+    }
+  };
+  
+  const handleRemoveDriver = async (id) => {
+    if (!id) {
+      console.log("Driver ID not provided. Cannot complete request.");
+      return;
+    }
+  
+    try {
+      const response = await fetch('https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-updateDriverSponsors', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'remove',
+          sponsorUsername: username,
+          driverId: id,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log('Driver relationship set to INACTIVE successfully.');
+        fetchUserProfile(username);
+      } else {
+        console.error(`Error: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error removing driver:', error);
+    }
+  };
 
   
   let subtypeInfo = null;
@@ -126,8 +191,8 @@ const Profile = () => {
                     {driver.sponsors && driver.sponsors?.length > 0 ? (
                     <ul className="list">
                         {driver.sponsors.map((sponsor) => (
-                        <li id="sponsors" key={sponsor.sponsorId}> {sponsor.companyName} | ID : {sponsor.sponsorId} 
-                        <button className="removeSponsor" onClick={() => handleRemoveSponsor(sponsor.sponsorId)}>Remove Sponsor</button></li>
+                        <li className="items" key={sponsor.sponsorId}> {sponsor.companyName} | ID : {sponsor.sponsorId} 
+                        <button className="removeItem" onClick={() => handleRemoveSponsor(sponsor.sponsorId)}>Remove Sponsor</button></li>
                         ))}
                     </ul>
                     ) : (
@@ -137,7 +202,7 @@ const Profile = () => {
                 </div>
 
                     <form
-                    className="addSponsor-wrapper"
+                    className="relationship-wrapper"
                     onSubmit={(e) => {
                         e.preventDefault(); // Prevent default form submission behavior
                         handleAddSponsor(); // Call the handler
@@ -149,34 +214,60 @@ const Profile = () => {
                             onChange={(e) => setSponsorIdInput(e.target.value)} // Update state with input value
                             placeholder="Sponsor ID"
                         />
-                        <button className="removeUser-button" type="submit">Add Sponsor</button>
+                        <button type="submit">Add Sponsor</button>
                     </form>
             </div>
-            {/* Add Sponsor Input and Button */}
-            {/* <div className='bio-row'>
-              <span className='label'>Add Sponsor:</span>
-              <span className='value'>
-                <input
-                  type='text'
-                  placeholder='Enter Sponsor ID'
-                  value={sponsorIdInput}
-                  onChange={(e) => setSponsorIdInput(e.target.value)}
-                />
-                <button onClick={handleAddSponsor}>Add Sponsor</button>
-              </span>
-            </div> */}
           </>
         );
-        break;          case 'sponsor':
-      subtypeInfo = (
-        <>
-          <div className='bio-row'>
-            <span className='label'>Company Name:</span>
-            <span className='value'>{dbUser.sponsor.companyName || 'N/A'}</span>
-          </div>
-        </>
-      );
-      break;
+        break;          
+        case 'sponsor':
+            subtypeInfo = (
+              <>
+                <div className='bio-row'>
+                  <span className='label'>Company Name:</span>
+                  <span className='value'>{dbUser.sponsor.companyName || 'N/A'}</span>
+                </div>
+                <div className='bio-row'>
+
+                  <div className="list-wrapper">
+                    <span className='label'>Drivers:</span>
+                    <span className='value'>
+                      {dbUser.sponsor.drivers && dbUser.sponsor.drivers.length > 0 ? (
+                        <ul className="list">
+                          {dbUser.sponsor.drivers.map((driver) => (
+                            <li className="items" key={driver.driverId}>
+                              {driver.firstName} {driver.lastName} | Username: {driver.username} | ID: {driver.driverId}
+                              <button className="removeItem" onClick={() => handleRemoveDriver(driver.driverId)}>Remove Driver</button>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        'No drivers associated.'
+                      )}
+                    </span>
+                  </div>
+          
+                  <form
+                    className="relationship-wrapper"
+                    onSubmit={(e) => {
+                      e.preventDefault(); // Prevent default form submission behavior
+                      handleAddDriver();
+                    }}
+                  >
+                    <span>Add Driver by Driver ID</span>
+                    <input
+                      className="relationshipInput"
+                      value={driverIdInput}
+                      onChange={(e) => setDriverIdInput(e.target.value)}
+                      placeholder="Driver ID"
+                    />
+                    <button type="submit">Add Driver</button>
+                  </form>
+                </div>
+              </>
+            );
+            break;
+          
     case 'admin':
       subtypeInfo = (
         <div className='bio-row'>
