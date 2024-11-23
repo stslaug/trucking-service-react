@@ -10,6 +10,7 @@ import VerifyCode from './components/verifyCode'
 import Catalog from './pages/catalog'
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile'
+import SponsorDashboard from './pages/SponsorDashboard'
 import Update from './pages/update'
 import { AuthContext } from './components/AuthContext';
 
@@ -33,10 +34,10 @@ function App() {
             <Route path="/addpoints" element={<Addpoints />} />
 
             /* Anything below this is protected. It cannot be accessed unless the user is logged in. */
-            <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />}/>}/>
-            <Route path="/profile" element={<ProtectedRoute user={dbUser} target={<Profile />} alternativeContent={<Login />}>  <Profile />  </ProtectedRoute>}/>
+            <Route path="/profile" element={<ProtectedRoute user={user} target={<Profile />} alternativeContent={<Login />}/>}/>
             <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />} />} />
-            <Route path="/update" element={<ProtectedRoute user={ user } target={<Update  user={user} dbUser={dbUser}/>} alternativeContent={<Login />} />} /> /* Update User Account */
+            <Route path="/sponsor" element={<ProtectedRoute user={user} target={<Addpoints />} alternativeContent={<Login />} />} />
+            <Route path="/update" element={<ProtectedRoute user={ user } target={<Update  user={user}/>} alternativeContent={<Login />} />} /> /* Update User Account */
         </Routes>
     </Router>
     );

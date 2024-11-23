@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import "../pages/css/login.css";
+import "./css/login.css";
+import "./css/general.css"
 
 const Update = ({ user, dbUser}) => {
     const [firstN, setFirstN] = useState('');

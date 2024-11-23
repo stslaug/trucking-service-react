@@ -58,14 +58,31 @@
 
 .bio-row
 {
-    margin: 1rem 0 0 0;
+    margin: 1rem 0 0 0;    
 }
 
-.bio-box-pencil{
-    margin: 0 15px 0 0;
+.bio-box-pencil {
+    margin: 3px 10px 0 0;
+    align-self: center;
+    justify-self: center;
+    height: 100%;
+    width: 20px;
+
 }
 
 
 .value {
     float: right;
 }
+
+.line
+{
+    border-style: solid;
+    border-color: rgba(155, 155, 155, 0.472);
+    border-radius: 100px;
+    padding: 0px;
+    width: 50%;
+    margin: 2rem auto;
+}
+
+

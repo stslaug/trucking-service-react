@@ -25,7 +25,7 @@ const Catalog = () => {
     const [limit, setLimit] = useState(25);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState('58058');
+    const [selectedCategory, setSelectedCategory] = useState('6000');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [sortBy, setSortBy] = useState('price'); // New state for sort criteria

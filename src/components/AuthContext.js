@@ -113,9 +113,11 @@ export const AuthProvider = ({ children }) => {
   // Grabs the user from the database
   const fetchUserProfile = async (username) => {
     if (!username) {
-      console.log("Database Retrieval Failed. Contact Administrator | AuthContext.js");
+      console.log("Database Retrieval Failed. Username is null | AuthContext.js");
       return;
     }
+  
+    console.log("Fetching user profile for username:", username); // Debug
   
     try {
       const response = await fetch(
@@ -123,7 +125,7 @@ export const AuthProvider = ({ children }) => {
         {
           method: 'GET',
           headers: {
-            'Accept': 'application/json', // Specify expected response format
+            'Accept': 'application/json',
           },
         }
       );
@@ -132,17 +134,9 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
         let parsedData = null;
   
-        if (data.body) {
-          try {
-            parsedData = JSON.parse(data.body).user;
-            console.log("Fetched user data from body:", parsedData);
-          } catch (parseError) {
-            console.error("Error parsing response body:", parseError);
-            return;
-          }
-        } else if (data.user) {
+        if (data.user) {
           parsedData = data.user;
-          console.log("Fetched user data directly:", parsedData);
+          console.log("Fetched user data:", parsedData);
         } else {
           console.error("Unexpected response structure:", data);
           return;
@@ -151,13 +145,9 @@ export const AuthProvider = ({ children }) => {
         setDBUser(parsedData); // Set the fetched data to state
       } else {
         let errorMessage = `Failed to fetch user profile: ${response.status} ${response.statusText}`;
-        try {
-          const errorData = await response.json();
-          if (errorData.message) {
-            errorMessage = `Error: ${errorData.message}`;
-          }
-        } catch (parseError) {
-          console.error("Error parsing error response:", parseError);
+        const errorData = await response.json();
+        if (errorData.message) {
+          errorMessage = `Error: ${errorData.message}`;
         }
         console.error(errorMessage);
       }
@@ -165,12 +155,13 @@ export const AuthProvider = ({ children }) => {
       console.error("Error fetching user profile:", error);
     }
   };
+  
 
 
 
 
   return (
-    <AuthContext.Provider value={{ user, dbUser, username, loading, login, signOut, register }}>
+    <AuthContext.Provider value={{ user, dbUser, username, loading, login, signOut, register, fetchUserProfile}}>
       {children}
     </AuthContext.Provider>
   );
