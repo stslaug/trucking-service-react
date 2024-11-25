@@ -73,8 +73,8 @@ VALUES ('789 Sponsor Blvd', 'Charleston', 'SC', '29401', 'USA');
 INSERT INTO USERS (USERNAME, EMAIL, TIME_CREATED, USER_TYPE, F_NAME, L_NAME, ADDRESS_ID, PHONENUM)
 VALUES ('sponsor101', 'sponsor101@gmail.com', '2024-11-16 14:45:00', 'SPONSOR', 'Jane', 'Smith', LAST_INSERT_ID(), '6543210987');
 -- Insert into SPONSOR table
-INSERT INTO SPONSOR (SPONSOR_ID, COMPANY_NAME, CATALOG)
-VALUES (LAST_INSERT_ID(), 'Jane Tech Solutions', 'Electronics, Office Supplies, Home Goods');
+INSERT INTO SPONSOR (SPONSOR_ID, COMPANY_NAME)
+VALUES (LAST_INSERT_ID(), 'Jane Tech Solutions');
 
 /* ------------------------------------------------ */
 
@@ -89,8 +89,8 @@ VALUES ('101 Admin St', 'Columbia', 'SC', '29201', 'USA');
 INSERT INTO USERS (USERNAME, EMAIL, TIME_CREATED, USER_TYPE, F_NAME, L_NAME, ADDRESS_ID, PHONENUM)
 VALUES ('adminuser', 'adminuser@gmail.com', '2024-11-17 09:00:00', 'ADMIN', 'Alice', 'Johnson', LAST_INSERT_ID(), '3216549870');
 -- Insert into ADMIN table
-INSERT INTO ADMIN (ADMIN_ID, PERMISSIONS)
-VALUES (LAST_INSERT_ID(), 'Full Access to System, User Management, Audit Logs');
+INSERT INTO ADMIN (ADMIN_ID)
+VALUES (LAST_INSERT_ID());
 
 /* ------------------------------------------------ */
 
