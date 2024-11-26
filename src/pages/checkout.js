@@ -10,6 +10,9 @@ const Checkout = () => {
     const [remainingPoints, setRemainingPoints] = useState(dbUser?.driver?.pointTotal || 0);
 
     useEffect(() => {
+        // Log dbUser to debug driverId
+        console.log('dbUser:', dbUser);
+
         // Retrieve cart items from localStorage
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         setCartItems(cart);
@@ -33,30 +36,51 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Update driver's points in the backend
+    
+        // Use userId as driverId since it matches the structure of dbUser
+        const driverId = dbUser?.userId;
+    
+        if (!driverId) {
+            console.error('Driver ID (userId) is missing in dbUser:', dbUser);
+            alert('Driver ID is missing. Please try again.');
+            return;
+        }
+    
+        const payload = {
+            driverId,
+            pointsDeducted: totalPointsNeeded,
+        };
+    
+        console.log('Payload being sent to Lambda:', payload);
+    
         try {
-            const updatedPoints = remainingPoints;
-            // Mock API call to update points (replace with actual API)
-            await fetch('https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-UpdatePoints', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    driverId: dbUser.driver.driverId,
-                    newPointTotal: updatedPoints,
-                }),
-            });
-
-            alert('Order submitted successfully!');
-            // Optionally refresh user profile to reflect updated points
-            fetchUserProfile(dbUser.username);
+            const response = await fetch(
+                'https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-UpdatePoints',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                }
+            );
+    
+            const responseData = await response.json();
+            console.log('Lambda response:', responseData);
+    
+            if (response.ok) {
+                alert('Order submitted successfully!');
+                fetchUserProfile(dbUser.username); // Refresh user profile
+            } else {
+                console.error('Error submitting order:', responseData);
+                alert(`Error: ${responseData.message || 'An error occurred during checkout.'}`);
+            }
         } catch (error) {
             console.error('Error updating points:', error);
             alert('There was an issue submitting your order. Please try again.');
         }
     };
+    
 
     if (!dbUser) return <div>No user data available.</div>;
 
