@@ -17,6 +17,7 @@ import { AuthContext } from './components/AuthContext';
 import Cart from './pages/cart';
 import Addpoints from './pages/addpoints';
 import Checkout from './pages/checkout';
+import Orders from './pages/orders';
 
 
 function App() {  
@@ -40,6 +41,7 @@ function App() {
             <Route path="/sponsor" element={<ProtectedRoute user={user} target={<SponsorDashboard />} alternativeContent={<Login />} />} />
             <Route path="/update" element={<ProtectedRoute user={ user } target={<Update  user={user}/>} alternativeContent={<Login />} />} />
             <Route path="/checkout" element={<ProtectedRoute user={ user } target={<Checkout  user={user}/>} alternativeContent={<Login />} />} />
+            <Route path="/orders" element={<ProtectedRoute user={ user } target={<Orders  user={user}/>} alternativeContent={<Login />} />} />
         </Routes>
     </Router>
     );

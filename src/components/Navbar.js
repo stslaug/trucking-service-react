@@ -59,6 +59,15 @@ const Navbar = ({ onSignOut }) => {
                                     </button>
                         ) : null}
 
+                        {userType === 'driver' ? ( // Check if userType is 'driver'
+                                    <button
+                                        className={`button ${activeRoute === '/orders' ? 'active' : ''}`}
+                                        onClick={() => handleNavigation('/orders')}
+                                    >
+                                        Orders
+                                    </button>
+                        ) : null}
+
                         {userType === 'sponsor' ? ( // Check if userType is 'sponsor'
                                     <button
                                         className={`button ${activeRoute === '/sponsor' ? 'active' : ''}`}
