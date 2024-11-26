@@ -71,7 +71,9 @@ const Cart = () => {
 
                         <div className="cart-summary">
                             <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
-                            <button className="checkout-button">Proceed to Checkout</button>
+                            <button className="checkout-button" onClick={() => window.location.href = '/checkout'}>
+                                Proceed to Checkout
+                            </button>
                         </div>
                     </div>
                 )}
