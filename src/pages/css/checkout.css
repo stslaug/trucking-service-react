@@ -1,0 +1,109 @@
+/* Styling specific to the Checkout page */
+.checkout-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.checkout-page h2, 
+.checkout-page h3 {
+    text-align: center;
+    color: #333;
+}
+
+.checkout-page .info-section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.checkout-page p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.checkout-page strong {
+    color: #000;
+}
+
+/* Cart summary */
+.checkout-page .cart-summary {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+}
+
+.checkout-page .cart-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.checkout-page .cart-summary .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.checkout-page .cart-summary .cart-item:last-child {
+    border-bottom: none;
+}
+
+.checkout-page .cart-summary .item-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.checkout-page .cart-summary .item-details p {
+    margin: 5px 0;
+}
+
+.checkout-page .cart-summary .total-points {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Form styles */
+.checkout-page .checkout-form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.checkout-page .checkout-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.checkout-page .checkout-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.checkout-page .checkout-form button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.checkout-page .checkout-form .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}

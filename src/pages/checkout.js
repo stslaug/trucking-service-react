@@ -1,66 +1,110 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './css/general.css';
+import './css/checkout.css';
 import { AuthContext } from '../components/AuthContext';
 
 const Checkout = () => {
-    const { dbUser } = useContext(AuthContext); // Access the logged-in user's data
+    const { dbUser, fetchUserProfile } = useContext(AuthContext); // Access logged-in user's data
     const [cartItems, setCartItems] = useState([]);
+    const [conversionRate, setConversionRate] = useState(100); // Default: $1 = 100 points
     const [totalPointsNeeded, setTotalPointsNeeded] = useState(0);
+    const [remainingPoints, setRemainingPoints] = useState(dbUser?.driver?.pointTotal || 0);
 
     useEffect(() => {
-        // Fetch cart items from localStorage
+        // Retrieve cart items from localStorage
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        console.log('Cart Items from localStorage:', cart); // Debugging log
         setCartItems(cart);
 
-        // Calculate total points based on item's point value
+        // Set sponsor-specific conversion rate if available
+        const sponsorRate = dbUser?.driver?.sponsors?.[0]?.conversionRate || 100;
+        setConversionRate(sponsorRate);
+
+        // Calculate total points based on conversion rate
         const totalPoints = cart.reduce((acc, item) => {
-            console.log('Item being processed:', item); // Debugging log
-            const itemPoints = parseFloat(item.points || 0); // Assume points is directly provided
+            const itemPrice = parseFloat(item.price?.value) || 0; // Use price value from the cart
+            const itemPoints = itemPrice * sponsorRate;
             return acc + itemPoints;
         }, 0);
         setTotalPointsNeeded(totalPoints);
-        console.log('Total Points Needed:', totalPoints); // Debugging log
-    }, []);
+
+        // Calculate remaining points
+        const currentPoints = dbUser?.driver?.pointTotal || 0;
+        setRemainingPoints(currentPoints - totalPoints);
+    }, [dbUser]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Update driver's points in the backend
+        try {
+            const updatedPoints = remainingPoints;
+            // Mock API call to update points (replace with actual API)
+            await fetch('https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-UpdatePoints', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    driverId: dbUser.driver.driverId,
+                    newPointTotal: updatedPoints,
+                }),
+            });
+
+            alert('Order submitted successfully!');
+            // Optionally refresh user profile to reflect updated points
+            fetchUserProfile(dbUser.username);
+        } catch (error) {
+            console.error('Error updating points:', error);
+            alert('There was an issue submitting your order. Please try again.');
+        }
+    };
 
     if (!dbUser) return <div>No user data available.</div>;
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert('Order submitted successfully!');
-    };
 
     return (
         <div className="checkout-page">
             <h2>Checkout</h2>
-            <p><strong>Your Points:</strong> {dbUser.driver.pointTotal || 0}</p>
-            <p><strong>Shipping Address:</strong> 
-                {dbUser.address?.street}, {dbUser.address?.city}, {dbUser.address?.state} 
-                {dbUser.address?.zipCode}, {dbUser.address?.country}
-            </p>
+            <div className="info-section">
+                <p><strong>Your Current Points:</strong> {dbUser.driver.pointTotal || 0}</p>
+                <p><strong>Shipping Address:</strong> 
+                    {dbUser.address?.street}, {dbUser.address?.city}, {dbUser.address?.state} 
+                    {dbUser.address?.zipCode}, {dbUser.address?.country}
+                </p>
+            </div>
 
             <div className="cart-summary">
                 <h3>Cart Summary</h3>
                 {cartItems.length > 0 ? (
                     <ul>
                         {cartItems.map((item, index) => (
-                            <li key={index}>
-                                {item.name} - {item.points} points
+                            <li key={index} className="cart-item">
+                                <img src={item.image?.imageUrl || "placeholder.jpg"} alt={item.title} className="item-image" />
+                                <div className="item-details">
+                                    <p><strong>{item.title}</strong></p>
+                                    <p>Price: ${item.price?.value || 'N/A'}</p>
+                                    <p>Points: {(item.price?.value * conversionRate).toFixed(2)} pts</p>
+                                </div>
                             </li>
                         ))}
                     </ul>
                 ) : (
                     <p>No items in the cart.</p>
                 )}
-                <p><strong>Total Points Needed:</strong> {totalPointsNeeded}</p>
+                <p className="total-points"><strong>Total Points Needed:</strong> {totalPointsNeeded}</p>
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <div className="points-section">
+                <h3>Points Summary</h3>
+                <p><strong>Current Points:</strong> {dbUser.driver.pointTotal || 0}</p>
+                <p><strong>Points Deducted:</strong> {totalPointsNeeded}</p>
+                <p><strong>Remaining Points:</strong> {remainingPoints >= 0 ? remainingPoints : 0}</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="checkout-form">
                 <button type="submit" disabled={dbUser.driver.pointTotal < totalPointsNeeded}>
                     Submit Order
                 </button>
                 {dbUser.driver.pointTotal < totalPointsNeeded && (
-                    <p style={{ color: 'red' }}>
+                    <p className="error-message">
                         You do not have enough points to complete this order.
                     </p>
                 )}
