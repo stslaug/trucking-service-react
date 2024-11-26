@@ -7,11 +7,10 @@ const Checkout = () => {
     const [cartItems, setCartItems] = useState([]);
     const [conversionRate, setConversionRate] = useState(100); // Default: $1 = 100 points
     const [totalPointsNeeded, setTotalPointsNeeded] = useState(0);
-    const [remainingPoints, setRemainingPoints] = useState(dbUser?.driver?.pointTotal || 0);
+    const [remainingPoints, setRemainingPoints] = useState(0);
 
     useEffect(() => {
-        // Log dbUser to debug driverId
-        console.log('dbUser:', dbUser);
+        console.log('dbUser:', dbUser); // Debugging
 
         // Retrieve cart items from localStorage
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -36,51 +35,80 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        // Use userId as driverId since it matches the structure of dbUser
+
         const driverId = dbUser?.userId;
-    
+
         if (!driverId) {
             console.error('Driver ID (userId) is missing in dbUser:', dbUser);
             alert('Driver ID is missing. Please try again.');
             return;
         }
-    
-        const payload = {
+
+        const updatePointsPayload = {
             driverId,
             pointsDeducted: totalPointsNeeded,
         };
-    
-        console.log('Payload being sent to Lambda:', payload);
-    
+
+        const addOrderPayload = {
+            driverId,
+            totalPoints: totalPointsNeeded,
+            cartItems,
+        };
+
+        console.log('Payload for updating points:', updatePointsPayload);
+        console.log('Payload for adding order:', addOrderPayload);
+
         try {
-            const response = await fetch(
+            // Call Update Points Lambda
+            const updatePointsResponse = await fetch(
                 'https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-UpdatePoints',
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(payload),
+                    body: JSON.stringify(updatePointsPayload),
                 }
             );
-    
-            const responseData = await response.json();
-            console.log('Lambda response:', responseData);
-    
-            if (response.ok) {
-                alert('Order submitted successfully!');
-                fetchUserProfile(dbUser.username); // Refresh user profile
-            } else {
-                console.error('Error submitting order:', responseData);
-                alert(`Error: ${responseData.message || 'An error occurred during checkout.'}`);
+
+            const updatePointsData = await updatePointsResponse.json();
+            console.log('Update Points Lambda response:', updatePointsData);
+
+            if (!updatePointsResponse.ok) {
+                throw new Error(
+                    `Error updating points: ${updatePointsData.message || 'An error occurred.'}`
+                );
             }
+
+            // Call Add Order Lambda
+            const addOrderResponse = await fetch(
+                'https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-AddOrder',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(addOrderPayload),
+                }
+            );
+
+            const addOrderData = await addOrderResponse.json();
+            console.log('Add Order Lambda response:', addOrderData);
+
+            if (!addOrderResponse.ok) {
+                throw new Error(
+                    `Error adding order: ${addOrderData.message || 'An error occurred.'}`
+                );
+            }
+
+            alert('Order successfully placed!');
+            // Optionally refresh user profile to update points
+            fetchUserProfile(dbUser.username);
         } catch (error) {
-            console.error('Error updating points:', error);
+            console.error('Error during checkout process:', error);
             alert('There was an issue submitting your order. Please try again.');
         }
     };
-    
 
     if (!dbUser) return <div>No user data available.</div>;
 
@@ -125,11 +153,11 @@ const Checkout = () => {
 
             <form onSubmit={handleSubmit} className="checkout-form">
                 <button type="submit" disabled={dbUser.driver.pointTotal < totalPointsNeeded}>
-                    Submit Order
+                    Submit Checkout
                 </button>
                 {dbUser.driver.pointTotal < totalPointsNeeded && (
                     <p className="error-message">
-                        You do not have enough points to complete this order.
+                        You do not have enough points to complete this checkout.
                     </p>
                 )}
             </form>
