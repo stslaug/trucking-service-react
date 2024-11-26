@@ -37,7 +37,7 @@ function App() {
             /* Anything below this is protected. It cannot be accessed unless the user is logged in. */
             <Route path="/profile" element={<ProtectedRoute user={user} target={<Profile />} alternativeContent={<Login />}/>}/>
             <Route path="/catalog" element={<ProtectedRoute user={user} target={<Catalog />} alternativeContent={<Login />} />} />
-            <Route path="/sponsor" element={<ProtectedRoute user={user} target={<Addpoints />} alternativeContent={<Login />} />} />
+            <Route path="/sponsor" element={<ProtectedRoute user={user} target={<SponsorDashboard />} alternativeContent={<Login />} />} />
             <Route path="/update" element={<ProtectedRoute user={ user } target={<Update  user={user}/>} alternativeContent={<Login />} />} />
             <Route path="/checkout" element={<ProtectedRoute user={ user } target={<Checkout  user={user}/>} alternativeContent={<Login />} />} />
         </Routes>

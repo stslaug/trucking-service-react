@@ -1,0 +1,92 @@
+/* sponsor.css */
+
+/* Container for the entire Sponsor component */
+.sponsor-container {
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Drivers section */
+.drivers {
+    margin-top: 20px;
+}
+
+/* Title for the drivers list */
+.drivers-title {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Container for the drivers list */
+.drivers-list-container {
+    display: block;
+}
+
+/* Scrollable container */
+.scroll-container {
+    max-height: 300px; /* Adjust as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+/* Remove default list styles and padding */
+.drivers-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual driver items */
+.driver-item {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.driver-item.light {
+    background-color: #f9f9f9;
+}
+
+.driver-item.dark {
+    background-color: #e0e0e0;
+}
+
+.driver-item:hover {
+    background-color: #d3d3d3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Driver details */
+.driver-name {
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+.driver-username,
+.text {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Message when no drivers are associated */
+.no-drivers {
+    font-style: italic;
+    color: #777;
+    padding: 10px;
+    text-align: center;
+}
