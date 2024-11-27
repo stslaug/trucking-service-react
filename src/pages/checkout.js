@@ -46,7 +46,7 @@ const Checkout = () => {
 
         const updatePointsPayload = {
             driverId,
-            pointsDeducted: totalPointsNeeded,
+            pointChange: totalPointsNeeded,
         };
 
         const addOrderPayload = {
