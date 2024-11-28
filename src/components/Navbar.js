@@ -51,22 +51,23 @@ const Navbar = ({ onSignOut }) => {
                         </button>
 
                         {userType === 'driver' ? ( // Check if userType is 'driver'
+                        <>
                                     <button
                                         className={`button ${activeRoute === '/cart' ? 'active' : ''}`}
                                         onClick={() => handleNavigation('/cart')}
                                     >
                                         Cart
                                     </button>
-                        ) : null}
-
-                        {userType === 'driver' ? ( // Check if userType is 'driver'
                                     <button
                                         className={`button ${activeRoute === '/orders' ? 'active' : ''}`}
                                         onClick={() => handleNavigation('/orders')}
                                     >
                                         Orders
                                     </button>
+                        </>
+                                    
                         ) : null}
+
 
                         {userType === 'sponsor' ? ( // Check if userType is 'sponsor'
                                     <button
@@ -75,6 +76,17 @@ const Navbar = ({ onSignOut }) => {
                                     >
                                         Sponsor Dashboard
                                     </button>
+                        ) : null}
+
+                        {userType === 'admin' ? (
+                        <>
+                            <button
+                                        className={`button ${activeRoute === '/admin' ? 'active' : ''}`}
+                                        onClick={() => handleNavigation('/admin')}
+                                    >
+                                        Admin Dashboard
+                            </button>
+                        </>
                         ) : null}
 
                         <div

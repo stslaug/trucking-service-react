@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { AuthContext } from '../components/AuthContext';
-import './css/general.css';
+import { AuthContext } from './AuthContext';
+import '../pages/css/general.css';
 import './css/orders.css';
 
 const Orders = () => {

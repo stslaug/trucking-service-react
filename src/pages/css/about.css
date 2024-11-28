@@ -43,11 +43,11 @@
 
 .team-role {
     font-size: 1.1em;
-    color: #777;
+    color: var(--text-color);
     margin-bottom: 15px;
 }
 
 .team-bio {
     font-size: 0.9em;
-    color: #555;
+    color: var(--text-color);
 }

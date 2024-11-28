@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import "../pages/css/login.css";
+import "./css/addpoints.css";
 
 const Addpoints = () => {
     const [username, setUsername] = useState('');

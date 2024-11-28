@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './css/checkout.css';
-import { AuthContext } from '../components/AuthContext';
+import { AuthContext } from './AuthContext';
 
 const Checkout = () => {
     const { dbUser, fetchUserProfile } = useContext(AuthContext); // Access logged-in user's data

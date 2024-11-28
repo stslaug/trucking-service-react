@@ -38,8 +38,8 @@ const Home = () => {
         <div className="home-container">
 
             <header>
-                <h1>Welcome to Truck Driver Incentive Program!</h1>
-                <p>Haul of Fame</p>
+                <h1 style={{color:'white'}}>Welcome to Truck Driver Incentive Program!</h1>
+                <p style={{color:'white'}}>CPSC 4910 | Team 10 | Fall 2024</p>
             </header>
             <main>
                 <p className="home-description">The Truck Driver Incentive Program is a program by Haul of Fame that looks to reward good truck driving! Simply get rewards by driving save and effectively! You can use the below buttons or the naviagtion bar at the top to naviagte the website. You can check out our About Page, see our listed Sponsors, go to our Login page, or even just get help if you have any questions!</p>
@@ -60,12 +60,6 @@ const Home = () => {
                 <div className='sponsor-images-section'>
                     <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
                     <img src={sponsorEbay} alt='E-bay Image' width='225'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
-                    <img src={sponsorAWS} alt='Amazon Image' width='225'></img>
                 </div>
             </section>
 

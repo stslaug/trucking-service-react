@@ -3,7 +3,7 @@ import "./css/general.css";
 import "./css/sponsor.css";
 import { AuthContext } from '../components/AuthContext';
 
-const Sponsor = () => {
+const SponsorDashboard = () => {
     const { username, dbUser, fetchUserProfile } = useContext(AuthContext);
     const [refresh, setRefresh] = useState(true);
     const [allDrivers, setAllDrivers] = useState([]); // State to store all drivers
@@ -286,6 +286,7 @@ const Sponsor = () => {
 
     return (
         <div className="sponsor-container">
+            <h2 style={{justifySelf:'center'}}>Still Need to implement changing point to dollar value for drivers.</h2>
             {/* Your Drivers Section */}
             <div className="drivers">
                 <span className="drivers-title">Your Drivers:</span>
@@ -361,4 +362,4 @@ const Sponsor = () => {
     );
 };
 
-export default Sponsor;
+export default SponsorDashboard;

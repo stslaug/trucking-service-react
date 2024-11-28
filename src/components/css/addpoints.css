@@ -1,0 +1,97 @@
+:root 
+{
+  --background-color: #f0f0f0;
+  --main-color: #2a6364;
+
+  --header-color: #333;
+  --text-color: #777;
+
+  --hover-color: #1b2f30;
+
+}
+
+/* General styles for body and container */
+.login-wrapper {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    margin: auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 75vh;
+}
+/* Container for the form */
+.login {
+    background-color: var(--background-color);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
+    text-align: center;
+      
+}
+.ribbon {
+  display: flex;
+  width: 100%;
+  height: 10px;
+  border-radius: 8px;
+  background-color: #75b9b9;
+}
+
+/* Form heading */
+h2 {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+    color: var(--header-color);
+}
+
+/* Subheading */
+p {
+  color: var(--text-color);
+  font-size: 14px;
+  margin-bottom: 2rem;
+}
+
+/* Login button */
+button[type="submit"],
+.resend {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+button[type="submit"]:hover {
+    background-color: var(--hover-color);
+}
+
+
+
+
+  .container {
+    display: flex;
+    position: relative;
+    align-content: center;
+    padding-bottom: 1.0em;
+    padding-left: 2.5rem;
+    padding-right: 1.25rem;
+    
+
+  }
+
+
+
+/* Split Columns using Divs (Register.js)*/
+.form-wrapper {
+  display: flex;
+  
+  gap: 25px; /* Adds space between fields */
+}
+

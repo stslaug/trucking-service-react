@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './css/general.css';
 import './css/catalog.css';
-import Cart from './cart';
+import Cart from '../components/Cart';
 
 // Define your static list of categories
 const categories = [

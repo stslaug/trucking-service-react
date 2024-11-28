@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import "./css/about.css";
 import "./css/general.css";
+import "./css/about.css";
 
 const About = () => {
     const [developers, setDevelopers] = useState([]);
