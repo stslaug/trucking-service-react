@@ -1,0 +1,20 @@
+.register-wrapper
+{
+    min-height: 100vh;    
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    display: grid;
+    width: 100%;
+}
+
+.form-wrapper
+{
+    background-color: red;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    grid-gap: 20px;
+    width: 100%;
+    
+}

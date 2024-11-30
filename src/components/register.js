@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import "../pages/css/login.css";
+import "../pages/css/general.css";
+
+
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
 
@@ -110,7 +113,7 @@ const Register = () => {
 
     return (
     <div className="login-wrapper">
-      <div className="login" id="register" >
+      <div className="login" id="register">
         <h2>Register</h2>
         <p>Create your account</p>
         <form onSubmit={handleSubmit}>
@@ -229,7 +232,7 @@ const Register = () => {
         
             </div>
 
-            <div className="leftCol">
+            <div className="rightCol">
               <label>
                     <select
                       value={userType}
@@ -242,7 +245,9 @@ const Register = () => {
                   </select>
               </label>
             </div>
-            <div className="rightCol">
+
+            
+            <div className="leftCol">
               <label>
                 <input type="text" 
                 placeholder="Company Name (Optional)" 

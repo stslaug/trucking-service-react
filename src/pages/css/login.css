@@ -157,13 +157,13 @@ button[type="submit"]:hover {
 /* Split Columns using Divs (Register.js)*/
 .form-wrapper {
   display: flex;
-  
   gap: 25px; /* Adds space between fields */
 }
 
 .leftCol,
 .rightCol {
   flex-basis: 100%;
+  width: 95%;
 }
 .leftCol input,
 .rightCol input{
