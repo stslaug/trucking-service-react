@@ -13,7 +13,7 @@ import Cart from './components/Cart';
 import AddPoints from './components/AddPoints';
 import Orders from './components/orders';
 import Login from './pages/login';
-import Home from './pages/Home';
+import Home from './pages/home';
 import Profile from './pages/profile';
 import AdminDashboard from './pages/adminDashboard';
 import Update from './pages/update';
