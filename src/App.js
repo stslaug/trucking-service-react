@@ -7,7 +7,7 @@ import Register from './components/register';
 import ForgotPass from './components/forgotPass'
 import VerifyCode from './components/verifyCode';
 import ProtectedRoute from './components/ProtectedRoute';
-import SponsorDashboard from './pages/sponsorDashboard';
+import SponsorDashboard from './pages/SponsorDashboard';
 import Catalog from './pages/catalog';
 import Cart from './components/Cart';
 import AddPoints from './components/AddPoints';
