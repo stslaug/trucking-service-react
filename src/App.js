@@ -10,7 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import SponsorDashboard from './pages/sponsorDashboard';
 import Catalog from './pages/catalog';
 import Cart from './components/Cart';
-import AddPoints from './components/addPoints';
+import AddPoints from './components/AddPoints';
 import Orders from './components/orders';
 import Login from './pages/login';
 import Home from './pages/Home';
