@@ -11,20 +11,10 @@
 }
 
 /* General styles for body and container */
-.login-wrapper {
-    font-family: 'Arial', sans-serif;
-    background-color: var(--background-color);
-    margin: auto;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 75vh;
-}
+
 /* Container for the form */
-.login {
-    background-color: var(--background-color);
+.box-wrap {
+    background-color: white;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
@@ -90,8 +80,7 @@ button[type="submit"]:hover {
 
 /* Split Columns using Divs (Register.js)*/
 .form-wrapper {
-  display: flex;
-  
+  display: block;
   gap: 25px; /* Adds space between fields */
 }
 

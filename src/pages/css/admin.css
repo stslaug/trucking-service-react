@@ -8,7 +8,7 @@ body {
 /* Grid layout for the admin page */
 .admin-grid {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(auto, 1fr);
     grid-gap: 20px;
     padding: 20px;
 }
@@ -21,47 +21,69 @@ body {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
+}
+.userEditor-container {
+    margin: auto;
+    width: 97.5%;
 }
 
+/* Headings */
 h2 {
-    margin-top: 0;
+    margin: 0 0 10px 0;
     font-size: 24px;
     color: #2c3e50;
+}
+
+/* Table container */
+.table-container {
+    width: 100%;
 }
 
 /* User table styling */
 .user-table {
     width: 100%;
     border-collapse: collapse;
-    border-radius: 15px;
-    overflow: hidden; 
-
+    table-layout: fixed; /* Ensure columns align */
 }
 
+/* Table header */
+.user-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #007575;
+    color: #fff;
+    z-index: 2;
+    cursor: pointer;
+    user-select: none;
+}
+
+.user-table thead th:hover {
+    background-color: #005959;
+}
+
+/* Table cells */
 .user-table th,
 .user-table td {
     padding: 12px 15px;
     text-align: left;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
-.user-table thead {
+.user-table th {
     background-color: #007575;
     color: #fff;
+    font-weight: normal;
 }
 
-.user-table tbody tr {
-    transition: background-color 0.3s;
+/* Table body container */
+.table-body-container {
+    max-height: 400px; /* Set your desired maximum height */
+    overflow-y: auto;
+    overflow-x: hidden; /* Hide horizontal scrollbar if not needed */
 }
 
-.user-table tbody {
-    max-height: 300px;
-}
-
-.user-table tbody tr:hover {
-    background-color: #ecf0f1;
-}
-
+/* Zebra striping */
 .even-row {
     background-color: #ffffff;
 }
@@ -70,58 +92,67 @@ h2 {
     background-color: #f9f9f9;
 }
 
-/* Sponsor item styling */
-.sponsor-item {
-    margin-bottom: 20px;
-    padding: 15px;
+/* Hover effect */
+.user-table tbody tr:hover {
     background-color: #ecf0f1;
-    border-radius: 10px;
 }
 
+/* Scrollbar styling (optional) */
+.table-body-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-body-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.table-body-container::-webkit-scrollbar-thumb:hover {
+    background-color: #b3b3b3;
+}
+
+/* Sponsors List Styling */
+.sponsors-list {
+    width: 100%;
+}
+
+/* Sponsor container */
+.sponsor-container {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    position: relative; /* Needed for sticky positioning */
+    background-color: #fff;
+}
+
+/* Sponsor header */
 .sponsor-header {
+    background-color: #f5f5f5;
+    padding: 10px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0; /* Sticks to the top of the sponsor container */
+    z-index: 2; /* Ensure it stays above other content */
+}
+
+/* Sponsor info */
+.sponsor-info {
+    display: flex;
+    gap: 20px;
 }
 
 .sponsor-id {
     font-weight: bold;
-    margin-right: 10px;
 }
 
 .sponsor-name {
-    flex-grow: 1;
     font-size: 18px;
-    margin-right: 10px;
+    text-transform: capitalize;
 }
 
-.company-name-input {
-    flex-grow: 1;
-    font-size: 16px;
-    padding: 5px;
-    margin-right: 10px;
-    border-radius: 5px;
-    border: 1px solid #bdc3c7;
-}
-
-.edit-button {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    padding: 7px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.edit-button.confirm {
-    background-color: #27ae60;
-}
-
-.edit-button.cancel {
-    background-color: #e74c3c;
-}
-
+/* Dropdown button */
 .dropdown-button {
     background-color: transparent;
     border: none;
@@ -129,32 +160,71 @@ h2 {
     cursor: pointer;
 }
 
-.drivers-list {
-    margin-top: 10px;
-    padding-left: 20px;
+/* Drivers container */
+.drivers-container {
+    max-height: 300px; /* Adjust as needed */
+    overflow-y: auto;
+    position: relative;
+    padding: 10px;
+    background-color: #f9f9f9;
 }
 
-.driver-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+/* Drivers table */
+.drivers-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.driver-item span {
-    flex: 1;
+.drivers-table th,
+.drivers-table td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-.points-input {
-    width: 80px;
-    padding: 5px;
-    margin-right: 10px;
-    border-radius: 5px;
-    border: 1px solid #bdc3c7;
+.drivers-table th {
+    background-color: #cccccc;
+    position: sticky;
+    top: 0; /* Sticks to the top of the drivers container */
+    z-index: 1;
 }
 
+/* Hover effect for drivers table */
+.drivers-table tbody tr:hover {
+    background-color: #ecf0f1;
+}
+
+/* Even and odd rows in drivers table */
+.drivers-table tbody tr.even-row {
+    background-color: #ffffff;
+}
+
+.drivers-table tbody tr.odd-row {
+    background-color: #f9f9f9;
+}
+
+/* Scrollbar styling for drivers container */
+.drivers-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.drivers-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.drivers-container::-webkit-scrollbar-thumb:hover {
+    background-color: #b3b3b3;
+}
+
+/* Loading and error messages */
 .loading-message {
     font-style: italic;
     color: #7f8c8d;
+}
+
+.error-message {
+    color: #e74c3c;
 }
 
 /* Input fields */
@@ -166,12 +236,13 @@ h2 {
     border: 1px solid #bdc3c7;
 }
 
-/* Button styling */
+/* Edit and other buttons */
 button {
     padding: 10px 15px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
+    font-size: 14px;
 }
 
 button:hover {
@@ -184,15 +255,44 @@ button:hover {
     color: #fff;
 }
 
-.edit-button.confirm:hover,
-.edit-button.cancel:hover,
-.add-relationship-button:hover {
-    opacity: 0.9;
+.edit-button {
+    background-color: #3498db;
+    color: #fff;
+    margin-right: 5px;
 }
 
-/* Adjustments for the relationship container */
+.edit-button.confirm {
+    background-color: #27ae60;
+}
+
+.edit-button.cancel {
+    background-color: #e74c3c;
+}
+
+/* User type select styling */
+.user-type-select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #bdc3c7;
+    width: 100%;
+}
+
+/* Editable input styling */
+.edit-input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #bdc3c7;
+    box-sizing: border-box;
+}
+
+/* Relationship container styling */
 .relationship-container {
-    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 .relationship-container h2 {
@@ -200,13 +300,30 @@ button:hover {
     color: #2980b9;
 }
 
-.relationship-container .input-field {
-    margin-bottom: 10px;
-}
-
 /* Responsive design */
 @media screen and (max-width: 768px) {
     .admin-grid {
         grid-template-columns: 1fr;
+    }
+
+    .user-table th,
+    .user-table td,
+    .drivers-table th,
+    .drivers-table td {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .sponsor-name {
+        font-size: 16px;
+    }
+
+    .user-type-select {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 8px 12px;
     }
 }

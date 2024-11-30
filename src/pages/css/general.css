@@ -34,3 +34,13 @@ header p{
   color: rgb(255, 255, 255);
   text-align: center;
 }
+
+select{
+  border-radius: 0;
+  font-weight: 400;
+  color: inherit;
+  padding: 11px 15px;
+  line-height: normal;
+  transition: border-color 0.2s ease,
+              outline 0.2s ease;
+}

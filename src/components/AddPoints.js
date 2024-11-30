@@ -52,13 +52,12 @@ const Addpoints = () => {
     };
 
     return (
-        <div className="login-wrapper">
-            <div className="login" id="register">
-                <h2>Add Points</h2>
-                <p>To Driver</p>
-                <form onSubmit={handleSubmit}>
+            <div className="box-wrap">
+                <h2>Set a Driver's Point Total</h2>
+                <p>Insert a driver's username and positive point total to set a driver's total points</p>
+                <form className="form-wrapper" onSubmit={handleSubmit}>
                     <div className="form-wrapper">
-                        <div className="leftCol">
+                        <div>
                             <label>
                                 <input
                                     type="text"
@@ -75,8 +74,8 @@ const Addpoints = () => {
                                     onChange={(e) => setPoints(e.target.value)}
                                 />
                             </label>
-                        </div>
-                        <div className="rightCol">
+                            </div>
+                            <div>
                             <label>
                                 <textarea
                                     type="text"
@@ -87,14 +86,13 @@ const Addpoints = () => {
                                     cols={30}
                                 />
                             </label>
-                        </div>
+                            </div>
                     </div>
                     <div className="after">
                         <button type="submit">Add Points</button>
                     </div>
                 </form>
             </div>
-        </div>
     );
 };
 
