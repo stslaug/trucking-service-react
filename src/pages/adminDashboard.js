@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import "./css/general.css";
 import "./css/admin.css";
-import Addpoints from '../components/addPoints';
+import Addpoints from '../components/AddPoints';
 import { AuthContext } from '../components/AuthContext';
 import { useNavigate } from "react-router-dom";
 
