@@ -3,19 +3,19 @@ import { AuthContext } from './components/AuthContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import About from './pages/about';
-import Register from './components/Register';
-import ForgotPass from './components/ForgotPass'
+import Register from './components/register';
+import ForgotPass from './components/forgotPass'
 import VerifyCode from './components/verifyCode';
 import ProtectedRoute from './components/ProtectedRoute';
 import SponsorDashboard from './pages/sponsorDashboard';
 import Catalog from './pages/catalog';
 import Cart from './components/Cart';
-import AddPoints from './components/AddPoints';
+import AddPoints from './components/addPoints';
 import Orders from './components/orders';
 import Login from './pages/login';
 import Home from './pages/Home';
 import Profile from './pages/profile';
-import AdminDashboard from './pages/AdminDashboard';
+import AdminDashboard from './pages/adminDashboard';
 import Update from './pages/update';
 import Checkout from './components/checkout';
 
