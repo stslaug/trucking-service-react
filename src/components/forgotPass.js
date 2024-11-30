@@ -12,7 +12,7 @@ const userPool = new CognitoUserPool({
 });
 
 
-const ForgotPassword = () => {
+const ForgotPass = () => {
   const { login } = useContext(AuthContext);
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
@@ -148,4 +148,4 @@ const userData = {
     );
 };
 
-export default ForgotPassword;
+export default ForgotPass;
