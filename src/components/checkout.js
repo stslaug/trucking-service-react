@@ -52,7 +52,11 @@ const Checkout = () => {
         const addOrderPayload = {
             driverId,
             totalPoints: totalPointsNeeded,
-            cartItems,
+            items: cartItems.map((item) => ({
+                itemId: item.itemId,
+                title: item.title,
+                price: item.price?.value
+            })),
         };
 
         console.log('Payload for updating points:', updatePointsPayload);
