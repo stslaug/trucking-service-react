@@ -1,40 +1,53 @@
+/* General styles for the orders page */
 .orders-page {
-    max-width: 800px;
+    font-family: Arial, sans-serif;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    max-width: 800px;
+    background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    text-align: center;
+.orders-page h1 {
+    font-size: 2rem;
     margin-bottom: 10px;
     color: #333;
-}
-
-p {
     text-align: center;
-    color: #555;
-    margin-bottom: 20px;
 }
 
+.orders-page p {
+    font-size: 1rem;
+    color: #555;
+    text-align: center;
+}
+
+/* Styling for the order list */
 .order-list {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
+    margin-top: 20px;
 }
 
 .order-item {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    background-color: #fff;
+    margin-bottom: 15px;
     padding: 15px;
-    background-color: #fafafa;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.order-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .order-item h3 {
-    margin: 0 0 10px;
-    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #007bff;
 }
 
 .order-item p {
@@ -42,6 +55,50 @@ p {
     color: #555;
 }
 
-.order-item p strong {
-    color: #000;
+/* Styling for the item list within each order */
+.item-list {
+    list-style-type: none;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f7f7f7;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.item-detail {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.item-detail:last-child {
+    border-bottom: none;
+}
+
+.item-detail p {
+    margin: 3px 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.item-detail strong {
+    color: #333;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .orders-page {
+        padding: 15px;
+    }
+
+    .order-item {
+        padding: 10px;
+    }
+
+    .order-item h3 {
+        font-size: 1.2rem;
+    }
+
+    .item-detail p {
+        font-size: 0.85rem;
+    }
 }

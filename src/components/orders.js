@@ -15,7 +15,7 @@ const Orders = () => {
                     `https://90f2jdh036.execute-api.us-east-1.amazonaws.com/default/team12-GetOrders?driverId=${dbUser.userId}`
                 );
                 const data = await response.json();
-                setOrders(data.orders || []); // Assuming the response includes an `orders` array
+                setOrders(data || []); // Lambda returns an array of orders
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching orders:', error);
@@ -35,7 +35,7 @@ const Orders = () => {
     return (
         <div className="orders-page">
             {/* Greeting the user */}
-            <h1>Welcome back, {dbUser.firstName || 'User'}!</h1>
+            <h1>Welcome back, {dbUser?.firstName || 'User'}!</h1>
             <p>Here is your order history:</p>
 
             {orders.length === 0 ? (
@@ -44,11 +44,23 @@ const Orders = () => {
                 <ul className="order-list">
                     {orders.map((order, index) => (
                         <li key={index} className="order-item">
-                            <h3>Order #{order.ORDER_ID}</h3>
-                            <p><strong>Date:</strong> {new Date(order.ORDER_DATE).toLocaleDateString()}</p>
-                            <p><strong>Status:</strong> {order.ORDER_STATUS}</p>
-                            <p><strong>Total Points Used:</strong> {order.POINTS_USED}</p>
-                            <p><strong>Product ID:</strong> {order.PRODUCT_ID}</p>
+                            <h3>Order #{order.orderId}</h3>
+                            <p><strong>Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
+                            <p><strong>Status:</strong> {order.status}</p>
+                            <p><strong>Total Points Used:</strong> {order.pointsUsed}</p>
+                            <h4>Items Ordered:</h4>
+                            {order.items && order.items.length > 0 ? (
+                                <ul className="item-list">
+                                    {order.items.map((item, itemIndex) => (
+                                        <li key={itemIndex} className="item-detail">
+                                            <p><strong>Item ID:</strong> {item.itemId}</p>
+                                            <p><strong>Title:</strong> {item.title}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>No items found for this order.</p>
+                            )}
                         </li>
                     ))}
                 </ul>
