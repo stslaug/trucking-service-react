@@ -115,7 +115,23 @@
     margin: auto;
     padding: 0 0 10px 0;
 }
-.removeItem
+.removeItemy
 {
     margin-left: 10px;
 }
+
+.removeItem {
+    margin-left: 10px;
+    padding: 8px 12px;
+    background-color: var(--main-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+  }
+  
+  .removeItem:hover {
+    background-color: var(--hover-color);
+  }

@@ -196,7 +196,7 @@ const Profile = () => {
                         ))}
                     </ul>
                     ) : (
-                    'No sponsors associated.'
+                      'No drivers associated.'
                     )}
                     </span>
                 </div>
@@ -214,7 +214,7 @@ const Profile = () => {
                             onChange={(e) => setSponsorIdInput(e.target.value)} // Update state with input value
                             placeholder="Sponsor ID"
                         />
-                        <button type="submit">Add Sponsor</button>
+                        <button className="removeItem" type="submit">Add Sponsor</button>
                     </form>
             </div>
           </>
@@ -261,7 +261,7 @@ const Profile = () => {
                       onChange={(e) => setDriverIdInput(e.target.value)}
                       placeholder="Driver ID"
                     />
-                    <button type="submit">Add Driver</button>
+                    <button className="removeItem" type="submit">Add Driver</button>
                   </form>
                 </div>
               </>
@@ -339,12 +339,9 @@ const Profile = () => {
             <span className='value'>
               {address?.street || 'N/A'}, {address?.city || 'N/A'}, {address?.state || 'N/A'} {address?.zipCode || 'N/A'}, {address?.country || 'N/A'}
             </span>
-            <div className="line"></div>
           </div>
           
 
-          {/* Display Subtype-Specific Information */}
-          {subtypeInfo}
         </section>
       </section>
       <section className='bio-box' id="options">
@@ -360,11 +357,14 @@ const Profile = () => {
           {userType.toLowerCase() === 'sponsor' && (
             <div className='bio-row'>
               <img className='bio-box-pencil' src={points} alt='Point Icon' width='25' />
-              <Link to="/addpoints">Add Points to Drivers</Link>
+              <Link to="/sponsor">Navigate to Sponsor Dashboard</Link>
             </div>
 
-            
           )}
+
+          <div className="line"></div>
+          {/* Display Subtype-Specific Information */}
+          {subtypeInfo}
 
             <div className='bio-row'>
                 <span className='label'>Date Created:</span>

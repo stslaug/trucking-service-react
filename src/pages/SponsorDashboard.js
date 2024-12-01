@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import "./css/general.css";
 import "./css/sponsor.css";
 import { AuthContext } from '../components/AuthContext';
+import { useNavigate } from "react-router-dom";
 
 const SponsorDashboard = () => {
     const { username, dbUser, fetchUserProfile } = useContext(AuthContext);
@@ -11,6 +12,7 @@ const SponsorDashboard = () => {
     const [driverIdInput, setDriverIdInput] = useState('');
     const [sponsorIdInput, setSponsorIdInput] = useState('');
     const [point, setPointChange] = useState('');
+    const navigate = useNavigate();
 
     // Function to handle adding or removing points
     const handlePointChange = async (t_driverId, operation) => {
@@ -48,8 +50,15 @@ const SponsorDashboard = () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(updatePointsPayload),
+                });
+
+                if (updatePointsResponse.ok) {
+                    alert("Point Total Updated Successfully!");
+                    navigate("/sponsor"); 
+                } else {
+                    console.error("Failed to update user's point total:", updatePointsData);
+                    alert(`Failed to update user information: ${updatePointsData}`);
                 }
-            );
 
             const updatePointsData = await updatePointsResponse.json();
             console.log('Update Points Lambda response:', updatePointsData);
