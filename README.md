@@ -6,7 +6,7 @@ This repository showcases the final project developed by Team 12 (Sean Slaughter
 ## Project Overview
 
 Our project is a Truck Driver Rewards Web Application]. It was built using a modern technology stack and deployed on Amazon Web Services (AWS).
-This allows sponsor companies to reward their drivers points, which they can use directly to access an Ebay Catalog API to purchase items with their earned points.
+This allows sponsor companies to reward their driver's points, which they can use directly to access an Ebay Catalog API to purchase items with their earned points.
 
 ## Technologies Used
 
@@ -30,11 +30,14 @@ This allows sponsor companies to reward their drivers points, which they can use
     * [https://www.loom.com/share/514cb449a133424891c60acdc3128ff4?sid=c8650aea-6ae2-4c31-8663-157c142cce3a](https://www.loom.com/share/514cb449a133424891c60acdc3128ff4?sid=c8650aea-6ae2-4c31-8663-157c142cce3a)
 
 ## Getting Started (If applicable)
+**IMPORTANT:** Due to this project needing integration with AWS this service is effectively inert, and does not show off most features. 
 
-If you'd like to run this project locally (if possible):
+
+
+If you'd like to run this project locally:
 
 1.  Clone the repository: `git clone [repository URL]`
-2.  Install dependencies: `npm install` (or `yarn install` for React, and similar for backend)
+2.  Install dependencies: `npm install` 
 3.  Set up your environment variables (AWS credentials, database connection, etc.).
 4.  Run the application: `npm start` (or similar depending on your backend).
 
