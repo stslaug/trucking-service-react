@@ -16,7 +16,8 @@ This allows sponsor companies to reward their driver's points, which they can us
 * **Authentication:** Amazon Cognito
 * **Deployment & Hosting:** AWS Amplify
 
-## Key Features (Demonstrated in Loom Videos)
+## Key Features (Demonstrated in Loom Videos | Created by [Kevin Blinn](https://github.com/KJBlinn01))
+
 
 * **General Features:**
     * [https://www.loom.com/share/5bfefdacf0c8409dafd688cfe8ab158c?sid=55504d1f-6224-46b7-950f-741c89b9105a](https://www.loom.com/share/5bfefdacf0c8409dafd688cfe8ab158c?sid=55504d1f-6224-46b7-950f-741c89b9105a)
@@ -29,10 +30,9 @@ This allows sponsor companies to reward their driver's points, which they can us
 * **Professional Skills Requirements:**
     * [https://www.loom.com/share/514cb449a133424891c60acdc3128ff4?sid=c8650aea-6ae2-4c31-8663-157c142cce3a](https://www.loom.com/share/514cb449a133424891c60acdc3128ff4?sid=c8650aea-6ae2-4c31-8663-157c142cce3a)
 
-## Getting Started (If applicable)
-**IMPORTANT:** Due to this project needing integration with AWS this service is effectively inert, and does not show off most features. 
-
-
+## Getting Started 
+**IMPORTANT:** Due to this project needing integration with AWS this service is effectively inert and does not show off most features. 
+If you would like to see the project in action I recommend viewing the above loom videos!
 
 If you'd like to run this project locally:
 
